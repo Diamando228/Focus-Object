@@ -1,0 +1,3232 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Focus Timer Presentation (fixed)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: geometricPrecision;
+      background:#000;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+      padding: var(--page-pad);
+      overflow:hidden;
+    }
+
+    /* Mobile режим: залишаємо 16:9 вікно по центру, але дозволяємо скрол */
+    body.is-mobile{
+      overflow:auto;
+      align-items:center;
+      padding: var(--page-pad);
+      min-height: 100vh;
+      --window-radius: 18px;
+      --pip-size: 136px;
+      --pip-radius: 12px;
+      --preview-w: 1280px;
+      --preview-h: 720px;
+      --page-pad: 8px;
+      --ui-reserve: calc(var(--ui-gap) + 24px + 10px);
+    }
+
+    body.is-mobile .viewport{
+      width: min(var(--preview-w), calc(100vw - (2 * var(--page-pad))));
+      max-width: var(--preview-w);
+      aspect-ratio: 16 / 9;
+      height: auto;
+      max-height: min(var(--preview-h), calc(96vh - var(--ui-reserve)));
+      border-radius: var(--window-radius);
+      box-shadow: 0 30px 90px rgba(0,0,0,.55);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    body.is-mobile .presentation-stage{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(var(--scale));
+      transform-origin: 50% 50%;
+    }
+
+    /* Mobile: readability + layout tuning inside fixed window */
+    body.is-mobile .slide{
+      padding: 40px 56px 44px 56px;
+    }
+    body.is-mobile .content-slide{
+      padding: 34px 56px 44px 56px;
+    }
+    body.is-mobile h2{
+      font-size: calc(52px * var(--textCompSmall));
+    }
+    body.is-mobile .pip{
+      right: 12px;
+      top: 12px;
+    }
+    body.is-mobile .hero{
+      aspect-ratio: 16 / 9;
+      min-height: 180px;
+      max-height: 220px;
+      background: #fff;
+    }
+    body.is-mobile .proto-layout .hero{
+      aspect-ratio: auto;
+      min-height: 0;
+      max-height: none;
+      height: auto;
+      flex: 0 0 auto;
+    }
+    body.is-mobile .proto-layout,
+    body.is-mobile .concept-grid,
+    body.is-mobile .visual-grid{
+      gap: 12px;
+      grid-template-columns: 1fr 1fr;
+    }
+    body.is-mobile .proto-layout{
+      grid-template-columns: 1.1fr .9fr;
+      align-items: stretch;
+    }
+    body.is-mobile .proto-layout .panel{
+      height: 100%;
+    }
+    body.is-mobile .slide{
+      padding: 28px 40px 32px 40px;
+    }
+    body.is-mobile .content-slide{
+      padding: 24px 40px 32px 40px;
+    }
+    body.is-mobile .pip-overlay{
+      padding: 8px;
+      padding-bottom: 42px;
+      gap: 6px;
+      background:
+        radial-gradient(240px 240px at 20% 20%, rgba(212,255,0,.18), rgba(0,0,0,0) 65%),
+        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.55));
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    body.is-mobile .pip-badge{
+      padding: 4px 8px;
+      font-size: 8px;
+      top: 8px;
+      left: 8px;
+    }
+    body.is-mobile .carousel-img{
+      object-fit: contain;
+      object-position: 50% 50%;
+      background: #fff;
+    }
+    body.is-mobile .proto-layout .carousel-img{
+      height: 100%;
+      object-fit: cover;
+    }
+    body.is-mobile .proto-layout .hero{
+      aspect-ratio: 16 / 9;
+      flex: 1 1 auto;
+      min-height: 260px;
+      max-height: none;
+      margin-top: 6px;
+    }
+    body.is-mobile .proto-layout .caption{
+      margin-top: 4px;
+    }
+    body.is-mobile .pip-title{ font-size: 12px; }
+    body.is-mobile .pip-sub{ font-size: 10px; }
+    body.is-mobile .pip-controls.floating{
+      left: 8px;
+      right: 8px;
+      bottom: 4px;
+    }
+    body.is-mobile .pip-btn{
+      padding: 5px 6px;
+      font-size: 9px;
+      border-radius: 10px;
+    }
+    body.is-mobile .pip-min{
+      width: 24px;
+      height: 24px;
+    }
+    body.is-mobile .pip-min::before{ width: 10px; }
+    body.is-mobile .pip-drag-handle{ height: 30px; }
+    body.is-mobile #final_pick .pick-layout{
+      grid-template-columns: 1fr 1.05fr;
+    }
+    body.is-mobile #final_pick .pick-grid{
+      grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+    body.is-mobile #final_pick .pick-preview{
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      height: 100%;
+      max-height: none;
+      min-height: 220px;
+      background: #f2f2f2;
+    }
+    body.is-mobile #final_pick #pickPreviewImg{ object-fit: cover; object-position: 50% 50%; }
+    body.is-mobile #slide3 .sub{ margin-top: 18px; }
+    body.is-mobile #slide3 .concept-grid{ margin-top: 12px; margin-bottom: 10px; }
+    body.is-mobile #slide3 .clist{ gap: 8px; }
+    body.is-mobile #slide3 .clist li{ padding: 18px 20px; }
+    body.is-mobile #slide3 .analogy{ padding: 14px 18px 16px; margin-top: 12px; }
+    body.is-mobile #final_pick .pick-panel{ grid-template-rows: auto auto minmax(220px, 1fr) auto; }
+    body.is-mobile #final_pick .pick-preview{ margin-bottom: 8px; }
+    body.is-mobile #final_pick .pick-actions{ margin-top: 8px; max-height: 120px; overflow: auto; }
+    body.is-mobile #final_pick .pick-text{ height: 86px; min-height: 86px; }
+    body.is-mobile #slide1 .timer-icon{
+      width: 560px;
+      height: 560px;
+      right: -180px;
+      top: 52%;
+      opacity: 1;
+    }
+    body.is-mobile #slide1 .header{
+      position: relative;
+    }
+    body.is-mobile #slide1 .nav{
+      position: absolute;
+      right: 16px;
+      top: 10px;
+      font-size: 18px;
+      gap: 30px;
+    }
+
+    :root{
+      --stage-w: 1920;
+      --stage-h: 1080;
+      --scale: 1;
+      --textCompSmall: 1;
+      --preview-w: 1100px;
+      --preview-h: 618px; /* 16:9 */
+      --page-pad: 24px;
+
+      --window-radius: 32px;
+
+      --ui-gap: clamp(10px, 2vh, 22px);
+      --scrub-pad-y: 6px;
+      --scrub-pad-x: 8px;
+      --scrub-w: clamp(220px, 34vw, 360px);
+      --ui-reserve: calc(var(--ui-gap) + 34px + 14px);
+      --timerScale: 1.55;
+    }
+
+    /* viewport responsive full-screen preview */
+    .viewport{
+      /* fixed-like preview feel */
+      width: min(var(--preview-w), calc(100vw - (2 * var(--page-pad))));
+      max-width: var(--preview-w);
+
+      aspect-ratio: 16 / 9;
+      height: auto;
+
+      /* don't exceed screen height */
+      max-height: min(var(--preview-h), calc(92vh - var(--ui-reserve)));
+
+      position: relative;
+      background: #000;
+
+      border-radius: var(--window-radius);
+      overflow: hidden;
+
+      box-shadow: 0 30px 90px rgba(0,0,0,.55);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    /* сцена 1920×1080 масштабується змінною --scale */
+    .presentation-stage{
+      width: calc(var(--stage-w) * 1px);
+      height: calc(var(--stage-h) * 1px);
+
+      position: absolute;
+      left: 50%;
+      top: 50%;
+
+      transform: translate(-50%, -50%) scale(var(--scale));
+      transform-origin: 50% 50%; /* ✅ ОЦЕ ВАЖЛИВО */
+
+      will-change: transform;
+    }
+
+    #deck{
+      border-radius: var(--window-radius);
+      overflow: hidden;
+    }
+
+    /* твій старий #prototypesMount ok */
+    #prototypesMount{display:contents}
+
+    .slide{background:#f5f5f5;width:100%;height:100%;border-radius:0;padding:56px 76px 56px 76px;position:relative;overflow:hidden;display:none;flex-direction:column;opacity:1;transition:opacity 240ms ease}
+    .slide.active{display:flex}
+
+    .content-slide{padding:42px 76px 54px 76px}
+    .slide-number{--fs:18px;font-weight:700;color:#999;margin-bottom:16px;letter-spacing:2px}
+    h2{font-size: 52px;font-weight:800;color:#000;margin-bottom:8px;letter-spacing:-1.5px;line-height:1.03}
+    .sub{--fs:14px;line-height:1.55;color:#333;margin-top:6px}
+
+    .image-only-slide{padding:0;background:#0b0b0b}
+    .image-only-slide.active{display:block}
+    .full-bleed-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--crop-x, 50%) var(--crop-y, 50%);display:block;z-index:1}
+
+    .img-missing{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:18px;background:radial-gradient(1200px 700px at 20% 20%, rgba(212,255,0,.12), rgba(0,0,0,0) 55%), #0b0b0b;color:#fff;text-align:center;z-index:2}
+    .img-missing .tag{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .img-missing .hint{max-width:80%;font-size:12px;line-height:1.45;color:rgba(255,255,255,.75);word-break:break-word}
+    .img-missing code{display:block;margin-top:6px;color:#d4ff00;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.12);padding:10px 12px;border-radius:12px;max-width:90%;white-space:pre-wrap;word-break:break-word}
+
+    .header{display:flex;justify-content:space-between;align-items:flex-start}
+    .title-section h1{font-size: 120px;font-weight:700;letter-spacing:-3px;line-height:.95;color:#000}
+    .title-section .tm{font-size: 48px;vertical-align:super;font-weight:400}
+    .nav{display:flex;gap:30px;--fs:13px;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
+    .nav-item{color:#666;cursor:pointer;transition:color .3s}
+    .nav-item.active{background:#d4ff00;color:#000;padding:4px 12px;border-radius:4px}
+    .year-badge{background:#d4ff00;color:#000;font-size: 36px;font-weight:700;padding:8px 20px;border-radius:6px;display:inline-block;margin-top:16px}
+    .description{
+      max-width: 580px;
+      margin-top: 22px;
+      padding-left: 14px;
+      border-left: 3px solid rgba(0,0,0,.08);
+    }
+    .description p{
+      --fs: 13.5px;
+      line-height: 1.75;
+      color: #1a1a1a;
+      margin-bottom: 14px;
+      font-weight: 420;
+    }
+
+    /* зробити ритм між абзацами рівним */
+    .description p + p{
+      margin-top: 10px;
+    }
+
+    /* якщо лишаєш inline margin-top в HTML — приб'ємо його акуратно */
+    .description p[style*="margin-top"]{
+      margin-top: 10px !important;
+    }
+
+    /* hero slide typography overrides */
+    #slide1 .title-section h1{
+      font-size: calc(120px * var(--hero-comp));
+      letter-spacing: -3px;
+      line-height: .95;
+      font-weight: 700;
+    }
+    #slide1 .title-section .tm{
+      font-size: calc(48px * var(--hero-comp));
+      vertical-align: super;
+      font-weight: 400;
+    }
+    #slide1 .nav{
+      gap: 30px;
+      font-size: calc(13px * var(--hero-comp));
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    #slide1 .year-badge{
+      background: #d4ff00;
+      color: #000;
+      font-size: calc(36px * var(--hero-comp));
+      font-weight: 700;
+      padding: calc(8px * var(--hero-comp)) calc(20px * var(--hero-comp));
+      border-radius: calc(6px * var(--hero-comp));
+      display: inline-block;
+      margin-top: 16px;
+    }
+    #slide1 .description{
+      margin-top: 18px;
+      padding-left: 0;
+      border-left: none;
+    }
+
+    .timer-icon{width:560px;height:560px;position:absolute;right:-120px;top:50%;transform:translateY(-50%) scale(var(--timerScale));transform-origin:center}
+    .timer-circle{width:100%;height:100%;border:40px solid #e0e0e0;border-radius:50%;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.1)}
+    .timer-hand{position:absolute;width:8px;height:180px;background:#000;left:50%;top:50%;transform-origin:center top;transform:translateX(-50%) translateY(0);border-radius:4px;animation:rotate 2s ease-in-out infinite}
+    .timer-center{position:absolute;width:60px;height:60px;background:#d4ff00;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%);box-shadow:0 4px 12px rgba(212,255,0,.4)}
+    @keyframes rotate{0%,100%{transform:translateX(-50%) translateY(0) rotate(0deg)}50%{transform:translateX(-50%) translateY(0) rotate(180deg)}}
+
+    .visual-grid{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch;flex:1;min-height:0}
+    .visual-column{position:relative;border-radius:18px;padding:11px;display:flex;flex-direction:column;gap:10px;overflow:hidden;min-height:0}
+    .visual-column.noisy{background:#ededed;border:1px solid rgba(0,0,0,.06)}
+    .visual-column.calm{background:#f7f9e6;border:1px solid rgba(0,0,0,.08)}
+    .visual-label{--fs:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.55);user-select:none}
+
+    .visual-collage{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;align-content:start;flex:0 0 auto}
+    .tile{width:100%;aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:#ddd;position:relative}
+    .thumb{width:100%;height:100%;object-fit:cover;display:block}
+
+    .visual-notes{margin:6px 0 0 0;padding:0;list-style:none;display:grid;gap:6px;flex:0 0 auto}
+    .visual-notes li{padding:8px 10px;border-radius:12px;background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);--fs:11.75px;line-height:1.32;color:#111}
+
+    .concept-grid{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch}
+    .card{background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:18px;padding:18px;box-shadow:0 18px 50px rgba(0,0,0,.06);position:relative;overflow:hidden;display:flex;flex-direction:column}
+    .card.accent::before{content:"";position:absolute;inset:0;border-radius:18px;pointer-events:none;background:linear-gradient(135deg,rgba(212,255,0,.28),rgba(212,255,0,0) 55%)}
+    .kicker{--fs:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.45);position:relative;z-index:1}
+    .ctitle{margin-top:8px;--fs:18px;font-weight:800;letter-spacing:-.02em;color:#000;position:relative;z-index:1}
+    .clist{list-style:none;margin-top:12px;display:grid;gap:10px;position:relative;z-index:1}
+    .clist li{display:grid;grid-template-columns:130px 1fr;gap:10px;padding:10px;border-radius:12px;background:rgba(0,0,0,.03)}
+    .clist .label{--fs:12px;font-weight:700;color:rgba(0,0,0,.60)}
+    .clist .value{--fs:12.5px;line-height:1.5;color:#111}
+
+    .analogy{
+      margin-top:12px;
+      border-radius:16px;
+      padding:12px 16px;
+      background:#f0f0f0;
+      border:1px solid rgba(0,0,0,.08);
+    }
+
+    #slide3 .atag{
+      display: inline-flex;      /* або inline-block */
+      width: fit-content;
+      align-self: flex-start;    /* щоб у flex-контейнері не тягнуло */
+      font-size: calc(13px * var(--textCompSmall)); /* 👈 КРУТИ ТУТ */
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      background:#d4ff00;
+      color:#000;
+      padding:8px 14px;       /* 👈 можна теж трохи крутити */
+      border-radius:999px;
+    }
+
+    .analogy p{
+      margin-top:8px;
+      --fs:14px;
+      line-height:1.5;
+      color:#111;
+    }
+
+    /* === Slide 03 (fill cards nicely) === */
+    /* Slide 03 — НЕ чіпаємо display, бо ним керує .slide/.active */
+    #slide3{
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    #slide3.active{
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    #slide3 .concept-grid{
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+
+    /* карточки вже flex, але підстрахуємось */
+    #slide3 .card{
+      min-height: 0;
+    }
+
+    /* ✅ головне: список займає весь вільний простір */
+    #slide3 .clist{
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;          /* заміняємо grid → flex */
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* === Slide 03: typography + spacing polish === */
+    #slide3{
+      /* контрольоване повітря між блоками всередині слайду */
+      --s3-gap: 16px;
+      --s3-row-pad: 28px;     /* “м’ясо” рядка */
+      --s3-label-fs: 14px;    /* label bigger */
+      --s3-value-fs: 15.5px;  /* value bigger */
+    }
+
+    /* трохи менше "дірки" після subtitle — щоб влізало красиво */
+    #slide3 .sub{ margin-top: 26px; }
+
+    /* grid + why lofi мають мати нормальний відступ */
+    #slide3 .concept-grid{
+      margin-top: 16px;
+      margin-bottom: var(--s3-gap);
+    }
+
+    #slide3 .analogy{
+      margin-top: 16px;
+      padding: 18px 22px 20px;   /* ⬅️ головне */
+      border-radius: 18px;
+      border:1px solid rgba(0,0,0,.08);
+
+      display: flex;
+      flex-direction: column;
+      gap: 10px;                /* ⬅️ ритм між WHY і текстом */
+    }
+
+    /* м’ясні рядки — але з керованим padding */
+    #slide3 .clist li{
+      padding: var(--s3-row-pad);
+    }
+
+    /* збільшуємо типографіку саме в slide3, незалежно від global --fs */
+    #slide3 .clist .label{
+      font-size: calc(var(--s3-label-fs) * var(--textCompSmall));
+      line-height: 1.15;
+    }
+    #slide3 .clist .value{
+      font-size: calc(var(--s3-value-fs) * var(--textCompSmall));
+      line-height: 1.35;
+    }
+
+    /* === Slide 02: typography + spacing polish (like slide3) === */
+    #slide2{
+      --s2-label-fs: 12px;
+      --s2-note-fs: 14px;
+      --s2-sub-fs: 15px;
+
+      /* трішки більше “повітря” */
+      --s2-col-pad: 14px;
+      --s2-col-gap: 12px;
+      --s2-grid-gap: 22px;
+
+      /* make rows more “meaty” */
+      --s2-row-pad-y: 14px;   /* було ~12 */
+      --s2-row-pad-x: 16px;
+    }
+
+    /* заголовок можна трошки “підняти” */
+    #slide2 h2{
+      font-size: calc(54px * var(--textCompSmall));
+    }
+
+    /* підзаголовок — більший і читабельніший */
+    #slide2 .sub{
+      --fs: var(--s2-sub-fs);
+      line-height: 1.55;
+      margin-top: 8px;
+    }
+
+    /* колонки — більше паддінгу і ритму */
+    #slide2 .visual-grid{
+      gap: var(--s2-grid-gap);
+    }
+
+    #slide2 .visual-column{
+      padding: var(--s2-col-pad);
+      gap: var(--s2-col-gap);
+    }
+
+    /* лейбли ALREADY EXISTS / DIRECTION */
+    #slide2 .visual-label{
+      --fs: var(--s2-label-fs);
+      letter-spacing: .14em;
+    }
+
+    /* нотатки — більше шрифт + “м’ясо” в рядках */
+    #slide2 .visual-notes{
+      gap: 8px;
+    }
+
+    #slide2 .visual-notes li{
+      --fs: var(--s2-note-fs);
+      line-height: 1.38;
+      padding: 12px 14px;
+      border-radius: 14px;
+    }
+
+    /* самі рядки */
+    #slide2 .visual-notes li{
+      padding: var(--s2-row-pad-y) var(--s2-row-pad-x);
+      font-size: calc(var(--s2-note-fs) * var(--textCompSmall));
+      line-height: 1.4;
+    }
+
+    /* щоб список займав більше вертикалі (і зʼїв “пустоту”) */
+    #slide2 .visual-notes{
+      gap: 10px; /* було 8 */
+    }
+
+    /* WHY LOFI вниз */
+
+
+    :root{ --mutedGrey: rgba(0,0,0,.28); }
+
+    .flow-card{margin-top:18px;flex:1;min-height:0;background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:28px;padding:48px 60px 60px;box-shadow:0 18px 50px rgba(0,0,0,.06);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+    .flow-grid{display:grid;grid-template-columns:minmax(0,1.05fr) 64px minmax(0,1fr);grid-template-rows:auto auto;column-gap:56px;row-gap:48px;align-items:center;align-content:center;flex:1 1 auto;min-height:520px}
+    .flow-left,.flow-right{padding:0;display:flex;align-items:flex-start;justify-content:flex-start}
+    .flow-left{flex-direction:column;justify-self:center;width:fit-content}
+    .flow-left--center{align-items:center;text-align:center}
+    .flow-title{font-size:calc(90px * var(--textCompSmall));font-weight:800;letter-spacing:-.06em;line-height:.9;color:#111;text-align:left;max-width:500px}
+    .flow-title--stacked{text-align:center;max-width:none}
+    .flow-title--stacked span{display:block}
+    .flow-label{font-size:calc(42px * var(--textCompSmall));font-weight:700;letter-spacing:-.04em;line-height:1;color:var(--mutedGrey);text-align:left;max-width:420px;margin-top:40px}
+    .flow-copy{max-width:540px;--fs:17px;line-height:1.7;color:#111;font-size:calc(var(--fs) * var(--textCompSmall))}
+    .flow-copy strong{font-weight:800}
+    .flow-copy.muted{color:var(--mutedGrey);margin-top:32px}
+    .flow-mid{grid-column:2;grid-row:1/span 2;position:relative;height:100%;min-height:420px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:18px 0}
+    .flow-line{position:absolute;left:50%;top:0;bottom:0;width:3.5px;transform:translateX(-50%);border-radius:999px;background:rgba(0,0,0,.22);overflow:hidden}
+    .flow-line::before{content:"";position:absolute;left:0;top:0;width:100%;height:52%;background:#d4ff00;border-radius:999px;transform-origin:top;transform:scaleY(1)}
+    #slide4.animate-line .flow-line::before{transform:scaleY(0);animation:fillToMid 2000ms cubic-bezier(.2,.8,.2,1) forwards}
+    @keyframes fillToMid{to{transform:scaleY(1)}}
+    .flow-dot{position:relative;width:18px;height:18px;border-radius:999px;background:#fff;border:2px solid rgba(0,0,0,.55);z-index:2}
+    .flow-dot.active{background:#d4ff00;border-color:rgba(0,0,0,.75);box-shadow:0 12px 32px rgba(212,255,0,.45)}
+    .flow-dot.bottom{opacity:.35}
+    .flow-foot{display:none}
+
+    /* =========================
+       SLIDE 04 — FILL HEIGHT (fixed)
+       ========================= */
+
+    /* card має займати весь залишок слайду */
+    #slide4 .flow-card{
+      flex: 1 1 auto;
+      min-height: 0;
+      justify-content: stretch;
+    }
+
+    /* SLIDE 04 — spacing control (top + bottom) */
+    #slide4{
+      --s4-row-gap: 14px;        /* відстань між рядами */
+      --s4-pad-top: 62px;        /* 👈 опускає верх */
+      --s4-pad-bottom: 38px;     /* 👈 опускає низ */
+      --s4-row2: 440px;          /* 👈 робить нижній трек “глибшим”, щоб блок міг сісти нижче */
+    }
+
+    #slide4 .flow-grid{
+      grid-template-columns: minmax(0, .92fr) 64px minmax(0, 1.28fr);
+      grid-template-rows: auto minmax(0, var(--s4-row2));
+
+      height: 100%;
+      min-height: 0;
+
+      column-gap: 44px;
+      row-gap: var(--s4-row-gap);
+
+      padding-top: var(--s4-pad-top);
+      padding-bottom: var(--s4-pad-bottom);
+
+      align-content: stretch;
+      align-items: start;
+    }
+
+    /* ✅ 2-й ряд притискаємо до низу свого треку */
+    #slide4 .flow-left[style*="grid-row:2"],
+    #slide4 .flow-right[style*="grid-row:2"]{
+      align-self: end;
+    }
+
+    /* щоб вертикальна лінія точно тягнулась від верху до низу */
+    #slide4 .flow-mid{
+      grid-row: 1 / span 2;
+      align-self: stretch;
+      height: auto;
+      min-height: 0;
+      padding: 0;
+    }
+
+    #slide4 .flow-line{
+      top: 0;
+      bottom: 0;
+    }
+
+
+    /* right blocks can use full column width */
+    #slide4 .flow-right{
+      justify-self: stretch;
+      align-self: flex-start;
+    }
+
+    /* MAIN TEXT */
+    #slide4 .flow-copy:not(.muted){
+      max-width: none;
+      width: 100%;
+      font-size: calc(15px * var(--textCompSmall));
+      line-height: 1.72;
+      color: rgba(0,0,0,.78);
+    }
+
+    /* MUTED TEXT (secondary) */
+    #slide4 .flow-copy.muted{
+      max-width: none;
+      width: 100%;
+      font-size: calc(14px * var(--textCompSmall));
+      line-height: 1.68;
+      color: rgba(0,0,0,.38);
+      margin-top: 0; /* було 28px */
+    }
+
+    #slide4 .flow-copy strong{
+      color:#000;
+      font-weight:800;
+    }
+
+    .proto-layout{margin-top:16px;display:grid;grid-template-columns:1.05fr .95fr;gap:16px;align-items:stretch;flex:1;min-height:0}
+    .panel{background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:18px;padding:18px;box-shadow:0 18px 50px rgba(0,0,0,.06);position:relative;overflow:hidden;display:flex;flex-direction:column}
+    .panel.accent::before{content:"";position:absolute;inset:0;border-radius:18px;pointer-events:none;background:linear-gradient(135deg,rgba(212,255,0,.22),rgba(212,255,0,0) 55%)}
+    .pk{--fs:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.45);position:relative;z-index:1}
+    .pt{margin-top:8px;--fs:18px;font-weight:800;letter-spacing:-.02em;color:#000;position:relative;z-index:1}
+    .hero{margin-top:12px;border-radius:16px;background:rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.10);overflow:hidden;position:relative;z-index:1;flex:1;min-height:300px;display:flex;align-items:center;justify-content:center}
+    .proto-carousel{display:block;padding:0;cursor:pointer}
+    .carousel-img{width:100%;height:100%;object-fit:cover;object-position:var(--crop-x, 50%) var(--crop-y, 50%);display:block;transition:opacity 160ms ease}
+    .carousel-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:16px;color:rgba(0,0,0,.45);font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:11px;text-align:center;pointer-events:none}
+    .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;border:1px solid rgba(0,0,0,.18);background:rgba(255,255,255,.78);backdrop-filter:blur(6px);cursor:pointer;font-weight:800;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 160ms ease;z-index:2;font-size:13px}
+    .proto-carousel:hover .carousel-btn,.proto-carousel:focus-within .carousel-btn{opacity:1}
+    .carousel-btn:hover{background:#d4ff00;border-color:#d4ff00}
+    .carousel-btn:disabled{opacity:.25;cursor:not-allowed}
+    .carousel-btn.prev{left:8px}.carousel-btn.next{right:8px}
+    .carousel-dots{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);display:flex;gap:6px;padding:5px 7px;border-radius:999px;background:rgba(255,255,255,.70);border:1px solid rgba(0,0,0,.12);opacity:0;transition:opacity 160ms ease;z-index:2}
+    .proto-carousel:hover .carousel-dots,.proto-carousel:focus-within .carousel-dots{opacity:1}
+    .carousel-dot{width:7px;height:7px;border-radius:999px;border:1px solid rgba(0,0,0,.28);background:rgba(0,0,0,.10);cursor:pointer;padding:0}
+    .carousel-dot.active{background:rgba(0,0,0,.55);border-color:rgba(0,0,0,.55)}
+    .carousel-count{position:absolute;right:10px;bottom:10px;font-size:10px;font-weight:700;color:rgba(0,0,0,.45);background:rgba(255,255,255,.70);border:1px solid rgba(0,0,0,.12);padding:5px 8px;border-radius:999px;opacity:0;transition:opacity 160ms ease;z-index:2;user-select:none}
+    .proto-carousel:hover .carousel-count,.proto-carousel:focus-within .carousel-count{opacity:1}
+    .caption{margin-top:12px;position:relative;z-index:1;--fs:12.5px;line-height:1.5;color:#111;padding:10px 12px;border-radius:12px;background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.08)}
+    .plist{list-style:none;margin-top:14px;display:grid;gap:14px;position:relative;z-index:1;padding:0}
+    .plist li{padding:14px 16px;border-radius:14px;background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.08);--fs:14.5px;line-height:1.55;color:#111}
+    .pchips{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+
+    .nav,
+    .sub,
+    .slide-number,
+    .description p,
+    .visual-label,
+    .visual-notes li,
+    .kicker,
+    .ctitle,
+    .clist .label,
+    .clist .value,
+    .analogy p,
+    .flow-copy,
+    .chip,
+    .pk,
+    .pt,
+    .caption,
+    .plist li {
+      font-size: calc(var(--fs, 14px) * var(--textCompSmall));
+    }
+
+    .nav-buttons{position:fixed;right:28px;bottom:28px;display:flex;gap:8px;z-index:9999}
+    .nav-btn{width:36px;height:36px;background:#fff;border:2px solid #000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;transition:all .3s;font-weight:700}
+    .nav-btn:hover{background:#d4ff00;border-color:#d4ff00;transform:scale(1.1)}
+    .nav-btn:disabled{opacity:.3;cursor:not-allowed}
+    .nav-btn:disabled:hover{background:#fff;border-color:#000;transform:scale(1)}
+
+    /* scrubber capsule */
+    .slide-scrubber{
+      position: fixed;
+      left: 50%;
+      bottom: calc(var(--ui-gap) + env(safe-area-inset-bottom, 0px));
+      transform: translateX(-50%);
+      z-index: 9998;
+
+      padding: var(--scrub-pad-y) var(--scrub-pad-x);
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);          /* бекграунд тонший */
+      box-shadow: 0 10px 28px rgba(0,0,0,.18);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    /* range sizing */
+    .slide-scrubber input[type=range]{
+      width: var(--scrub-w);
+      height: 16px;
+      background: transparent;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .slide-scrubber input[type=range]:focus{ outline:none; }
+
+    /* Track */
+    .slide-scrubber input[type=range]::-webkit-slider-runnable-track{
+      height: 2px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.24);
+    }
+    .slide-scrubber input[type=range]::-moz-range-track{
+      height: 2px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.24);
+    }
+
+    /* Thumb */
+    .slide-scrubber input[type=range]::-webkit-slider-thumb{
+      -webkit-appearance:none;
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      margin-top: -3.5px;                          /* центрує на треку 2px */
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 6px 14px rgba(0,0,0,.28);
+    }
+    .slide-scrubber input[type=range]::-moz-range-thumb{
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 6px 14px rgba(0,0,0,.28);
+    }
+
+    .mini-counter{position:fixed;left:28px;bottom:28px;z-index:9999;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:8px 10px;border-radius:999px;background:rgba(255,255,255,.10);color:rgba(255,255,255,.85);font-size:12px;font-weight:700;letter-spacing:.02em;user-select:none}
+
+    @media (prefers-reduced-motion: reduce){.slide{transition:none}.timer-hand{animation:none}}
+    @media (max-width:768px){
+      :root{ --page-pad: 12px; }
+      .nav-buttons{right:14px;bottom:14px}
+      .mini-counter{left:14px;bottom:14px}
+      .slide{padding:22px}
+      .title-section h1{font-size:56px;letter-spacing:-1.5px}
+      .title-section .tm{font-size:22px}
+      .year-badge{font-size:20px;padding:6px 12px;margin-top:10px}
+      .description{max-width:100%;margin-top:12px}
+      .description p{font-size:11.5px}
+      .nav{gap:12px;font-size:11px}
+      .nav-item.active{padding:3px 10px}
+      .timer-icon{width:280px;height:280px;right:-110px;top:52%}
+      .timer-circle{border-width:22px}
+      .timer-hand{height:110px}
+      .timer-center{width:40px;height:40px}
+      h2{font-size:34px}
+      .flow-title{font-size:44px}
+      .flow-label{font-size:28px}
+      .concept-grid,.visual-grid,.proto-layout{grid-template-columns:1fr}
+      .slide-scrubber{
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: min(60vw, 260px);
+        bottom: calc(var(--ui-gap) + 56px + env(safe-area-inset-bottom, 0px));
+        border-radius: 999px;
+      }
+      .slide-scrubber input[type=range]{width:100%}
+    }
+
+    /* mobile presentation window: keep desktop-style grids to avoid vertical overflow */
+    @media (max-width:768px){
+      body.is-mobile .concept-grid,
+      body.is-mobile .visual-grid,
+      body.is-mobile .proto-layout{
+        grid-template-columns: 1fr 1fr;
+      }
+      body.is-mobile #final_pick .pick-layout{
+        grid-template-columns: 1fr 1.05fr;
+      }
+    }
+
+    /* на низьких екранах ще компактніше */
+    @media (max-height: 760px){
+      :root{
+        --ui-gap: 10px;
+        --scrub-w: clamp(200px, 46vw, 320px);
+        --ui-reserve: calc(var(--ui-gap) + 28px + 14px);
+      }
+    }
+
+    /* === Slide 01: layout + typography polish (more premium, less “stuck to left”) === */
+    #slide1{
+      /* трішки більше breathing room + краща “композиція” */
+      padding: 60px 86px 62px 92px;
+
+      /* легкий живий фон, щоб було відчуття дизайну */
+      background:
+        radial-gradient(900px 520px at 18% 20%, rgba(212,255,0,.10), rgba(0,0,0,0) 55%),
+        radial-gradient(900px 520px at 90% 70%, rgba(0,0,0,.06), rgba(0,0,0,0) 60%),
+        #f5f5f5;
+
+      --hero-comp: clamp(1, calc(1 / var(--scale)), 1.45);
+      --s1-body-fs: 15.5px; /* ⬅️ головне: текст став більший */
+      --s1-body-lh: 1.78;
+      --s1-max: 620px;      /* ⬅️ обмежує ширину — виглядає дорожче */
+    }
+
+    /* робимо хедер “дизайнерським”: 2 колонки, нормальний баланс */
+    #slide1 .header{
+      display: grid;
+      grid-template-columns: minmax(520px, 1fr) auto;
+      align-items: start;
+      column-gap: 54px;
+    }
+
+    /* заголовок — трохи масивніший і чистіший */
+    #slide1 .title-section h1{
+      font-size: calc(132px * var(--hero-comp));
+      letter-spacing: -3.2px;
+      line-height: .92;
+      font-weight: 800;
+    }
+
+    /* бейдж року — трохи більше “ваги” і повітря */
+    #slide1 .year-badge{
+      font-size: calc(40px * var(--hero-comp));
+      padding: calc(10px * var(--hero-comp)) calc(22px * var(--hero-comp));
+      border-radius: calc(8px * var(--hero-comp));
+      margin-top: 18px;
+      box-shadow: 0 10px 26px rgba(212,255,0,.18);
+    }
+
+    #slide1 .description p{
+      font-size: calc(var(--s1-body-fs) * var(--textCompSmall));
+      line-height: var(--s1-body-lh);
+      color: rgba(0,0,0,.82);
+      margin-bottom: 16px;
+      font-weight: 450;
+      letter-spacing: .01em;
+    }
+
+    /* останній абзац (bold) — більш “premium” */
+    #slide1 .description p:last-child{
+      font-weight: 650 !important;
+      color: rgba(0,0,0,.88);
+    }
+
+    /* навігація — трошки легша і рівніша */
+    #slide1 .nav{
+      gap: 26px;
+      align-items: center;
+      font-size: calc(13px * var(--hero-comp));
+      color: rgba(0,0,0,.55);
+    }
+
+    #slide1 .nav-item{
+      color: rgba(0,0,0,.50);
+    }
+
+    #slide1 .nav-item.active{
+      padding: 6px 14px;
+      border-radius: 8px;
+      background: #d4ff00;
+      color: #000;
+      box-shadow: 0 10px 26px rgba(212,255,0,.16);
+    }
+
+    /* таймер: трохи менше “тисне”, краще сідає в композицію */
+    #slide1 .timer-icon{
+      right: -140px;
+      top: 52%;
+      filter: drop-shadow(0 26px 56px rgba(0,0,0,.10));
+      opacity: .95;
+    }
+
+    /* щоб на малих скейлах теж читалось */
+    @media (max-width: 900px){
+      #slide1 .header{ grid-template-columns: 1fr; row-gap: 18px; }
+      #slide1 .timer-icon{ opacity: .35; right: -220px; top: 58%; }
+    }
+
+    /* === Slide 01: make description lighter (less “compressed column”) === */
+    #slide1{
+      --s1-max: 720px;        /* було 620 — ширше = легше */
+      --s1-body-fs: 15px;   /* трохи більший текст */
+      --s1-body-lh: 1.84;     /* більше повітря між рядками */
+    }
+
+    #slide1 .description{
+      margin-top: 26px;       /* трохи нижче від бейджа */
+    }
+
+    #slide1 .description p{
+      font-size: calc(var(--s1-body-fs) * var(--textCompSmall));
+      line-height: var(--s1-body-lh);
+      color: rgba(0,0,0,.78);
+      letter-spacing: .012em;
+      margin-bottom: 0;       /* контроль ритму нижче */
+      font-weight: 420;
+    }
+
+    /* ритм між абзацами */
+    #slide1 .description p + p{
+      margin-top: 16px !important;
+    }
+
+    /* прибиваємо inline margin-top, щоб не ламав ритм */
+    #slide1 .description p[style*="margin-top"]{
+      margin-top: 16px !important;
+    }
+
+    /* останній — трохи сильніше, але не “жирнючий” */
+    #slide1 .description p:last-child{
+      font-weight: 650 !important;
+      color: rgba(0,0,0,.86);
+    }
+
+    /* make description feel less “blocky” */
+    #slide1 .description{
+      padding-right: 38px;      /* легкий простір справа */
+    }
+
+    #slide1 .description p{
+      max-width: none;      /* ❗ знімаємо обмеження */
+    }
+
+    /* === Slide 01 width controller (clean) === */
+    #slide1{
+      --s1-title-max: 980px; /* ширина всієї лівої колонки */
+      --s1-desc-max: 980px;  /* ширина опису (може бути менше/більше) */
+    }
+
+    #slide1 .title-section{
+      max-width: var(--s1-title-max);
+    }
+
+    #slide1 .description{
+      max-width: var(--s1-desc-max);
+    }
+
+    #slide1 .description p{
+      max-width: none;
+    }
+
+    /* =========================
+       FINAL PICK SLIDE (clean)
+       ========================= */
+
+    #final_pick{
+      --pick-gap: 18px;
+    }
+
+    #final_pick .pick-layout{
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: var(--pick-gap);
+      align-items: stretch;
+      flex: 1;
+      min-height: 0;
+    }
+
+    #final_pick .pick-grid{
+      background:#fff;
+      border:1px solid rgba(0,0,0,.10);
+      border-radius:20px;
+      box-shadow:0 18px 50px rgba(0,0,0,.06);
+      padding: 18px;
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+      min-height: 0;
+      overflow: auto;
+    }
+
+    /* =========================
+       VIDEO ASSISTANT (PiP)
+       ========================= */
+
+    :root{
+      --pip-size: 220px;          /* базовий розмір */
+      --pip-radius: 18px;
+      --pip-pad: 10px;
+      --pip-z: 9997;
+    }
+
+    /* контейнер */
+    .pip{
+      position: fixed;
+      right: 22px;
+      top: 22px;
+      width: var(--pip-size);
+      aspect-ratio: 1 / 1;        /* квадрат */
+      z-index: var(--pip-z);
+
+      border-radius: var(--pip-radius);
+      overflow: visible;
+
+      background: rgba(20,20,20,.55);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 22px 60px rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+
+      cursor: default;
+      user-select: none;
+      touch-action: none;
+    }
+    .pip:active{ cursor: grabbing; }
+
+    .pip-inner{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--pip-radius);
+      overflow: hidden;
+    }
+
+    /* iframe */
+    .pip-frame{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+      opacity: 0;                 /* показуємо тільки коли реально грає */
+    }
+
+    /* optional brightness boost for darker slides */
+    .pip.is-brightened .pip-frame{
+      filter: brightness(1.15) saturate(1.05);
+    }
+
+    /* overlay */
+    .pip-overlay{
+      position:absolute;
+      inset:0;
+      z-index: 2;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      gap: 8px;
+      padding: 12px;
+      padding-bottom: 58px; /* reserve space for floating controls */
+      background:
+        radial-gradient(240px 240px at 20% 20%, rgba(212,255,0,.18), rgba(0,0,0,0) 65%),
+        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.55));
+      color: rgba(255,255,255,.92);
+      border: 1px solid rgba(255,255,255,.10);
+      pointer-events: none;
+    }
+
+    .pip-badge{
+      position:absolute;
+      left: 12px;
+      top: 12px;
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.40);
+      border: 1px solid rgba(255,255,255,.14);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .pip-title{
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      line-height: 1.15;
+    }
+    .pip-sub{
+      font-size: 12px;
+      line-height: 1.35;
+      color: rgba(255,255,255,.72);
+    }
+
+    .pip-controls{
+      display:flex;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .pip-controls.floating{
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 6px;
+      z-index: 4;
+      pointer-events: auto;
+    }
+
+    .pip-drag-handle{
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 38px;
+      z-index: 5;
+      cursor: grab;
+      pointer-events: auto;
+      background: transparent;
+    }
+    .pip-drag-handle:active{ cursor: grabbing; }
+
+    .pip-btn{
+      flex: 1 1 auto;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(212,255,0,.92);
+      color:#000;
+      font-weight: 800;
+      padding: 9px 10px;
+      cursor:pointer;
+      font-size: 12px;
+    }
+    .pip-btn.ghost{
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.86);
+    }
+    .pip-btn:disabled{
+      opacity: .45;
+      cursor: not-allowed;
+    }
+
+    /* замість close */
+    .pip-min{
+      position:absolute;
+      right: 8px;
+      top: 8px;
+
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.22);
+
+      cursor: pointer;
+      z-index: 10;
+
+      display: grid;
+      place-items: center;
+
+      /* прибираємо “текстовий мінус” вплив */
+      font-size: 0;
+      line-height: 0;
+      padding: 0;
+    }
+
+    .pip-min::before{
+      content:"";
+      width: 12px;          /* довжина риски */
+      height: 2px;          /* товщина */
+      border-radius: 999px;
+      background: rgba(255,255,255,.85);
+      transform: translateY(0.5px); /* легке оптичне центрування */
+    }
+
+    .pip-min:hover{
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.22);
+    }
+
+    .pip-min:active{
+      transform: scale(.96);
+    }
+
+    .pip[data-state="playing"]{ cursor: default; }
+
+    /* state playing/ready: overlay менш помітний */
+    .pip[data-state="playing"] .pip-frame{ opacity: 1; }
+    .pip[data-state="ready"] .pip-frame{ opacity: 1; }
+    .pip[data-state="playing"] .pip-overlay,
+    .pip[data-state="ready"] .pip-overlay{
+      opacity: 0;
+    }
+
+    /* minimized state: сам PiP ховаємо */
+    .pip.is-minimized{
+      display: none;
+    }
+
+    /* Hide PiP on full-screen photo slides */
+    .pip.is-suppressed{ display:none; }
+    .pip-launch.is-suppressed{ display:none !important; }
+
+    /* launcher button (маленький “значок” біля навігації) */
+    .pip-launch{
+      position: fixed;
+      right: 28px;
+      bottom: 76px;           /* 👈 щоб було біля стрілок, але не перекривало */
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      border: 2px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+      cursor: pointer;
+      z-index: 9999;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 14px 40px rgba(0,0,0,.35);
+      display: none;          /* показуємо тільки коли minimized */
+    }
+
+    .pip-launch:hover{
+      transform: scale(1.06);
+    }
+
+    /* коли треба показати launcher */
+    .pip-launch.is-visible{
+      display: grid;
+      place-items: center;
+    }
+
+    /* helper badge */
+    .pip-hint{
+      position:absolute;
+      left: 50%;
+      top: -36px;                 /* 👈 піднімає над PiP */
+      transform: translateX(-50%);
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.18);
+      color: rgba(255,255,255,.92);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      display:none;
+      pointer-events:none;
+      z-index: 9999;              /* ✅ поверх PiP */
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    body.is-mobile .pip-hint{
+      top: -28px;
+      padding: 5px 9px;
+      font-size: 8px;
+      letter-spacing: .1em;
+    }
+
+    /* nudge anim */
+    @keyframes pipNudge {
+      0%   { transform: translateX(0); }
+      35%  { transform: translateX(-14px); }
+      70%  { transform: translateX(0); }
+      100% { transform: translateX(0); }
+    }
+
+    /* extra obvious blink/glow */
+    @keyframes pipGlow {
+      0%   { box-shadow: 0 22px 60px rgba(0,0,0,.35), 0 0 0 0 rgba(212,255,0,0); }
+      40%  { box-shadow: 0 22px 60px rgba(0,0,0,.35), 0 0 0 6px rgba(212,255,0,.22); }
+      100% { box-shadow: 0 22px 60px rgba(0,0,0,.35), 0 0 0 0 rgba(212,255,0,0); }
+    }
+
+    .pip.is-hinting{
+      animation: pipNudge 520ms ease-out 1, pipGlow 900ms ease-out 1;
+    }
+    .pip.is-hinting .pip-hint{ display:block; }
+    .pip.is-touched .pip-hint{ display:none !important; } /* ✅ після взаємодії ховаємо назавжди */
+
+    /* мобілка: трошки менше */
+    @media (max-width: 768px){
+      :root{ --pip-size: 190px; }
+      .pip{ right: 12px; top: 12px; }
+    }
+
+    #final_pick .pick-card{
+      display:flex;
+      gap: 12px;
+      align-items:center;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(0,0,0,.02);
+      cursor: pointer;
+      transition:
+        transform 160ms ease,
+        background-color 160ms ease,
+        border-color 160ms ease;
+      user-select:none;
+    }
+
+    #final_pick .pick-card:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.03);
+      border-color: rgba(0,0,0,.18);
+    }
+
+    #final_pick .pick-card.selected{
+      background: rgba(212,255,0,.22);
+      border-color: rgba(0,0,0,.22);
+      box-shadow: 0 14px 36px rgba(212,255,0,.18);
+    }
+
+    #final_pick .pick-thumb{
+      width: 78px;
+      height: 78px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.08);
+      overflow:hidden;
+      flex: 0 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    #final_pick .pick-thumb img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+    }
+
+    #final_pick .pick-meta .name{
+      font-weight: 800;
+      color:#000;
+      font-size: calc(16px * var(--textCompSmall));
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+
+    #final_pick .pick-meta .desc{
+      font-size: calc(13px * var(--textCompSmall));
+      color: rgba(0,0,0,.55);
+      line-height: 1.25;
+    }
+
+    /* RIGHT SIDE: make preview true 16:9, feedback becomes flexible */
+    #final_pick .pick-panel{
+      background:#fff;
+      border:1px solid rgba(0,0,0,.10);
+      border-radius:20px;
+      box-shadow:0 18px 50px rgba(0,0,0,.06);
+      padding: 20px;
+      min-height:0;
+      overflow:hidden;
+
+      display: grid;
+      grid-template-rows: auto auto auto 1fr; /* pk, title, preview, actions */
+      gap: 12px;
+    }
+
+    #final_pick .pick-preview{
+      border-radius: 18px;
+      background: rgba(0,0,0,.06);
+      border: 1px solid rgba(0,0,0,.10);
+      overflow: hidden;
+
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      height: auto;
+
+      /* IMPORTANT: no max-height, so ratio stays true */
+      max-height: none;
+    }
+
+    #final_pick #pickPreviewImg{
+      width:100%;
+      height:100%;
+      object-fit: cover; /* без сірих барів */
+      object-position: var(--crop-x, 50%) var(--crop-y, 50%);
+      display:block;
+      opacity: 0;
+      transition: opacity 160ms ease;
+    }
+
+    #final_pick .pick-preview-fallback{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: rgba(0,0,0,.45);
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: 11px;
+      text-align:center;
+      padding: 16px;
+    }
+
+    #final_pick .pick-actions{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      min-height: 0;
+      overflow: auto; /* якщо мало місця — скрол тут, а не превʼю */
+    }
+
+    #final_pick .pick-text{
+      width:100%;
+      border-radius: 16px;
+      border:1px solid rgba(0,0,0,.12);
+      background: rgba(0,0,0,.02);
+      padding: 14px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      font-size: calc(14px * var(--textCompSmall));
+      line-height: 1.5;
+      resize: none;
+      min-height: 150px;
+    }
+
+    #final_pick .pick-btn{
+      border-radius: 14px;
+      border:1px solid rgba(0,0,0,.18);
+      background: #d4ff00;
+      padding: 11px 14px;
+      font-weight: 800;
+      cursor:pointer;
+      font-size: calc(13px * var(--textCompSmall));
+    }
+
+    #final_pick .pick-btn.ghost{
+      background: rgba(0,0,0,.02);
+    }
+
+    #final_pick .pick-hint{
+      font-size: calc(12px * var(--textCompSmall));
+      color: rgba(0,0,0,.45);
+    }
+
+    @media (max-width: 920px){
+      #final_pick .pick-layout{ grid-template-columns: 1fr; }
+      #final_pick .pick-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+
+    /* FINAL PICK — no scrollbars, everything fits */
+
+    #final_pick .pick-panel{
+      grid-template-rows: auto auto auto auto; /* без 1fr */
+      gap: 10px;
+    }
+
+    /* прибираємо будь-який скрол у блоці з фідбеком */
+    #final_pick .pick-actions{
+      overflow: hidden;      /* було auto */
+      min-height: unset;
+      gap: 8px;
+    }
+
+    /* менша textarea + без resize */
+    #final_pick .pick-text{
+      min-height: 92px;      /* було 150 */
+      height: 92px;          /* фіксуємо, щоб не роздувало */
+      resize: none;          /* прибрати ручку resize */
+      padding: 12px;
+    }
+
+    /* трохи компактніше кнопки/підказка */
+    #final_pick .pick-btns{ gap: 8px; }
+    #final_pick .pick-btn{ padding: 10px 12px; }
+    #final_pick .pick-hint{ margin-top: 0; }
+
+    /* якщо textarea всередині grid/flex раптом тисне висоту */
+    #final_pick .pick-preview{
+      margin-top: 6px;
+    }
+
+    /* FIX: fallback overlay must be inside preview only */
+    #final_pick .pick-preview{ position: relative; }
+    #final_pick .pick-preview-fallback{ pointer-events: none; }
+
+    /* FINAL PICK — clean feedback area */
+    #final_pick .pick-panel{
+      /* було: auto auto auto auto */
+      grid-template-rows: auto auto 1fr auto; /* header, title, preview, feedback */
+      gap: 12px;
+    }
+
+    #final_pick .pick-preview{
+      position: relative;
+      margin-top: 6px;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    /* FEEDBACK block = окрема “плашка” */
+    #final_pick .pick-actions{
+      margin-top: 4px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(0,0,0,.10);
+
+      display: grid;
+      grid-template-columns: 1fr auto;   /* textarea + buttons */
+      grid-template-rows: auto auto;     /* label row + content row */
+      gap: 10px 12px;
+
+      overflow: hidden;
+    }
+
+    /* label (FEEDBACK) займає весь рядок */
+    #final_pick .pick-actions .pk{
+      grid-column: 1 / -1;
+      margin: 0;
+    }
+
+    /* textarea — нормальна висота, без скролу по можливості */
+    #final_pick .pick-text{
+      grid-column: 1 / 2;
+      height: 76px;
+      min-height: 76px;
+      resize: none;
+      padding: 12px 12px;
+      line-height: 1.45;
+    }
+
+    /* кнопки — вертикально справа */
+    #final_pick .pick-btns{
+      grid-column: 2 / 3;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-self: start;
+    }
+
+    #final_pick .pick-btn{
+      width: 84px;
+      padding: 10px 10px;
+      border-radius: 12px;
+    }
+
+    /* підказку вниз, легше читати */
+    #final_pick .pick-hint{
+      grid-column: 1 / -1;
+      margin: 0;
+    }
+
+    /* Mobile: keep preview and feedback separated */
+    body.is-mobile #final_pick .pick-panel{
+      grid-template-rows: auto auto auto auto;
+    }
+    body.is-mobile #final_pick .pick-preview{
+      margin-bottom: 8px;
+    }
+    body.is-mobile #final_pick .pick-actions{
+      margin-top: 10px;
+    }
+    body.is-mobile .slide-scrubber{
+      bottom: calc(var(--ui-gap) + 96px + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* FINAL PICK — smaller buttons + thinner scrollbar + feedback lower */
+
+    #final_pick .pick-actions{
+      /* опускаємо блок вниз, ближче до Tip */
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(0,0,0,.10);
+
+      /* робимо більше місця під textarea */
+      gap: 10px 10px;
+    }
+
+    /* textarea — трішки більше, щоб читалось */
+    #final_pick .pick-text{
+      height: 92px;
+      min-height: 92px;
+      padding: 12px 12px;
+    }
+
+    /* кнопки менші */
+    #final_pick .pick-btn{
+      width: 70px;
+      padding: 7px 9px;
+      border-radius: 11px;
+      font-size: calc(12px * var(--textCompSmall));
+    }
+
+    /* між кнопками менший gap */
+    #final_pick .pick-btns{
+      gap: 6px;
+    }
+
+    /* тонший скролбар в textarea (Chrome/Edge/Safari) */
+    #final_pick .pick-text::-webkit-scrollbar{
+      width: 6px;
+    }
+    #final_pick .pick-text::-webkit-scrollbar-track{
+      background: rgba(0,0,0,.06);
+      border-radius: 999px;
+    }
+    #final_pick .pick-text::-webkit-scrollbar-thumb{
+      background: rgba(0,0,0,.22);
+      border-radius: 999px;
+    }
+    #final_pick .pick-text::-webkit-scrollbar-thumb:hover{
+      background: rgba(0,0,0,.32);
+    }
+
+    /* Firefox */
+    #final_pick .pick-text{
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,0,0,.25) rgba(0,0,0,.06);
+    }
+
+    /* Tip притискаємо трішки нижче, щоб блок виглядав “заземлено” */
+    #final_pick .pick-hint{
+      margin-top: 6px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="viewport">
+    <div class="presentation-stage" id="deck">
+
+    <div class="slide active" id="slide1">
+      <div class="header">
+        <div class="title-section">
+          <h1>Focus<span class="tm">™</span></h1>
+          <div class="year-badge">2026</div>
+          <div class="description">
+            <p>Це не продукт. Це експеримент.</p>
+            <p style="margin-top:18px;">Чи може одна людина закрити повний цикл запуску продукту — від ідеї та 3D до<br>e-commerce сайту і реклами.</p>
+            <p>Focus object не існує фізично. Я створюю для нього візуальну мову, упаковку і присутність, щоб перевірити, як дизайн впливає на бажання купити.</p>
+            <p style="font-weight:600;margin-top:18px;">Ваш фідбек визначить, який прототип стане втіленням ідеї</p>
+          </div>
+        </div>
+        <div class="nav">
+          <div class="nav-item active">PROJECT</div>
+          <div class="nav-item">DELIVERY</div>
+          <div class="nav-item">CONTACTS</div>
+        </div>
+      </div>
+      <div class="timer-icon"><div class="timer-circle"><div class="timer-hand"></div><div class="timer-center"></div></div></div>
+    </div>
+
+    <div class="slide content-slide" id="slide2">
+      <div class="slide-number">02</div>
+      <div>
+        <h2>Visual Context</h2>
+        <p class="sub">Реальність ринку сьогодні vs напрямок, у який я ціллюсь.</p>
+      </div>
+      <div class="visual-grid">
+        <div class="visual-column noisy">
+          <div class="visual-label">ALREADY EXISTS</div>
+          <div class="visual-collage" aria-label="Already Exists examples">
+            <div class="tile"><img class="thumb" src="image/slide-3/already-exists/ax_photo01.png" alt="Already exists 01"></div>
+            <div class="tile"><img class="thumb" src="image/slide-3/already-exists/ax_photo02.png" alt="Already exists 02"></div>
+            <div class="tile"><img class="thumb" src="image/slide-3/already-exists/ax_photo03.png" alt="Already exists 03"></div>
+            <div class="tile"><img class="thumb" src="image/slide-3/already-exists/ax_photo04.png" alt="Already exists 04"></div>
+            <div class="tile"><img class="thumb" src="image/slide-3/already-exists/ax_photo05.png" alt="Already exists 05"></div>
+            <div class="tile"><img class="thumb" src="image/slide-3/already-exists/ax_photo06.png" alt="Already exists 06"></div>
+            <div class="tile"><img class="thumb" src="image/slide-3/already-exists/ax_photo07.png" alt="Already exists 07"></div>
+            <div class="tile"><img class="thumb" src="image/slide-3/already-exists/ax_photo08.png" alt="Already exists 08"></div>
+          </div>
+          <ul class="visual-notes">
+            <li>Візуальний шум - виглядає як гаджет або іграшка</li>
+            <li>Цифри домінують - фокус на екрані, не на процесі</li>
+            <li>«Ще один девайс» - функція без характеру</li>
+            <li>Постійно активний - тягне увагу навіть без взаємодії</li>
+          </ul>
+        </div>
+        <div class="visual-column calm">
+          <div class="visual-label">DIRECTION</div>
+          <div class="visual-collage" aria-label="Direction references">
+            <div class="tile"><img class="thumb" src="image/slide-3/direction/dire_photo01.png" alt="Direction 01"></div>
+            <div class="tile"><img class="thumb" src="image/slide-3/direction/dire_photo02.png" alt="Direction 02"></div>
+            <div class="tile"><img class="thumb" src="image/slide-3/direction/dire_photo03.png" alt="Direction 03"></div>
+            <div class="tile"><img class="thumb" src="image/slide-3/direction/dire_photo04.png" alt="Direction 04"></div>
+            <div class="tile"><img class="thumb" src="image/slide-3/direction/dire_photo05.png" alt="Direction 05"></div>
+            <div class="tile"><img class="thumb" src="image/slide-3/direction/dire_photo06.png" alt="Direction 06"></div>
+            <div class="tile"><img class="thumb" src="image/slide-3/direction/dire_photo07.png" alt="Direction 07"></div>
+            <div class="tile"><img class="thumb" src="image/slide-3/direction/dire_photo08.png" alt="Direction 08"></div>
+          </div>
+          <ul class="visual-notes">
+            <li>Дизайнерський обʼєкт - чиста форма, хочеться залишити на столі</li>
+            <li>Тиша як фіча - мінімум сигналів, максимум концентрації</li>
+            <li>Part of a work ritual - запускається як дія або намір, не як «таймер»</li>
+            <li>Does nothing until you do - реагує лише на твій старт, не живе у фоні</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide content-slide" id="slide3">
+      <div class="slide-number">03</div>
+      <div>
+        <h2>Product Concept</h2>
+        <p class="sub">Чому це не ще один Pomodoro, а ритуальний обʼєкт для входу в стан фокусу.</p>
+      </div>
+      <div class="concept-grid">
+        <div class="card">
+          <div class="kicker">WHAT EXISTS</div>
+          <div class="ctitle">Traditional Pomodoro</div>
+          <ul class="clist">
+            <li><span class="label">Інструмент</span><span class="value">таймер як сувора утиліта для відліку хвилин.</span></li>
+            <li><span class="label">Логіка</span><span class="value">контроль через тиск дедлайну та різкі сигнали «стоп».</span></li>
+            <li><span class="label">Відчуття</span><span class="value">візуальний шум цифр, що “дивляться” на тебе і створюють фоновий стрес.</span></li>
+            <li><span class="label">Роль</span><span class="value">технічний гаджет: дістають лише для роботи й одразу прибирають.</span></li>
+          </ul>
+        </div>
+        <div class="card accent">
+          <div class="kicker">WHAT I PROPOSE</div>
+          <div class="ctitle">Focus Object — Lo-fi Philosophy</div>
+          <ul class="clist">
+            <li><span class="label">Інструмент</span><span class="value">ритуальний обʼєкт, що допомагає плавно увійти в стан потоку.</span></li>
+            <li><span class="label">Логіка</span><span class="value">намір замість примусу; підтримує глибину фокусу, а не диктує його.</span></li>
+            <li><span class="label">Відчуття</span><span class="value">«тиха присутність»: мінімум інформації, без цокання, лише тактильність та естетика середовища.</span></li>
+            <li><span class="label">Роль</span><span class="value">частина щоденного ритуалу (як чашка кави) — мʼяко супроводжує вхід та вихід із роботи.</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="analogy"><div class="atag">WHY “LOFI”</div>
+        <p><strong>Якщо Pomodoro — це агресивний фітнес-тренер зі свистком,</strong> то Focus Object — це вінілова платівка: ти власноруч ставиш голку на диск (усвідомлений жест), занурюєшся і плавно повертаєшся, коли музика змовкає.</p>
+      </div>
+    </div>
+
+    <div class="slide content-slide" id="slide4">
+      <div class="slide-number">04</div>
+      <div>
+        <h2>What’s next</h2>
+        <p class="sub">Перш ніж почнемо з прототипів, давай трохи контексту</p>
+      </div>
+      <div class="flow-card">
+        <div class="flow-grid">
+          <div class="flow-left flow-left--center" style="grid-column:1;grid-row:1"><div class="flow-title flow-title--stacked"><span>Prototype</span><span>Review</span></div></div>
+          <div class="flow-right" style="grid-column:3;grid-row:1"><div class="flow-copy">Я вперше працюю з фізичним девайсом. Тут немає досліджень ринку, виробничих розрахунків чи гарантій попиту. Є дизайн, філософія і моя спроба знайти форму, яка має реальний сенс.<br><br>Я хочу пройти шлях підприємця — від ідеї до продажу. Тому для мене важлива твоя думка: що тут виглядає <strong>реальним</strong>, а що поки що <strong>фантазією</strong>?</div></div>
+          <div class="flow-left" style="grid-column:1;grid-row:2"><div class="flow-label">Pick 1</div></div>
+          <div class="flow-right" style="grid-column:3;grid-row:2"><div class="flow-copy muted">В кінці — обираєш фаворита. Я беру його в production (3D → сайт → реклама) і повертаюсь з апдейтом.</div></div>
+          <div class="flow-mid" aria-hidden="true">
+            <div class="flow-line"></div>
+            <div class="flow-dot active top"></div>
+            <div class="flow-dot active mid"></div>
+            <div class="flow-dot bottom"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide image-only-slide" id="p01_photo1"><img class="full-bleed-img" src="" alt="Prototype 01 — Render01" /></div>
+    <div class="slide image-only-slide" id="p01_photo2"><img class="full-bleed-img" src="" alt="Prototype 01 — Render02" /></div>
+    <div class="slide image-only-slide" id="p01_photo3"><img class="full-bleed-img" src="" alt="Prototype 01 — Render03" /></div>
+
+    <div class="slide content-slide" id="p01_info">
+      <div class="slide-number">05</div>
+      <div><h2>Prototype 01</h2><p class="sub">Перший варіант для тесту. Далі ти зможеш обрати фаворита.</p></div>
+      <div class="proto-layout">
+        <div class="panel accent">
+          <div class="pk">VISUAL</div>
+          <div class="pt">Render / Photo</div>
+          <div class="hero proto-carousel" data-carousel="prototype01" aria-label="Prototype 01 images carousel">
+            <button class="carousel-btn prev" type="button" aria-label="Previous image">←</button>
+            <img class="carousel-img" src="" alt="Prototype 01 image" />
+            <button class="carousel-btn next" type="button" aria-label="Next image">→</button>
+            <div class="carousel-dots" aria-label="Select image"></div>
+            <div class="carousel-count" aria-hidden="true"></div>
+            <div class="carousel-fallback" aria-hidden="true">PLACEHOLDER IMAGES<br>image/slide-5/prototype1/Render01.png<br>Render02.png • Render03.png</div>
+          </div>
+          <div class="caption">Фокус починається з жесту, а не з цифр</div>
+        </div>
+        <div class="panel">
+          <div class="pk">WHAT DEFINES THIS PROTOTYPE</div>
+          <div class="pt">Prototype overview</div>
+          <ul class="plist">
+            <li><strong>Positioning</strong> Обʼєкт для усвідомленого входу в робочу сесію. Використовується на робочому столі під час індивідуальної, зосередженої роботи.</li>
+            <li><strong>Design</strong> Нетипова форма для таймера - стримана і нейтральна. Головний акцент не на екрані, а на камері як центральному елементі обʼєкта.</li>
+            <li><strong>Control</strong> Запуск сесії відбувається через жест, який зчитує камера. Час налаштовується через центральний rotary control.</li>
+            <li><strong>Behavior</strong> Фокус починається з усвідомленого жесту. Камера створює відчуття присутності - не відволікає цифрами, але нагадує, що процес уже запущено.</li>
+          </ul>
+          <div class="pchips"><div class="chip">Чи використовував б ти такий обʼєкт у щоденній роботі?</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="prototypesMount"></div>
+
+    <div class="slide content-slide" id="final_pick">
+      <div class="slide-number">15</div>
+      <div>
+        <h2>Pick your favorite</h2>
+        <p class="sub">Обери один прототип і скажи, чому саме він. Уяви, що ти реально мав би купити один з них.</p>
+      </div>
+
+      <div class="pick-layout">
+        <div class="pick-grid" id="pickGrid" aria-label="Pick prototype"></div>
+
+        <div class="pick-panel">
+          <div class="pk">SELECTED</div>
+          <div class="pt" id="pickTitle">Prototype —</div>
+
+          <div class="pick-preview">
+            <img id="pickPreviewImg" alt="Selected prototype preview" />
+            <div class="pick-preview-fallback" id="pickPreviewFallback">Select a prototype to preview</div>
+          </div>
+
+          <div class="pick-actions">
+            <div class="pk">FEEDBACK</div>
+            <textarea id="pickText" class="pick-text" rows="5" spellcheck="false"></textarea>
+            <div class="pick-btns">
+              <button class="pick-btn" id="sendPickBtn" type="button">Send</button>
+              <button class="pick-btn ghost" id="clearPickBtn" type="button">Clear</button>
+            </div>
+            <div class="pick-hint">Можеш змінювати вибір, поки не знайдеш свій варіант</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="mini-counter"><span id="currentSlide">1</span> / <span id="totalSlides">1</span></div>
+
+  <div class="slide-scrubber" id="slideScrubber">
+    <input type="range" id="scrubberRange" min="1" max="1" step="1" value="1" aria-label="Slide scrubber" />
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" id="prevBtn" type="button" aria-label="Previous slide">←</button>
+    <button class="nav-btn" id="nextBtn" type="button" aria-label="Next slide">→</button>
+  </div>
+
+  <!-- =========================
+       VIDEO ASSISTANT (PiP)
+       ========================= -->
+  <div class="pip" id="pip" aria-label="Video assistant" data-state="idle">
+    <button class="pip-min" id="pipMin" type="button" aria-label="Minimize assistant"></button>
+
+    <div class="pip-drag-handle" id="pipDragHandle" aria-hidden="true"></div>
+
+    <div class="pip-hint" id="pipHint">Drag me</div>
+
+    <div class="pip-inner" id="pipInner">
+      <!-- iframe for Vimeo (loaded only after click Play) -->
+      <iframe
+        id="pipFrame"
+        class="pip-frame"
+        title="Slide narration"
+        loading="lazy"
+        allow="autoplay; fullscreen; picture-in-picture"
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+
+      <!-- Placeholder overlay -->
+      <div class="pip-overlay" id="pipOverlay">
+        <div class="pip-badge">EXPLAIN</div>
+        <div class="pip-title" id="pipTitle">This slide</div>
+        <div class="pip-sub" id="pipSub">Click Play to hear Dmytro’s note</div>
+      </div>
+
+      <div class="pip-controls floating" id="pipControls">
+        <button class="pip-btn" id="pipPlay" type="button">Play</button>
+        <button class="pip-btn ghost" id="pipStop" type="button" disabled>Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="pip-launch" id="pipLaunch" type="button" aria-label="Open assistant">
+    !
+  </button>
+
+  <script src="https://player.vimeo.com/api/player.js"></script>
+  <script>
+  'use strict';
+
+  const mobileMQ = window.matchMedia('(max-width: 900px)');
+  const applyMobileClass = () => {
+    if (!document.body) return;
+    document.body.classList.toggle('is-mobile', mobileMQ.matches);
+  };
+  applyMobileClass();
+  try { mobileMQ.addEventListener('change', applyMobileClass); } catch(e){}
+
+  function updateScale(){
+    const viewport = document.querySelector('.viewport');
+    if (!viewport) return;
+
+    const r = viewport.getBoundingClientRect();
+    const vw = r.width;
+    const vh = r.height;
+
+    const stageW = 1920;
+    const stageH = 1080;
+
+    const isMobile = document.body && document.body.classList.contains('is-mobile');
+
+    // базовий fit
+    let scale = Math.min(vw / stageW, vh / stageH);
+
+    // desktop: no upscaling, mobile: allow fill by width
+    if (isMobile) {
+      scale = vw / stageW;
+    } else {
+      scale = Math.min(1, scale); // FIX: no upscaling
+    }
+
+    document.documentElement.style.setProperty('--scale', String(scale));
+  const base = isMobile ? 1.05 : 1.0; // мобільна компенсація читабельності (менша, щоб все влізало)
+  const textComp = Math.min(isMobile ? 1.75 : 1.45, Math.max(isMobile ? 1.05 : 1, base / scale));
+    document.documentElement.style.setProperty('--textCompSmall', String(textComp));
+  }
+
+  window.addEventListener('resize', () => requestAnimationFrame(updateScale));
+
+  const pad2 = (n) => String(n).padStart(2, '0');
+
+  const renderFileCandidates = (i) => {
+    const base = `Render${pad2(i)}`;
+    return [`${base}.png`, `${base}.jpg`, `${base}.jpeg`, `${base}.webp`, base];
+  };
+
+  const folderCandidates = (p) => [
+    `image/slide-5/prototype${p}`,
+    `image/slide-5/prototype${pad2(p)}`,
+  ];
+
+  const renderCandidates = (p, i) => {
+    const files = renderFileCandidates(i);
+    const folders = folderCandidates(p);
+    const out = [];
+    for (const f of folders) {
+      for (const name of files) out.push(`${f}/${name}`);
+    }
+    return out;
+  };
+
+  const protoOverviewDefault = {
+    items: [
+      {
+        label: 'Positioning',
+        text: 'Обʼєкт для усвідомленого входу в робочу сесію. Використовується на робочому столі під час індивідуальної, зосередженої роботи.'
+      },
+      {
+        label: 'Design',
+        text: 'Нетипова форма для таймера - стримана і нейтральна. Головний акцент не на екрані, а на камері як центральному елементі обʼєкта.'
+      },
+      {
+        label: 'Control',
+        text: 'Запуск сесії відбувається через жест, який зчитує камера. Час налаштовується через центральний rotary control.'
+      },
+      {
+        label: 'Behavior',
+        text: 'Фокус починається з усвідомленого жесту. Камера створює відчуття присутності - не відволікає цифрами, але нагадує, що процес уже запущено.'
+      }
+    ],
+    chip: 'Чи використовував б ти такий обʼєкт у щоденній роботі?',
+    caption: 'Фокус починається з жесту, а не з цифр'
+  };
+
+  const protoOverviewByNumber = {
+    2: {
+      items: [
+        {
+          label: 'Positioning',
+          text: 'Персональний асистент для щоденної роботи і рефлексії. Супроводжує протягом дня і допомагає підсумувати фокус, а не лише відміряти час.'
+        },
+        {
+          label: 'Design',
+          text: 'Мʼяка, дружня форма з приємною тактильністю. Виглядає як персональний обʼєкт, який хочеться тримати поруч і брати із собою.'
+        },
+        {
+          label: 'Control',
+          text: 'Камера зчитує щоденну рутину у фоні. Взаємодія відбувається через кнопки та голосовий запит до вбудованого асистента.'
+        },
+        {
+          label: 'Behavior',
+          text: 'Фокус переходить від “старту сесії” до усвідомлення дня. Продукт не лише запускає роботу, а допомагає зрозуміти, як ти працюєш.'
+        }
+      ],
+      chip: 'Чи потрібен тобі такий асистент у щоденній роботі?',
+      caption: 'Персональний асистент для фокусу і аналізу'
+    },
+    3: {
+      items: [
+        {
+          label: 'Positioning',
+          text: 'Мінімалістичний обʼєкт для щоденного фокусу і роботи з рутиною. Використовується на робочому столі як спокійний, естетичний центр уваги під час індивідуальної роботи.'
+        },
+        {
+          label: 'Design',
+          text: 'Чиста, стримана форма з двома ключовими елементами. Центральний rolling control є відсилкою до механічних таймерів і будильників. Дисплей працює як делікатне нагадування про сучасний технологічний контекст.'
+        },
+        {
+          label: 'Control',
+          text: 'Час виставляється через фізичний rolling control. Це повільна й усвідомлена дія. Після запуску таймера числа відходять на другий план і залишаються лише як фоновий орієнтир.'
+        },
+        {
+          label: 'Behavior',
+          text: 'Фокус зміщується з відліку часу на процес роботи. Pixel art і lo-fi музика підтримують концентрацію. Наприкінці дня користувач бачить баланс між Work і Chill сесіями'
+        }
+      ],
+      chip: 'Чи хотів(ла) б ти мати такий обʼєкт на своєму робочому столі щодня?',
+      caption: 'Lofi обʼєкт, концентруйся на процесі'
+    },
+    4: {
+      items: [
+        {
+          label: 'Positioning',
+          text: 'Модульний таймер для публічних просторів. Призначений для ресторанів, студій і підприємницьких команд як інструмент очікування і спільного часу.'
+        },
+        {
+          label: 'Design',
+          text: 'Габаритний обʼєкт з індустріальним характером. Форма нагадує зібраний механізм, а не готовий девайс. Візуально читається як частина простору, а не персональний гаджет.'
+        },
+        {
+          label: 'Control',
+          text: 'Час виставляється вручну за допомогою гайкового ключа. Користувач фізично провертає механізм, з якого починається відлік.'
+        },
+        {
+          label: 'Behavior',
+          text: 'Час стає відчутною дією, а не абстрактним числом. Процес запуску перетворюється на жест участі і очікування, особливо в публічному контексті.'
+        }
+      ],
+      chip: 'Чи бачиш ти такий обʼєкт у ресторані або робочому просторі?',
+      caption: 'Build your time'
+    },
+    5: {
+      items: [
+        {
+          label: 'Positioning',
+          text: 'Візуальний таймер для зосередженої роботи. Розміщується на робочому столі і дозволяє відчувати плин часу без постійної уваги до цифр.'
+        },
+        {
+          label: 'Design',
+          text: 'Технологічно чиста форма з акцентом на світлове кільце. Червона емісія працює як єдиний візуальний сигнал часу. Дизайн відходить від класичних таймерів і будильників.'
+        },
+        {
+          label: 'Control',
+          text: 'Час задається обертанням центрального елемента. Після запуску взаємодія не потрібна. Таймер працює як спокійний фоновий індикатор.'
+        },
+        {
+          label: 'Behavior',
+          text: 'Час зчитується візуально, а не рахується свідомо. Відсутність цифр зменшує напругу і дозволяє залишатись у процесі, спостерігаючи за тим, як час поступово спливає.'
+        }
+      ],
+      chip: 'Чи комфортно тобі працювати з таким візуальним таймером без цифр?',
+      caption: 'Tech style timer'
+    },
+    6: {
+      items: [
+        {
+          label: 'Positioning',
+          text: 'Таймер-лампа для робочого і домашнього простору. Поєднує контроль часу з освітленням, яке доповнює інтерʼєр і не відволікає від роботи.'
+        },
+        {
+          label: 'Design',
+          text: 'Форма лампи з мʼяким світловим обʼємом. Обʼєкт виглядає як частина інтерʼєру, а не як технічний девайс. Світло є основним носієм інформації.'
+        },
+        {
+          label: 'Control',
+          text: 'Час і режим задаються фізичною взаємодією з обʼєктом. Світло змінюється відповідно до обраної сесії і поступово реагує на плин часу.'
+        },
+        {
+          label: 'Behavior',
+          text: 'Час зчитується через світло, а не через цифри. Work і Chill сесії мають різну світлову атмосферу, що допомагає перемикатись між станами без різких сигналів.'
+        }
+      ],
+      chip: 'Чи хотів(ла) б ти використовувати таймер у форматі лампи щодня?',
+      caption: 'Adjust your light - adjust your time'
+    },
+    7: {
+      items: [
+        {
+          label: 'Positioning',
+          text: 'Фоновий таймер для фокусу і відпочинку. Працює як візуальний супровід робочого процесу і доповнює інтерʼєр, а не конкурує з ним.'
+        },
+        {
+          label: 'Design',
+          text: 'Форма з екраном у стилі pixel art. Візуальний образ натхненний фоновими відео з вогнищем і lo-fi атмосферою. Обʼєкт виглядає декоративно і спокійно навіть у стані очікування.'
+        },
+        {
+          label: 'Control',
+          text: 'Режими Work і Chill вмикаються через верхні кнопки. Час задається фізичним прокручуванням, без складних налаштувань.'
+        },
+        {
+          label: 'Behavior',
+          text: 'Вогонь на екрані працює як фоновий сигнал часу. Він створює відчуття присутності і ритму, не відволікаючи увагу цифрами або різкими сповіщеннями.'
+        }
+      ],
+      chip: 'Чи хотів(ла) б ти мати такий фоновий таймер у своєму робочому просторі?',
+      caption: 'Digital fireplace'
+    },
+    8: {
+      items: [
+        {
+          label: 'Positioning',
+          text: 'Обʼєкт-компаньйон для усвідомленої роботи. Використовується на робочому столі як візуальна присутність, що підтримує фокус і дисципліну.'
+        },
+        {
+          label: 'Design',
+          text: 'Антропоморфна форма, натхненна rubber duck debugging. Обʼєкт виглядає дружньо і трохи наївно, але водночас створює відчуття, що за тобою спостерігають.'
+        },
+        {
+          label: 'Control',
+          text: 'Таймер запускається через фізичну взаємодію з обʼєктом. Щоб почати сесію, його потрібно поставити вертикально. Коли час закінчується, обʼєкт опускається і втрачає форму.'
+        },
+        {
+          label: 'Behavior',
+          text: 'Присутність обʼєкта підсилює відповідальність за фокус. Щоб продовжити роботу, користувач має свідомо випрямити його знову. Фокус підтримується не сигналами, а поведінковою дією.'
+        }
+      ],
+      chip: 'Чи допоміг би тобі такий обʼєкт довше залишатись у фокусі?',
+      caption: 'Friend Duck concept'
+    },
+    9: {
+      items: [
+        {
+          label: 'Positioning',
+          text: 'Інтерактивний таймер для творчої і фокусованої роботи за компʼютером. Використовується на робочому столі як візуальний компаньйон під час активної роботи.'
+        },
+        {
+          label: 'Design',
+          text: 'Компактний desk-обʼєкт з екраном для генеративних візуалів. Дизайн нейтральний, щоб не конкурувати з контентом. Основний акцент на тому, що відбувається на екрані в реальному часі.'
+        },
+        {
+          label: 'Control',
+          text: 'Таймер запускається разом з програмою на компʼютері. Під час сесії пристрій отримує дані з камери, екрана або активних застосунків і передає їх у TouchDesigner.'
+        },
+        {
+          label: 'Behavior',
+          text: 'Робочі дії перетворюються на живі генеративні візуали. Рух, активність і присутність користувача впливають на те, що відображається. Таймер стимулює діяти, а не чекати завершення відліку.'
+        }
+      ],
+      chip: 'Чи мотивувало б тебе працювати те, що твої дії перетворюються на живий візуальний процес?',
+      caption: 'tocuh designer concept'
+    },
+    10: {
+      items: [
+        {
+          label: 'Positioning',
+          text: 'Арт-обʼєкт для усвідомленого фокусу. Працює на робочому столі як тиха присутність, а не як інструмент контролю часу.'
+        },
+        {
+          label: 'Design',
+          text: 'Монолітна, стримана форма без декоративних елементів. Обʼєкт виглядає як скульптура або елемент інтерʼєру. Дизайн навмисно не привʼязаний до образу таймера.'
+        },
+        {
+          label: 'Control',
+          text: 'Час задається один раз на початку сесії. Користувач не взаємодіє з обʼєктом під час роботи і не отримує додаткових сигналів.'
+        },
+        {
+          label: 'Behavior',
+          text: 'Час не показується цифрами. Плин сесії зчитується через рух чорного квадрата, який повільно опускається вниз. Робота відбувається без зворотного відліку і без напруги очікування.'
+        }
+      ],
+      chip: 'Чи комфортно тобі працювати з таймером, який не показує час напряму?',
+      caption: 'Фокус без цифр і сигналів'
+    }
+  };
+
+  function setImgWithFallback(imgEl, candidates, opts) {
+    if (!imgEl) return;
+    const options = opts && typeof opts === 'object' ? opts : {};
+    const list = (Array.isArray(candidates) ? candidates : []).filter(Boolean);
+    let idx = 0;
+
+    const tryNext = () => {
+      if (idx >= list.length) {
+        if (typeof options.onFail === 'function') options.onFail();
+        return;
+      }
+      imgEl.src = list[idx++];
+    };
+
+    imgEl.onerror = () => tryNext();
+    tryNext();
+  }
+
+  function setSmartCrop(imgEl){
+    if (!imgEl || !imgEl.naturalWidth || !imgEl.naturalHeight) return;
+    const r = imgEl.naturalWidth / imgEl.naturalHeight;
+
+    // якщо близько до 16:10 (2400x1500)
+    if (Math.abs(r - (16/10)) < 0.03){
+      imgEl.style.setProperty('--crop-y', '42%'); // трохи вище центру
+      imgEl.style.setProperty('--crop-x', '50%');
+    }
+  }
+
+  let currentSlide = 1;
+
+  const getSlides = () => Array.from(document.querySelectorAll('.slide'));
+
+  const setCounter = (t) => {
+    const el = document.getElementById('totalSlides');
+    if (el) el.textContent = String(t);
+  };
+
+  const setCurrent = (n) => {
+    const el = document.getElementById('currentSlide');
+    if (el) el.textContent = String(n);
+  };
+
+  const setButtons = (t) => {
+    const p = document.getElementById('prevBtn');
+    const n = document.getElementById('nextBtn');
+    if (p) p.disabled = currentSlide === 1;
+    if (n) n.disabled = currentSlide === t;
+  };
+
+  function syncScrubber(total) {
+    const range = document.getElementById('scrubberRange');
+    if (range) {
+      range.max = String(total);
+      range.value = String(currentSlide);
+    }
+  }
+
+  function showSlide(n) {
+    const slides = getSlides();
+    const total = slides.length;
+    if (!total) return;
+
+    const safe = Math.max(1, Math.min(n, total));
+    slides.forEach((s) => s.classList.remove('active'));
+
+    const target = slides[safe - 1];
+    if (!target) return;
+    target.classList.add('active');
+
+    const slide4 = document.getElementById('slide4');
+    if (slide4) {
+      slide4.classList.remove('animate-line');
+      void slide4.offsetWidth;
+    }
+    if (target.id === 'slide4' && slide4) slide4.classList.add('animate-line');
+
+    // PiP assistant slide sync
+    if (window.__pipSetSlide && target && target.id) {
+      window.__pipSetSlide(target.id);
+    }
+
+    currentSlide = safe;
+    setCurrent(currentSlide);
+    setCounter(total);
+    setButtons(total);
+    syncScrubber(total);
+  }
+
+  function bindNav() {
+    const prev = document.getElementById('prevBtn');
+    const next = document.getElementById('nextBtn');
+
+    if (prev) prev.addEventListener('click', () => showSlide(currentSlide - 1));
+    if (next) next.addEventListener('click', () => showSlide(currentSlide + 1));
+
+    document.addEventListener('keydown', (e) => {
+      const active = document.activeElement;
+      const inCarousel = active && active.closest && active.closest('.proto-carousel');
+      const inInput = active && active.tagName === 'INPUT';
+      if (inCarousel || inInput) return;
+      if (e.key === 'ArrowLeft') showSlide(currentSlide - 1);
+      if (e.key === 'ArrowRight') showSlide(currentSlide + 1);
+    });
+
+    const range = document.getElementById('scrubberRange');
+    if (range) {
+      let raf = 0;
+      range.addEventListener('input', () => {
+        const v = Number(range.value);
+        if (!Number.isFinite(v)) return;
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => showSlide(v));
+      });
+    }
+  }
+
+  const makeId = (p, kind) => `p${pad2(p)}_${kind}`;
+  const infoNum = (p) => String(4 + p).padStart(2, '0');
+
+  function protoPhoto(p, i) {
+    const slide = document.createElement('div');
+    slide.className = 'slide image-only-slide';
+    slide.id = makeId(p, `photo${i}`);
+
+    const img = document.createElement('img');
+    img.className = 'full-bleed-img';
+    img.alt = `Prototype ${pad2(p)} — Render${pad2(i)}`;
+    slide.appendChild(img);
+
+    const ph = document.createElement('div');
+    ph.className = 'img-missing';
+    ph.style.display = 'flex';
+    const firstGuess = `${folderCandidates(p)[0]}/Render${pad2(i)}.png`;
+    ph.innerHTML =
+      `<div class="tag">Missing image</div>` +
+      `<div class="hint">Не знайшов файл для <strong>Prototype ${pad2(p)}</strong>, кадр <strong>${i}</strong>.<br>Перевір шлях/назву (розширення теж).</div>` +
+      `<code>${firstGuess}</code>`;
+    slide.appendChild(ph);
+
+    return slide;
+  }
+
+  function protoInfo(p) {
+    const label = pad2(p);
+    const slide = document.createElement('div');
+    slide.className = 'slide content-slide';
+    slide.id = makeId(p, 'info');
+
+    const folderHint = folderCandidates(p)[0];
+    const overview = protoOverviewByNumber[p] || protoOverviewDefault;
+    const overviewList = (overview.items || [])
+      .map((item) => `<li><strong>${item.label}</strong> ${item.text}</li>`)
+      .join('');
+    const overviewChip = overview.chip ? `<div class="chip">${overview.chip}</div>` : '';
+    const overviewCaption = overview.caption || protoOverviewDefault.caption || '';
+
+    slide.innerHTML =
+      `<div class="slide-number">${infoNum(p)}</div>` +
+      `<div><h2>Prototype ${label}</h2><p class="sub">Варіант для тесту. В кінці — обираєш фаворита.</p></div>` +
+      `<div class="proto-layout">` +
+        `<div class="panel accent">` +
+          `<div class="pk">VISUAL</div><div class="pt">Render / Photo</div>` +
+          `<div class="hero proto-carousel" data-carousel="prototype${label}" aria-label="Prototype ${label} images carousel">` +
+            `<button class="carousel-btn prev" type="button" aria-label="Previous image">←</button>` +
+            `<img class="carousel-img" src="" alt="Prototype ${label} image" />` +
+            `<button class="carousel-btn next" type="button" aria-label="Next image">→</button>` +
+            `<div class="carousel-dots" aria-label="Select image"></div>` +
+            `<div class="carousel-count" aria-hidden="true"></div>` +
+            `<div class="carousel-fallback" aria-hidden="true">PLACEHOLDER IMAGES<br>${folderHint}/Render01.png<br>Render02.png • Render03.png</div>` +
+          `</div>` +
+          `<div class="caption">${overviewCaption}</div>` +
+        `</div>` +
+        `<div class="panel">` +
+          `<div class="pk">WHAT DEFINES THIS PROTOTYPE</div><div class="pt">Prototype overview</div>` +
+          `<ul class="plist">` +
+            `${overviewList}` +
+          `</ul>` +
+          `<div class="pchips">` +
+            `${overviewChip}` +
+          `</div>` +
+        `</div>` +
+      `</div>`;
+
+    return slide;
+  }
+
+  function inject02to10() {
+    const mount = document.getElementById('prototypesMount');
+    if (!mount) return;
+
+    const frag = document.createDocumentFragment();
+    for (let p = 2; p <= 10; p++) {
+      frag.appendChild(protoPhoto(p, 1));
+      frag.appendChild(protoPhoto(p, 2));
+      frag.appendChild(protoPhoto(p, 3));
+      frag.appendChild(protoInfo(p));
+    }
+
+    mount.replaceChildren(frag);
+  }
+
+  function parseProtoNumFromKey(key) {
+    const m = String(key || '').match(/^prototype([0-9]{1,2})$/);
+    if (!m) return null;
+    return Number(m[1]);
+  }
+
+  function initCarousels() {
+    const els = Array.from(document.querySelectorAll('.proto-carousel[data-carousel]'));
+
+    els.forEach((el) => {
+      const key = el.getAttribute('data-carousel') || '';
+      const protoNum = parseProtoNumFromKey(key);
+
+      const img = el.querySelector('.carousel-img');
+      const fallback = el.querySelector('.carousel-fallback');
+      const dots = el.querySelector('.carousel-dots');
+      const counter = el.querySelector('.carousel-count');
+      const prev = el.querySelector('.carousel-btn.prev');
+      const next = el.querySelector('.carousel-btn.next');
+
+      let index = 0;
+
+      const showFallback = (v) => {
+        if (fallback) fallback.style.display = v ? 'flex' : 'none';
+        if (img) img.style.opacity = v ? '0' : '1';
+      };
+
+      const setCount = () => {
+        if (counter) counter.textContent = `${(index % 3) + 1} / 3`;
+      };
+
+      const buildDots = () => {
+        if (!dots) return;
+        dots.innerHTML = '';
+        for (let i = 0; i < 3; i++) {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'carousel-dot' + (i === (index % 3) ? ' active' : '');
+          b.setAttribute('aria-label', `Go to image ${i + 1}`);
+          b.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            setIndex(i);
+          });
+          dots.appendChild(b);
+        }
+      };
+
+      function candidatesForLogical(logicalIndex) {
+        if (!protoNum) return [];
+        return renderCandidates(protoNum, (logicalIndex % 3) + 1);
+      }
+
+      function setIndex(newLogical) {
+        index = (newLogical + 3) % 3;
+        buildDots();
+        setCount();
+
+        const candidates = candidatesForLogical(index);
+        if (!img || candidates.length === 0) {
+          showFallback(true);
+          if (prev) prev.disabled = true;
+          if (next) next.disabled = true;
+          return;
+        }
+
+        if (prev) prev.disabled = false;
+        if (next) next.disabled = false;
+
+        const tmp = new Image();
+        let ci = 0;
+
+        const tryNext = () => {
+          if (ci >= candidates.length) {
+            showFallback(true);
+            return;
+          }
+          const src = candidates[ci++];
+          tmp.onload = () => {
+            img.src = src;
+            img.alt = `${key} image ${index + 1}`;
+            showFallback(false);
+            img.onload = () => setSmartCrop(img);
+          };
+          tmp.onerror = () => tryNext();
+          tmp.src = src;
+        };
+
+        tryNext();
+      }
+
+      if (prev) prev.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        setIndex(index - 1);
+      });
+
+      if (next) next.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        setIndex(index + 1);
+      });
+
+      el.addEventListener('click', () => setIndex(index + 1));
+
+      el.setAttribute('tabindex', '0');
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          e.stopPropagation();
+          setIndex(index - 1);
+        }
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          e.stopPropagation();
+          setIndex(index + 1);
+        }
+      });
+
+      setIndex(0);
+    });
+  }
+
+  function ensureMissingOverlay(slide, protoNum, idx) {
+    if (!slide) return null;
+
+    let ph = slide.querySelector('.img-missing');
+    if (ph) return ph;
+
+    ph = document.createElement('div');
+    ph.className = 'img-missing';
+    ph.style.display = 'none';
+
+    const protoLabel = pad2(protoNum);
+    const fileLabel = `Render${pad2(idx)}`;
+    const firstGuess = `${folderCandidates(protoNum)[0]}/${fileLabel}.png`;
+
+    ph.innerHTML =
+      `<div class="tag">Missing image</div>` +
+      `<div class="hint">Не знайшов файл для <strong>Prototype ${protoLabel}</strong>, кадр <strong>${idx}</strong>.<br>Перевір шлях/назву (розширення теж).</div>` +
+      `<code>${firstGuess}</code>`;
+
+    slide.appendChild(ph);
+    return ph;
+  }
+
+  function hydrateFullscreenPrototypeImages() {
+    const imgs = Array.from(document.querySelectorAll('.image-only-slide img.full-bleed-img'));
+
+    imgs.forEach((img) => {
+      const slide = img.closest && img.closest('.slide');
+      const id = slide && slide.id ? String(slide.id) : '';
+      const m = id.match(/^p([0-9]{2})_?photo([0-9])$/);
+      if (!m) return;
+
+      const protoNum = Number(m[1]);
+      const idx = Number(m[2]);
+      if (!Number.isFinite(protoNum) || !Number.isFinite(idx)) return;
+
+      if (slide) slide.style.background = '#0b0b0b';
+
+      const ph = ensureMissingOverlay(slide, protoNum, idx);
+      if (ph) ph.style.display = 'flex';
+
+      const candidates = renderCandidates(protoNum, idx);
+
+      img.onload = () => {
+        if (ph) ph.style.display = 'none';
+        setSmartCrop(img);
+      };
+
+      setImgWithFallback(img, candidates, {
+        onFail: () => {
+          if (ph) ph.style.display = 'flex';
+        },
+      });
+    });
+  }
+
+  function hydratePrototype01StaticPhotos() {
+    for (let i = 1; i <= 3; i++) {
+      const slide = document.getElementById(`p01_photo${i}`);
+      if (!slide) continue;
+      const img = slide.querySelector('img.full-bleed-img');
+      if (!img) continue;
+
+      const ph = ensureMissingOverlay(slide, 1, i);
+      if (ph) ph.style.display = 'flex';
+
+      setImgWithFallback(img, renderCandidates(1, i), {
+        onFail: () => {
+          if (ph) ph.style.display = 'flex';
+        },
+      });
+
+      img.onload = () => {
+        if (ph) ph.style.display = 'none';
+        setSmartCrop(img);
+      };
+    }
+  }
+
+  function runSelfTests() {
+    console.groupCollapsed('[Focus] self-tests');
+
+    console.assert(Array.isArray(folderCandidates(2)), 'folderCandidates(2) must return an array');
+    console.assert(folderCandidates(2)[0] === 'image/slide-5/prototype2', 'prototype2 path should be first candidate');
+
+    const rc = renderCandidates(2, 1);
+    console.assert(rc.length >= 5, 'renderCandidates should provide multiple fallbacks');
+    console.assert(rc[0].includes('prototype2') && rc[0].includes('Render01'), 'first render candidate should target prototype2/Render01');
+
+    const slides = getSlides();
+    console.assert(slides.length >= 7, 'slides should include base + prototype slides (expected >= 7)');
+
+    const range = document.getElementById('scrubberRange');
+    console.assert(!!range, 'scrubber element must exist');
+
+    console.groupEnd();
+  }
+
+  function initFinalPicker(){
+    const grid = document.getElementById('pickGrid');
+    const title = document.getElementById('pickTitle');
+    const previewImg = document.getElementById('pickPreviewImg');
+    const previewFallback = document.getElementById('pickPreviewFallback');
+    const text = document.getElementById('pickText');
+    const sendBtn = document.getElementById('sendPickBtn');
+    const clearBtn = document.getElementById('clearPickBtn');
+
+    if (!grid || !title || !previewImg || !previewFallback || !text) return;
+
+    const keyLS = 'focus_pick_proto';
+    let selected = Number(localStorage.getItem(keyLS) || 0);
+
+    const protoLabel = (p) => `Prototype ${String(p).padStart(2,'0')}`;
+
+    const makeFeedback = (p) => {
+      const label = protoLabel(p);
+      return [
+        `Чому саме цей прототип?`,
+        `Що в ньому працює для тебе, а що хотілося б змінити?`,
+      ].join('\n');
+    };
+
+    const setSelectedUI = (p) => {
+      selected = p;
+
+      // highlight cards
+      const cards = Array.from(grid.querySelectorAll('.pick-card'));
+      cards.forEach(c => c.classList.toggle('selected', Number(c.dataset.p) === p));
+
+      // right panel title + text
+      title.textContent = protoLabel(p);
+      text.value = makeFeedback(p);
+
+      // preview image (Render01)
+      previewFallback.style.display = 'flex';
+      previewImg.style.opacity = '0';
+
+      const candidates = renderCandidates(p, 1);
+      setImgWithFallback(previewImg, candidates, {
+        onFail: () => {
+          previewFallback.textContent = 'Preview image not found';
+          previewFallback.style.display = 'flex';
+          previewImg.style.opacity = '0';
+        }
+      });
+
+      previewImg.onload = () => {
+        previewFallback.style.display = 'none';
+        previewImg.style.opacity = '1';
+        setSmartCrop(previewImg);
+      };
+
+      // persist
+      try { localStorage.setItem(keyLS, String(p)); } catch(e){}
+    };
+
+    // build grid cards 1..10
+    grid.innerHTML = '';
+    for (let p = 1; p <= 10; p++){
+      const card = document.createElement('div');
+      card.className = 'pick-card';
+      card.dataset.p = String(p);
+
+      const thumb = document.createElement('div');
+      thumb.className = 'pick-thumb';
+
+      const img = document.createElement('img');
+      img.alt = `${protoLabel(p)} thumbnail`;
+      thumb.appendChild(img);
+
+      // thumb image (Render01)
+      setImgWithFallback(img, renderCandidates(p, 1), {
+        onFail: () => { /* залишиться пустий thumb */ }
+      });
+
+      const meta = document.createElement('div');
+      meta.className = 'pick-meta';
+      meta.innerHTML = `
+        <div class="name">${protoLabel(p)}</div>
+        <div class="desc">Click to select</div>
+      `;
+
+      card.appendChild(thumb);
+      card.appendChild(meta);
+
+      card.addEventListener('click', () => setSelectedUI(p));
+      grid.appendChild(card);
+    }
+
+    // buttons
+    if (sendBtn){
+      sendBtn.addEventListener('click', () => {
+        const msg = String(text.value || '').trim();
+        if (!msg) return;
+
+        const proto = String(title.textContent || 'Prototype —').trim();
+        const full = `${proto}\n\n${msg}`;
+
+        const tgApp = `tg://resolve?domain=dima_gavriliv&text=${encodeURIComponent(full)}`;
+        const tgWeb = `https://t.me/dima_gavriliv?text=${encodeURIComponent(full)}`;
+
+        window.location.href = tgApp;
+        setTimeout(() => window.open(tgWeb, '_blank'), 300);
+      });
+    }
+
+    if (clearBtn){
+      clearBtn.addEventListener('click', () => {
+        selected = 0;
+        try { localStorage.removeItem(keyLS); } catch(e){}
+        const cards = Array.from(grid.querySelectorAll('.pick-card'));
+        cards.forEach(c => c.classList.remove('selected'));
+        title.textContent = 'Prototype —';
+        text.value = '';
+        previewFallback.textContent = 'Select a prototype to preview';
+        previewFallback.style.display = 'flex';
+        previewImg.style.opacity = '0';
+        previewImg.removeAttribute('src');
+      });
+    }
+
+    // restore previous selection
+    if (Number.isFinite(selected) && selected >= 1 && selected <= 10){
+      setSelectedUI(selected);
+    } else {
+      // default: none selected
+      title.textContent = 'Prototype —';
+      text.value = '';
+    }
+  }
+
+  /* =========================
+     VIDEO ASSISTANT (PiP) JS
+     ========================= */
+
+  // 1) Мапа слайд -> (пізніше сюди вставиш Vimeo embed url)
+  const slideNarration = {
+    // базові
+    slide1: 'https://player.vimeo.com/video/1161440024?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    slide2: 'https://player.vimeo.com/video/1161860774?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    slide3: 'https://player.vimeo.com/video/1161860936?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    slide4: 'https://player.vimeo.com/video/1161871286?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+
+    // прототипи (приклади)
+    p01_info: 'https://player.vimeo.com/video/1161872842?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p02_info: 'https://player.vimeo.com/video/1161873360?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p03_info: 'https://player.vimeo.com/video/1161873642?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p04_info: 'https://player.vimeo.com/video/1161873933?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p05_info: 'https://player.vimeo.com/video/1161874183?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p06_info: 'https://player.vimeo.com/video/1161875302?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p07_info: 'https://player.vimeo.com/video/1161875716?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p08_info: 'https://player.vimeo.com/video/1161876268?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p09_info: 'https://player.vimeo.com/video/1161876603?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p10_info: 'https://player.vimeo.com/video/1161877156?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    final_pick: 'https://player.vimeo.com/video/1161877736?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+
+    // можеш додати що хочеш:
+    // p02_info: null, p03_info: null ...
+  };
+
+  // 2) Тексти для placeholder (щоб виглядало “живіше”)
+  const slideTitles = {
+    slide1: 'Intro / What is this?',
+    slide2: 'Visual Context',
+    slide3: 'Product Concept',
+    slide4: "What’s next",
+    p01_info: 'Prototype 01',
+    p02_info: 'Prototype 02',
+    p03_info: 'Prototype 03',
+    p04_info: 'Prototype 04',
+    p05_info: 'Prototype 05',
+    p06_info: 'Prototype 06',
+    p07_info: 'Prototype 07',
+    p08_info: 'Prototype 08',
+    p09_info: 'Prototype 09',
+    p10_info: 'Prototype 10',
+    final_pick: 'Pick your favorite',
+  };
+
+  function initPiPAssistant(){
+    const pip = document.getElementById('pip');
+    const pipInner = document.getElementById('pipInner');
+    let pipFrame = document.getElementById('pipFrame');
+    const pipOverlay = document.getElementById('pipOverlay');
+    const pipTitle = document.getElementById('pipTitle');
+    const pipSub = document.getElementById('pipSub');
+    const pipPlay = document.getElementById('pipPlay');
+    const pipStop = document.getElementById('pipStop');
+    const pipMin = document.getElementById('pipMin');
+    const pipLaunch = document.getElementById('pipLaunch');
+
+    if (!pip || !pipInner || !pipFrame || !pipOverlay || !pipTitle || !pipSub || !pipPlay || !pipStop || !pipMin || !pipLaunch) return;
+
+    const LS_KEY = 'focus_pip_pos';
+    const MIN_KEY = 'focus_pip_minimized_v1';
+
+    let activeSlideId = null;
+    let isDragging = false;
+    let dragStart = { x: 0, y: 0 };
+    let pipStart = { x: 0, y: 0 };
+
+    // helper: get viewport bounds and clamp
+    const clamp = (v, a, b) => Math.max(a, Math.min(v, b));
+
+    const getPos = () => {
+      const rect = pip.getBoundingClientRect();
+      return { x: rect.left, y: rect.top, w: rect.width, h: rect.height };
+    };
+
+    const setPos = (x, y) => {
+      pip.style.left = `${x}px`;
+      pip.style.top = `${y}px`;
+      pip.style.right = 'auto';
+      pip.style.bottom = 'auto';
+    };
+
+    const savePos = () => {
+      const p = getPos();
+      try { localStorage.setItem(LS_KEY, JSON.stringify({ x: p.x, y: p.y })); } catch(e){}
+    };
+
+    const restorePos = () => {
+      try{
+        const raw = localStorage.getItem(LS_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        if (!data || typeof data.x !== 'number' || typeof data.y !== 'number') return;
+
+        // clamp on restore
+        const p = getPos();
+        const maxX = window.innerWidth - p.w - 10;
+        const maxY = window.innerHeight - p.h - 10;
+        setPos(clamp(data.x, 10, maxX), clamp(data.y, 10, maxY));
+      }catch(e){}
+    };
+
+    const setMinimized = (v) => {
+      try { localStorage.setItem(MIN_KEY, v ? '1' : '0'); } catch(e){}
+      pip.classList.toggle('is-minimized', v);
+      pipLaunch.classList.toggle('is-visible', v);
+    };
+
+    const restoreMinState = () => {
+      let isMin = false;
+      try { isMin = localStorage.getItem(MIN_KEY) === '1'; } catch(e){}
+      setMinimized(isMin);
+    };
+
+    // Vimeo player instance
+    let vimeoPlayer = null;
+    let isPaused = true;
+
+    const bindVimeoEvents = (player) => {
+      if (!player || typeof player.on !== 'function') return;
+
+      player.on('ended', async () => {
+        try {
+          await player.setCurrentTime(0);
+          await player.pause();
+        } catch(e){}
+
+        isPaused = true;
+        setPlayLabel();
+        pip.dataset.state = 'ready';
+      });
+    };
+
+    // ✅ token to prevent async race (Reset -> Play)
+    let actionSeq = 0;
+    const nextAction = () => ++actionSeq;
+
+    const setPlayLabel = () => {
+      pipPlay.textContent = isPaused ? 'Play' : 'Pause';
+    };
+
+    const recreatePipFrame = () => {
+      // робимо новий iframe з тими ж атрибутами (важливо для Vimeo SDK)
+      const fresh = document.createElement('iframe');
+      fresh.id = 'pipFrame';
+      fresh.className = 'pip-frame';
+      fresh.title = 'Slide narration';
+      fresh.loading = 'lazy';
+      fresh.allow = 'autoplay; fullscreen; picture-in-picture';
+      fresh.setAttribute('allowfullscreen', '');
+      fresh.referrerPolicy = 'strict-origin-when-cross-origin';
+
+      // заміняємо в DOM
+      if (pipFrame && pipFrame.parentNode) {
+        pipFrame.replaceWith(fresh);
+      } else {
+        pipInner.prepend(fresh);
+      }
+      pipFrame = fresh; // ✅ оновили ref
+    };
+
+    // video state helpers
+    const stopVideo = async () => {
+      const mySeq = nextAction();
+
+      pip.dataset.state = 'idle';
+
+      const playerToStop = vimeoPlayer;
+      vimeoPlayer = null;
+
+      // ✅ важливо: прибираємо старий player правильно
+      try { if (playerToStop) await playerToStop.destroy(); } catch(e){}
+
+      // ✅ важливо: робимо чистий iframe (інакше Vimeo може “залипати”)
+      recreatePipFrame();
+
+      isPaused = true;
+      setPlayLabel();
+
+      pipPlay.disabled = false;
+      pipStop.disabled = true;
+      pipOverlay.style.pointerEvents = 'none';
+
+      if (mySeq !== actionSeq) return;
+    };
+
+    const togglePlayPause = async () => {
+      const mySeq = nextAction();
+
+      const url = slideNarration[activeSlideId] || null;
+
+      if (!url){
+        pipSub.textContent = 'Coming soon — add Vimeo link for this slide';
+        pip.animate([{ transform:'scale(1)' }, { transform:'scale(1.02)' }, { transform:'scale(1)' }], { duration: 280 });
+        return;
+      }
+
+      // If not loaded yet -> load and play
+      if (!pipFrame.getAttribute('src')) {
+        pipFrame.src = url;
+        pip.dataset.state = 'playing';
+        pipStop.disabled = false;
+
+        vimeoPlayer = new Vimeo.Player(pipFrame);
+        bindVimeoEvents(vimeoPlayer);
+
+        try {
+          // ✅ чекаємо, поки Vimeo реально підʼєднається до iframe
+          await vimeoPlayer.ready();
+          await vimeoPlayer.play();
+        } catch(e){
+          // якщо play не вдався — повертаємо UI в "Play"
+          if (mySeq !== actionSeq) return;
+          isPaused = true;
+          setPlayLabel();
+          return;
+        }
+
+        if (mySeq !== actionSeq) return;
+
+        isPaused = false;
+        setPlayLabel();
+        return;
+      }
+
+      if (!vimeoPlayer) {
+        vimeoPlayer = new Vimeo.Player(pipFrame);
+        bindVimeoEvents(vimeoPlayer);
+      }
+
+      try {
+        await vimeoPlayer.ready();
+
+        if (isPaused) {
+          await vimeoPlayer.play();
+          if (mySeq !== actionSeq) return;
+          isPaused = false;
+        } else {
+          await vimeoPlayer.pause();
+          if (mySeq !== actionSeq) return;
+          isPaused = true;
+        }
+      } catch(e){
+        // якщо щось зламалось — перестрахуємось
+        if (mySeq !== actionSeq) return;
+        isPaused = true;
+      }
+
+      if (mySeq !== actionSeq) return;
+      setPlayLabel();
+    };
+
+    // update placeholder per slide
+    const setSlideContext = (slideId) => {
+      activeSlideId = slideId;
+
+      const shouldBrighten = /^p\d{2}_info$/.test(String(slideId || '')) || slideId === 'final_pick';
+      pip.classList.toggle('is-brightened', shouldBrighten);
+
+      const nice = slideTitles[slideId] || slideId || 'This slide';
+      pipTitle.textContent = nice;
+
+      const has = !!slideNarration[slideId];
+      pipSub.textContent = has
+        ? 'Click Play to hear Dmytro’s note'
+        : 'No video yet — you can add it later (Vimeo)';
+
+      // при зміні слайду — стопаємо відео (щоб не говорило не в тему)
+      (async () => {
+        await stopVideo();
+        isPaused = true;
+        setPlayLabel();
+      })();
+
+      // ✅ Hide PiP on image-only slides (full-screen photos)
+      const slideEl = document.getElementById(slideId);
+      const isPhotoSlide = !!(slideEl && slideEl.classList && slideEl.classList.contains('image-only-slide'));
+
+      if (isPhotoSlide){
+        // stop + fully hide (no PiP, no launcher)
+        stopVideo();
+        pip.classList.add('is-suppressed');
+        pipLaunch.classList.add('is-suppressed');
+        return;
+      }
+
+      // back to normal slides
+      pip.classList.remove('is-suppressed');
+      pipLaunch.classList.remove('is-suppressed');
+
+      // restore minimized state (what user chose)
+      restoreMinState();
+    };
+
+    // drag logic (ignore clicks on buttons)
+    const isInteractiveTarget = (el) => {
+      if (!el) return false;
+      return !!el.closest('button') || el.tagName === 'IFRAME' || !!el.closest('textarea') || !!el.closest('input');
+    };
+
+    const isDragHandle = (el) => {
+      if (!el) return false;
+      return !!el.closest('.pip-drag-handle');
+    };
+
+    const onPointerDown = (e) => {
+      if (!isDragHandle(e.target)) return;
+      if (isInteractiveTarget(e.target)) return;
+
+      isDragging = true;
+      pip.setPointerCapture(e.pointerId);
+
+      const p = getPos();
+      pipStart = { x: p.x, y: p.y };
+      dragStart = { x: e.clientX, y: e.clientY };
+    };
+
+    const onPointerMove = (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - dragStart.x;
+      const dy = e.clientY - dragStart.y;
+
+      const p = getPos();
+      const maxX = window.innerWidth - p.w - 10;
+      const maxY = window.innerHeight - p.h - 10;
+
+      const nx = clamp(pipStart.x + dx, 10, maxX);
+      const ny = clamp(pipStart.y + dy, 10, maxY);
+
+      setPos(nx, ny);
+    };
+
+    const onPointerUp = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      savePos(); // ✅ просто зберігаємо позицію, без snap
+    };
+
+    pip.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+
+    // buttons
+    pipPlay.addEventListener('click', (e) => { e.stopPropagation(); togglePlayPause(); });
+    pipStop.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      await stopVideo();
+    });
+
+    pipMin.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setMinimized(true);
+    });
+
+    pipLaunch.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setMinimized(false);
+
+      // невеликий “пінг”, щоб було видно що воно повернулось
+      pip.animate([{ transform:'scale(1)' }, { transform:'scale(1.02)' }, { transform:'scale(1)' }], { duration: 220 });
+    });
+
+    // convert initial right/top positioning into left/top once
+    const r = pip.getBoundingClientRect();
+    setPos(r.left, r.top);
+
+    const placeDefault = () => {
+      // якщо позиція не збережена — ставимо “видимо” (правіше від центру)
+      let hasSaved = false;
+      try{ hasSaved = !!localStorage.getItem(LS_KEY); }catch(e){}
+      if (hasSaved) return;
+
+      const p = getPos();
+      const x = Math.round(window.innerWidth * 0.70 - p.w/2);
+      const y = Math.round(window.innerHeight * 0.18);
+      const maxX = window.innerWidth - p.w - 10;
+      const maxY = window.innerHeight - p.h - 10;
+      setPos(clamp(x, 10, maxX), clamp(y, 10, maxY));
+      savePos();
+    };
+
+    // --- HINT LOOP: blink until user touches PiP (per refresh/session) ---
+    const TOUCHED_KEY = 'focus_pip_touched_session_v1';
+
+    let hintTimer = 0;
+
+    const hasTouched = () => {
+      try { return sessionStorage.getItem(TOUCHED_KEY) === '1'; } catch(e){ return false; }
+    };
+
+    const markTouched = () => {
+      try { sessionStorage.setItem(TOUCHED_KEY, '1'); } catch(e){}
+      pip.classList.add('is-touched');
+      stopHintLoop();
+    };
+
+    const startHintLoop = () => {
+      if (hasTouched()) {
+        pip.classList.add('is-touched');
+        return;
+      }
+
+      const reduceMotion = window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // перший “пінг” через 1.5с
+      const ping = () => {
+        if (hasTouched()) return;
+
+        pip.classList.add('is-hinting');
+        if (reduceMotion) pip.style.animation = 'none';
+
+        setTimeout(() => {
+          pip.classList.remove('is-hinting');
+          if (reduceMotion) pip.style.animation = '';
+        }, 1200);
+      };
+
+      setTimeout(ping, 1500);
+      hintTimer = window.setInterval(ping, 4500); // повтор кожні 4.5с, поки не торкнулись
+    };
+
+    const stopHintLoop = () => {
+      if (hintTimer) { clearInterval(hintTimer); hintTimer = 0; }
+      pip.classList.remove('is-hinting');
+    };
+
+    // ловимо ПЕРШУ будь-яку взаємодію з PiP (клік, тач, початок drag)
+    // capture:true щоб спіймати навіть натиск на кнопку всередині
+    pip.addEventListener('pointerdown', markTouched, { capture: true, once: true });
+    pip.addEventListener('touchstart', markTouched, { capture: true, once: true });
+    pip.addEventListener('mousedown', markTouched, { capture: true, once: true });
+
+    restorePos();
+    placeDefault();
+    startHintLoop();
+    restoreMinState();
+
+    // on resize, keep within bounds
+    window.addEventListener('resize', () => {
+      const p = getPos();
+      const maxX = window.innerWidth - p.w - 10;
+      const maxY = window.innerHeight - p.h - 10;
+      setPos(clamp(p.x, 10, maxX), clamp(p.y, 10, maxY));
+      savePos();
+    });
+
+    // expose a hook for showSlide()
+    window.__pipSetSlide = setSlideContext;
+
+    // init with current active slide
+    const active = document.querySelector('.slide.active');
+    setSlideContext(active && active.id ? active.id : 'slide1');
+  }
+
+  function boot() {
+    inject02to10();
+    hydratePrototype01StaticPhotos();
+    hydrateFullscreenPrototypeImages();
+    initCarousels();
+    bindNav();
+
+    initFinalPicker();
+    initPiPAssistant();
+
+    requestAnimationFrame(() => {
+      updateScale();
+      showSlide(1);
+    });
+
+    // ще раз після повного завантаження ресурсів (шрифти/картинки)
+    window.addEventListener('load', () => {
+      updateScale();
+    });
+
+    runSelfTests();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+  </script>
+</body>
+</html>
+
+
