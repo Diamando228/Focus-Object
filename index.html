@@ -2291,6 +2291,24 @@
       if (e.key === 'ArrowRight') showSlide(currentSlide + 1);
     });
 
+    let wheelAccum = 0;
+    let wheelRaf = 0;
+
+    const applyWheelDelta = (delta) => {
+      wheelAccum += delta;
+      if (wheelRaf) return;
+      wheelRaf = requestAnimationFrame(() => {
+        const stepSize = 100;
+        const stepsRaw = Math.trunc(wheelAccum / stepSize);
+        const steps = Math.max(-4, Math.min(4, stepsRaw));
+        if (steps !== 0) {
+          showSlide(currentSlide + steps);
+          wheelAccum -= steps * stepSize;
+        }
+        wheelRaf = 0;
+      });
+    };
+
     const range = document.getElementById('scrubberRange');
     if (range) {
       let raf = 0;
@@ -2300,7 +2318,30 @@
         if (raf) cancelAnimationFrame(raf);
         raf = requestAnimationFrame(() => showSlide(v));
       });
+
+      range.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        applyWheelDelta(e.deltaY);
+      }, { passive: false });
     }
+
+    const scrubber = document.getElementById('slideScrubber');
+    if (scrubber) {
+      scrubber.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        applyWheelDelta(e.deltaY);
+      }, { passive: false });
+    }
+
+    document.addEventListener('wheel', (e) => {
+      const target = e.target;
+      const inInput = target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable);
+      const inCarousel = target && target.closest && target.closest('.proto-carousel');
+      if (inInput || inCarousel) return;
+
+      e.preventDefault();
+      applyWheelDelta(e.deltaY);
+    }, { passive: false });
   }
 
   const makeId = (p, kind) => `p${pad2(p)}_${kind}`;
