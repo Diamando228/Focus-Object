@@ -57,11 +57,6 @@
       transform-origin: 50% 50%;
     }
 
-    body.is-mobile .slide{ padding: 28px 40px 32px 40px; }
-    body.is-mobile .content-slide{ padding: 24px 40px 32px 40px; }
-    body.is-mobile h2{ font-size: calc(52px * var(--textCompSmall)); }
-    body.is-mobile .pip{ right: 12px; top: 12px; }
-
     :root{
       --stage-w: 1920;
       --stage-h: 1080;
@@ -119,9 +114,6 @@
     .image-only-slide.active{display:block}
     .full-bleed-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
 
-    .img-missing{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:18px;background:#0b0b0b;color:#fff;text-align:center;z-index:2}
-    .img-missing .tag{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);font-size:11px;font-weight:800;text-transform:uppercase}
-
     .header{display:flex;justify-content:space-between;align-items:flex-start}
     .title-section h1{font-size: 120px;font-weight:700;letter-spacing:-3px;line-height:.95;color:#000}
     .title-section .tm{font-size: 48px;vertical-align:super;font-weight:400}
@@ -150,7 +142,7 @@
     .card.accent{background:linear-gradient(135deg,rgba(212,255,0,.1),#fff)}
     .clist{list-style:none;margin-top:12px;display:flex;flex-direction:column;gap:10px}
     .clist li{display:grid;grid-template-columns:100px 1fr;gap:10px;padding:10px;border-radius:12px;background:rgba(0,0,0,.03)}
-
+    
     .analogy{margin-top:16px;padding:18px 22px;border-radius:18px;background:#f0f0f0;border:1px solid rgba(0,0,0,.08)}
     .atag{display:inline-block;padding:4px 12px;background:#d4ff00;border-radius:999px;font-size:11px;font-weight:800;margin-bottom:8px}
 
@@ -161,17 +153,12 @@
     .carousel-btn{position:absolute;top:50%;width:32px;height:32px;border-radius:50%;border:none;background:#fff;cursor:pointer;z-index:2}
     .carousel-btn.prev{left:10px}.carousel-btn.next{right:10px}
 
-    .pick-item{background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:12px;padding:8px;display:flex;flex-direction:column;gap:6px;cursor:pointer;transition:transform 150ms ease, box-shadow 150ms ease}
-    .pick-item img{width:100%;height:80px;object-fit:cover;border-radius:8px}
-    .pick-item span{font-size:11px;font-weight:700;color:#111}
-    .pick-item.active{outline:3px solid #d4ff00;box-shadow:0 12px 30px rgba(0,0,0,.15);transform:translateY(-2px)}
-
     .nav-buttons{position:fixed;right:28px;bottom:28px;display:flex;gap:8px;z-index:9999}
     .nav-btn{width:40px;height:40px;background:#fff;border:2px solid #000;border-radius:50%;cursor:pointer;font-weight:800}
     .slide-scrubber{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:9998;padding:10px 20px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border-radius:999px}
     .mini-counter{position:fixed;left:28px;bottom:28px;z-index:9999;padding:8px 12px;background:rgba(0,0,0,.5);color:#fff;border-radius:999px;font-size:12px}
 
-    .pip{position:fixed;right:20px;top:20px;width:220px;aspect-ratio:1/1;background:rgba(0,0,0,.8);border-radius:18px;z-index:9997;overflow:hidden;border:1px solid rgba(255,255,255,0.2)}
+    .pip{position:fixed;right:20px;top:20px;width:220px;aspect-ratio:1/1;background:rgba(20,20,20,.6);backdrop-filter:blur(10px);border-radius:18px;z-index:9997;overflow:hidden;border:1px solid rgba(255,255,255,0.2)}
     .pip-frame{width:100%;height:100%;border:0;opacity:0}
     .pip-overlay{position:absolute;inset:0;padding:15px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff}
     .pip-btn{padding:10px;background:#d4ff00;border:none;border-radius:8px;font-weight:800;cursor:pointer;margin-top:10px}
@@ -206,19 +193,19 @@
           <div class="visual-column">
             <div class="visual-label">ALREADY EXISTS</div>
             <div class="visual-collage">
-              <div class="tile"><img class="thumb" src="../image/slide-3/already-exists/ax_photo01.png" alt=""></div>
-              <div class="tile"><img class="thumb" src="../image/slide-3/already-exists/ax_photo02.png" alt=""></div>
-              <div class="tile"><img class="thumb" src="../image/slide-3/already-exists/ax_photo03.png" alt=""></div>
-              <div class="tile"><img class="thumb" src="../image/slide-3/already-exists/ax_photo04.png" alt=""></div>
+               <div class="tile"><img class="thumb" src="../image/slide-3/already-exists/ax_photo01.png"></div>
+               <div class="tile"><img class="thumb" src="../image/slide-3/already-exists/ax_photo02.png"></div>
+               <div class="tile"><img class="thumb" src="../image/slide-3/already-exists/ax_photo03.png"></div>
+               <div class="tile"><img class="thumb" src="../image/slide-3/already-exists/ax_photo04.png"></div>
             </div>
           </div>
           <div class="visual-column" style="background:#f7f9e6">
             <div class="visual-label">DIRECTION</div>
             <div class="visual-collage">
-              <div class="tile"><img class="thumb" src="../image/slide-3/direction/dire_photo01.png" alt=""></div>
-              <div class="tile"><img class="thumb" src="../image/slide-3/direction/dire_photo02.png" alt=""></div>
-              <div class="tile"><img class="thumb" src="../image/slide-3/direction/dire_photo03.png" alt=""></div>
-              <div class="tile"><img class="thumb" src="../image/slide-3/direction/dire_photo04.png" alt=""></div>
+               <div class="tile"><img class="thumb" src="../image/slide-3/direction/dire_photo01.png"></div>
+               <div class="tile"><img class="thumb" src="../image/slide-3/direction/dire_photo02.png"></div>
+               <div class="tile"><img class="thumb" src="../image/slide-3/direction/dire_photo03.png"></div>
+               <div class="tile"><img class="thumb" src="../image/slide-3/direction/dire_photo04.png"></div>
             </div>
           </div>
         </div>
@@ -227,16 +214,15 @@
       <div id="prototypesMount"></div>
 
       <div class="slide content-slide" id="final_pick">
-        <div class="slide-number">13</div>
+        <div class="slide-number">15</div>
         <h2>Pick your favorite</h2>
-        <p class="sub">Choose one prototype and tell me why.</p>
         <div id="pickGrid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:20px"></div>
       </div>
     </div>
   </div>
 
-  <div class="mini-counter"><span id="currentSlide">1</span> / <span id="totalSlides">13</span></div>
-  <div class="slide-scrubber"><input type="range" id="scrubberRange" min="1" max="13" value="1"></div>
+  <div class="mini-counter"><span id="currentSlide">1</span> / <span id="totalSlides">15</span></div>
+  <div class="slide-scrubber"><input type="range" id="scrubberRange" min="1" max="15" value="1" style="width: 300px;"></div>
   <div class="nav-buttons">
     <button class="nav-btn" id="prevBtn">←</button>
     <button class="nav-btn" id="nextBtn">→</button>
@@ -255,10 +241,6 @@
   <script>
     'use strict';
     let currentSlide = 1;
-    let wheelAcc = 0;
-    let wheelReset = null;
-
-    const vimeoDefault = 'https://player.vimeo.com/video/1163977015?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1';
 
     function injectPrototypes() {
       const mount = document.getElementById('prototypesMount');
@@ -267,12 +249,12 @@
         slide.className = 'slide content-slide';
         slide.id = `proto${p}`;
         slide.innerHTML = `
-          <div class="slide-number">${String(p + 2).padStart(2,'0')}</div>
+          <div class="slide-number">${String(4+p).padStart(2,'0')}</div>
           <h2>Prototype ${String(p).padStart(2,'0')}</h2>
           <div class="proto-layout">
             <div class="panel">
               <div class="hero">
-                <img class="carousel-img" src="../image/slide-5/prototype${p}/Render01.png" alt="">
+                <img class="carousel-img" src="../image/slide-5/prototype${p}/Render01.png">
               </div>
             </div>
             <div class="panel">
@@ -283,30 +265,6 @@
         `;
         mount.appendChild(slide);
       }
-    }
-
-    function buildPickGrid() {
-      const grid = document.getElementById('pickGrid');
-      grid.innerHTML = '';
-      for (let p = 1; p <= 10; p++) {
-        const item = document.createElement('div');
-        item.className = 'pick-item';
-        item.innerHTML = `
-          <img src="../image/slide-5/prototype${p}/Render01.png" alt="">
-          <span>Prototype ${String(p).padStart(2,'0')}</span>
-        `;
-        item.addEventListener('click', () => {
-          grid.querySelectorAll('.pick-item').forEach((node) => node.classList.remove('active'));
-          item.classList.add('active');
-        });
-        grid.appendChild(item);
-      }
-    }
-
-    function updateTotalSlides() {
-      const total = document.querySelectorAll('.slide').length;
-      document.getElementById('totalSlides').textContent = total;
-      document.getElementById('scrubberRange').max = total;
     }
 
     function showSlide(n) {
@@ -326,42 +284,13 @@
       stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
     }
 
-    function handleWheel(event) {
-      const blockTargets = ['input', 'textarea', 'select', 'button'];
-      if (event.target && blockTargets.includes(event.target.tagName.toLowerCase())) return;
-
-      wheelAcc += event.deltaY;
-      if (wheelReset) window.clearTimeout(wheelReset);
-      wheelReset = window.setTimeout(() => { wheelAcc = 0; }, 180);
-
-      if (Math.abs(wheelAcc) > 60) {
-        showSlide(currentSlide + (wheelAcc > 0 ? 1 : -1));
-        wheelAcc = 0;
-      }
-    }
-
-    function bindPip() {
-      const play = document.getElementById('pipPlay');
-      const frame = document.getElementById('pipFrame');
-      play.addEventListener('click', () => {
-        if (!frame.src) frame.src = vimeoDefault;
-        frame.style.opacity = 1;
-      });
-    }
-
     document.getElementById('nextBtn').onclick = () => showSlide(currentSlide + 1);
     document.getElementById('prevBtn').onclick = () => showSlide(currentSlide - 1);
-    document.getElementById('scrubberRange').oninput = (e) => showSlide(parseInt(e.target.value, 10));
-
-    window.addEventListener('wheel', handleWheel, { passive: true });
+    document.getElementById('scrubberRange').oninput = (e) => showSlide(parseInt(e.target.value));
 
     window.onload = () => {
       injectPrototypes();
-      buildPickGrid();
-      updateTotalSlides();
-      showSlide(1);
       updateScale();
-      bindPip();
       window.onresize = updateScale;
     };
   </script>
