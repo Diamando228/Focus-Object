@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Focus Timer Presentation (fixed)</title>
+  <title>Focus Object Presentation (EN)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -24,7 +24,7 @@
       overflow:hidden;
     }
 
-    /* Mobile режим: залишаємо 16:9 вікно по центру, але дозволяємо скрол */
+    /* Mobile mode: keep 16:9 window centered, allow scroll */
     body.is-mobile{
       overflow:auto;
       align-items:center;
@@ -239,7 +239,7 @@
       border: 1px solid rgba(255,255,255,.08);
     }
 
-    /* сцена 1920×1080 масштабується змінною --scale */
+    /* 1920×1080 stage scales via --scale */
     .presentation-stage{
       width: calc(var(--stage-w) * 1px);
       height: calc(var(--stage-h) * 1px);
@@ -259,7 +259,7 @@
       overflow: hidden;
     }
 
-    /* твій старий #prototypesMount ok */
+    /* keep old #prototypesMount */
     #prototypesMount{display:contents}
 
     .slide{background:#f5f5f5;width:100%;height:100%;border-radius:0;padding:56px 76px 56px 76px;position:relative;overflow:hidden;display:none;flex-direction:column;opacity:1;transition:opacity 240ms ease}
@@ -300,12 +300,12 @@
       font-weight: 420;
     }
 
-    /* зробити ритм між абзацами рівним */
+    /* keep rhythm between paragraphs */
     .description p + p{
       margin-top: 10px;
     }
 
-    /* якщо лишаєш inline margin-top в HTML — приб'ємо його акуратно */
+    /* if inline margin-top remains in HTML — normalize it */
     .description p[style*="margin-top"]{
       margin-top: 10px !important;
     }
@@ -404,7 +404,7 @@
     }
 
     /* === Slide 03 (fill cards nicely) === */
-    /* Slide 03 — НЕ чіпаємо display, бо ним керує .slide/.active */
+    /* Slide 03 — do not touch display, controlled by .slide/.active */
     #slide3{
       flex-direction: column;
       min-height: 100%;
@@ -420,12 +420,12 @@
       min-height: 0;
     }
 
-    /* карточки вже flex, але підстрахуємось */
+    /* cards are already flex, but keep safe */
     #slide3 .card{
       min-height: 0;
     }
 
-    /* ✅ головне: список займає весь вільний простір */
+    /* ✅ main: list takes all remaining space */
     #slide3 .clist{
       flex: 1 1 auto;
       min-height: 0;
@@ -436,17 +436,17 @@
 
     /* === Slide 03: typography + spacing polish === */
     #slide3{
-      /* контрольоване повітря між блоками всередині слайду */
+      /* controlled spacing between blocks inside slide */
       --s3-gap: 16px;
       --s3-row-pad: 28px;     /* “м’ясо” рядка */
       --s3-label-fs: 14px;    /* label bigger */
       --s3-value-fs: 15.5px;  /* value bigger */
     }
 
-    /* трохи менше "дірки" після subtitle — щоб влізало красиво */
+    /* slightly less gap after subtitle to fit nicely */
     #slide3 .sub{ margin-top: 26px; }
 
-    /* grid + why lofi мають мати нормальний відступ */
+    /* grid + why lofi need proper spacing */
     #slide3 .concept-grid{
       margin-top: 16px;
       margin-bottom: var(--s3-gap);
@@ -463,12 +463,12 @@
       gap: 10px;                /* ⬅️ ритм між WHY і текстом */
     }
 
-    /* м’ясні рядки — але з керованим padding */
+    /* richer rows with controlled padding */
     #slide3 .clist li{
       padding: var(--s3-row-pad);
     }
 
-    /* збільшуємо типографіку саме в slide3, незалежно від global --fs */
+    /* increase typography in slide3, regardless of global --fs */
     #slide3 .clist .label{
       font-size: calc(var(--s3-label-fs) * var(--textCompSmall));
       line-height: 1.15;
@@ -484,7 +484,7 @@
       --s2-note-fs: 14px;
       --s2-sub-fs: 15px;
 
-      /* трішки більше “повітря” */
+      /* a bit more breathing room */
       --s2-col-pad: 14px;
       --s2-col-gap: 12px;
       --s2-grid-gap: 22px;
@@ -494,19 +494,19 @@
       --s2-row-pad-x: 16px;
     }
 
-    /* заголовок можна трошки “підняти” */
+    /* headline slightly bigger */
     #slide2 h2{
       font-size: calc(54px * var(--textCompSmall));
     }
 
-    /* підзаголовок — більший і читабельніший */
+    /* subtitle bigger and more readable */
     #slide2 .sub{
       --fs: var(--s2-sub-fs);
       line-height: 1.55;
       margin-top: 8px;
     }
 
-    /* колонки — більше паддінгу і ритму */
+    /* columns — more padding and rhythm */
     #slide2 .visual-grid{
       gap: var(--s2-grid-gap);
     }
@@ -516,13 +516,13 @@
       gap: var(--s2-col-gap);
     }
 
-    /* лейбли ALREADY EXISTS / DIRECTION */
+    /* labels ALREADY EXISTS / DIRECTION */
     #slide2 .visual-label{
       --fs: var(--s2-label-fs);
       letter-spacing: .14em;
     }
 
-    /* нотатки — більше шрифт + “м’ясо” в рядках */
+    /* notes — larger type + more padding */
     #slide2 .visual-notes{
       gap: 8px;
     }
@@ -534,19 +534,19 @@
       border-radius: 14px;
     }
 
-    /* самі рядки */
+    /* rows */
     #slide2 .visual-notes li{
       padding: var(--s2-row-pad-y) var(--s2-row-pad-x);
       font-size: calc(var(--s2-note-fs) * var(--textCompSmall));
       line-height: 1.4;
     }
 
-    /* щоб список займав більше вертикалі (і зʼїв “пустоту”) */
+    /* list takes more vertical space */
     #slide2 .visual-notes{
       gap: 10px; /* було 8 */
     }
 
-    /* WHY LOFI вниз */
+    /* WHY LOFI down */
 
 
     :root{ --mutedGrey: rgba(0,0,0,.28); }
@@ -573,11 +573,11 @@
     .flow-dot.bottom{opacity:.35}
     .flow-foot{display:none}
 
-    /* =========================
+     /* =========================
        SLIDE 04 — FILL HEIGHT (fixed)
        ========================= */
 
-    /* card має займати весь залишок слайду */
+    /* card should fill remaining slide height */
     #slide4 .flow-card{
       flex: 1 1 auto;
       min-height: 0;
@@ -609,13 +609,13 @@
       align-items: start;
     }
 
-    /* ✅ 2-й ряд притискаємо до низу свого треку */
+    /* ✅ second row sticks to bottom of its track */
     #slide4 .flow-left[style*="grid-row:2"],
     #slide4 .flow-right[style*="grid-row:2"]{
       align-self: end;
     }
 
-    /* щоб вертикальна лінія точно тягнулась від верху до низу */
+    /* vertical line spans full height */
     #slide4 .flow-mid{
       grid-row: 1 / span 2;
       align-self: stretch;
@@ -1008,7 +1008,7 @@
       overflow: auto;
     }
 
-    /* =========================
+     /* =========================
        VIDEO ASSISTANT (PiP)
        ========================= */
 
@@ -1019,7 +1019,7 @@
       --pip-z: 9997;
     }
 
-    /* контейнер */
+    /* container */
     .pip{
       position: fixed;
       right: 22px;
@@ -1163,7 +1163,7 @@
       cursor: not-allowed;
     }
 
-    /* замість close */
+    /* minimize button */
     .pip-min{
       position:absolute;
       right: 8px;
@@ -1208,7 +1208,7 @@
 
     .pip[data-state="playing"]{ cursor: default; }
 
-    /* state playing/ready: overlay менш помітний */
+    /* state playing/ready: overlay less visible */
     .pip[data-state="playing"] .pip-frame{ opacity: 1; }
     .pip[data-state="ready"] .pip-frame{ opacity: 1; }
     .pip[data-state="playing"] .pip-overlay,
@@ -1216,7 +1216,7 @@
       opacity: 0;
     }
 
-    /* minimized state: сам PiP ховаємо */
+    /* minimized state: hide PiP */
     .pip.is-minimized{
       display: none;
     }
@@ -1225,7 +1225,7 @@
     .pip.is-suppressed{ display:none; }
     .pip-launch.is-suppressed{ display:none !important; }
 
-    /* launcher button (маленький “значок” біля навігації) */
+    /* launcher button (small icon near nav) */
     .pip-launch{
       position: fixed;
       right: 28px;
@@ -1249,7 +1249,7 @@
       transform: scale(1.06);
     }
 
-    /* коли треба показати launcher */
+    /* show launcher when needed */
     .pip-launch.is-visible{
       display: grid;
       place-items: center;
@@ -1304,7 +1304,7 @@
     .pip.is-hinting .pip-hint{ display:block; }
     .pip.is-touched .pip-hint{ display:none !important; } /* ✅ після взаємодії ховаємо назавжди */
 
-    /* мобілка: трошки менше */
+    /* mobile: slightly smaller */
     @media (max-width: 768px){
       :root{ --pip-size: 190px; }
       .pip{ right: 12px; top: 12px; }
@@ -1479,14 +1479,14 @@
       gap: 10px;
     }
 
-    /* прибираємо будь-який скрол у блоці з фідбеком */
+    /* remove any scroll in feedback block */
     #final_pick .pick-actions{
       overflow: hidden;      /* було auto */
       min-height: unset;
       gap: 8px;
     }
 
-    /* менша textarea + без resize */
+    /* smaller textarea + no resize */
     #final_pick .pick-text{
       min-height: 92px;      /* було 150 */
       height: 92px;          /* фіксуємо, щоб не роздувало */
@@ -1494,12 +1494,12 @@
       padding: 12px;
     }
 
-    /* трохи компактніше кнопки/підказка */
+    /* slightly more compact buttons/hint */
     #final_pick .pick-btns{ gap: 8px; }
     #final_pick .pick-btn{ padding: 10px 12px; }
     #final_pick .pick-hint{ margin-top: 0; }
 
-    /* якщо textarea всередині grid/flex раптом тисне висоту */
+    /* if textarea inside grid/flex squeezes height */
     #final_pick .pick-preview{
       margin-top: 6px;
     }
@@ -1522,7 +1522,7 @@
       overflow: hidden;
     }
 
-    /* FEEDBACK block = окрема “плашка” */
+    /* FEEDBACK block = separate panel */
     #final_pick .pick-actions{
       margin-top: 4px;
       padding-top: 10px;
@@ -1536,13 +1536,13 @@
       overflow: hidden;
     }
 
-    /* label (FEEDBACK) займає весь рядок */
+    /* label (FEEDBACK) spans full row */
     #final_pick .pick-actions .pk{
       grid-column: 1 / -1;
       margin: 0;
     }
 
-    /* textarea — нормальна висота, без скролу по можливості */
+    /* textarea — comfortable height, avoid scroll if possible */
     #final_pick .pick-text{
       grid-column: 1 / 2;
       height: 76px;
@@ -1552,7 +1552,7 @@
       line-height: 1.45;
     }
 
-    /* кнопки — вертикально справа */
+    /* buttons — vertical on the right */
     #final_pick .pick-btns{
       grid-column: 2 / 3;
       display: flex;
@@ -1567,7 +1567,7 @@
       border-radius: 12px;
     }
 
-    /* підказку вниз, легше читати */
+    /* hint below, easier to read */
     #final_pick .pick-hint{
       grid-column: 1 / -1;
       margin: 0;
@@ -1590,23 +1590,23 @@
     /* FINAL PICK — smaller buttons + thinner scrollbar + feedback lower */
 
     #final_pick .pick-actions{
-      /* опускаємо блок вниз, ближче до Tip */
+      /* move block down, closer to Tip */
       margin-top: 10px;
       padding-top: 10px;
       border-top: 1px solid rgba(0,0,0,.10);
 
-      /* робимо більше місця під textarea */
+      /* more space for textarea */
       gap: 10px 10px;
     }
 
-    /* textarea — трішки більше, щоб читалось */
+    /* textarea — slightly bigger for readability */
     #final_pick .pick-text{
       height: 92px;
       min-height: 92px;
       padding: 12px 12px;
     }
 
-    /* кнопки менші */
+    /* smaller buttons */
     #final_pick .pick-btn{
       width: 70px;
       padding: 7px 9px;
@@ -1614,12 +1614,12 @@
       font-size: calc(12px * var(--textCompSmall));
     }
 
-    /* між кнопками менший gap */
+    /* smaller gap between buttons */
     #final_pick .pick-btns{
       gap: 6px;
     }
 
-    /* тонший скролбар в textarea (Chrome/Edge/Safari) */
+    /* thinner scrollbar in textarea (Chrome/Edge/Safari) */
     #final_pick .pick-text::-webkit-scrollbar{
       width: 6px;
     }
@@ -1641,7 +1641,7 @@
       scrollbar-color: rgba(0,0,0,.25) rgba(0,0,0,.06);
     }
 
-    /* Tip притискаємо трішки нижче, щоб блок виглядав “заземлено” */
+    /* push Tip slightly lower for grounded look */
     #final_pick .pick-hint{
       margin-top: 6px;
     }
@@ -1658,10 +1658,10 @@
           <h1>Focus<span class="tm">™</span></h1>
           <div class="year-badge">2026</div>
           <div class="description">
-            <p>Це не продукт. Це експеримент.</p>
-            <p style="margin-top:18px;">Чи може одна людина закрити повний цикл запуску продукту — від ідеї та 3D до<br>e-commerce сайту і реклами.</p>
-            <p>Focus object не існує фізично. Я створюю для нього візуальну мову, упаковку і присутність, щоб перевірити, як дизайн впливає на бажання купити.</p>
-            <p style="font-weight:600;margin-top:18px;">Ваш фідбек визначить, який прототип стане втіленням ідеї</p>
+            <p>This is not a product. It's an experiment.</p>
+            <p style="margin-top:18px;">Can one person complete the full product launch cycle — from idea and 3D to<br>an e‑commerce site and ads?</p>
+            <p>Focus Object doesn't physically exist. I'm creating its visual language, packaging, and presence to test how design affects the desire to buy.</p>
+            <p style="font-weight:600;margin-top:18px;">Your feedback will decide which prototype becomes the real embodiment of the idea.</p>
           </div>
         </div>
         <div class="nav">
@@ -1677,7 +1677,7 @@
       <div class="slide-number">02</div>
       <div>
         <h2>Visual Context</h2>
-        <p class="sub">Реальність ринку сьогодні vs напрямок, у який я ціллюсь.</p>
+        <p class="sub">The market reality today vs the direction I'm aiming for.</p>
       </div>
       <div class="visual-grid">
         <div class="visual-column noisy">
@@ -1693,10 +1693,10 @@
             <div class="tile"><img class="thumb" src="image/slide-3/already-exists/ax_photo08.png" alt="Already exists 08"></div>
           </div>
           <ul class="visual-notes">
-            <li>Візуальний шум - виглядає як гаджет або іграшка</li>
-            <li>Цифри домінують - фокус на екрані, не на процесі</li>
-            <li>«Ще один девайс» - функція без характеру</li>
-            <li>Постійно активний - тягне увагу навіть без взаємодії</li>
+            <li>Visual noise — looks like a gadget or a toy</li>
+            <li>Digits dominate — focus is on the screen, not the process</li>
+            <li>"Just another device" — function without character</li>
+            <li>Always active — pulls attention even without interaction</li>
           </ul>
         </div>
         <div class="visual-column calm">
@@ -1712,10 +1712,10 @@
             <div class="tile"><img class="thumb" src="image/slide-3/direction/dire_photo08.png" alt="Direction 08"></div>
           </div>
           <ul class="visual-notes">
-            <li>Дизайнерський обʼєкт - чиста форма, хочеться залишити на столі</li>
-            <li>Тиша як фіча - мінімум сигналів, максимум концентрації</li>
-            <li>Part of a work ritual - запускається як дія або намір, не як «таймер»</li>
-            <li>Does nothing until you do - реагує лише на твій старт, не живе у фоні</li>
+            <li>Designer object — clean form, you want to keep it on the desk</li>
+            <li>Silence as a feature — minimal signals, maximum concentration</li>
+            <li>Part of a work ritual — starts as an action or intent, not as a "timer"</li>
+            <li>Does nothing until you do — responds only to your start, never lives in the background</li>
           </ul>
         </div>
       </div>
@@ -1725,32 +1725,32 @@
       <div class="slide-number">03</div>
       <div>
         <h2>Product Concept</h2>
-        <p class="sub">Чому це не ще один Pomodoro, а ритуальний обʼєкт для входу в стан фокусу.</p>
+        <p class="sub">Why this isn't another Pomodoro, but a ritual object for entering a focus state.</p>
       </div>
       <div class="concept-grid">
         <div class="card">
           <div class="kicker">WHAT EXISTS</div>
           <div class="ctitle">Traditional Pomodoro</div>
           <ul class="clist">
-            <li><span class="label">Інструмент</span><span class="value">таймер як сувора утиліта для відліку хвилин.</span></li>
-            <li><span class="label">Логіка</span><span class="value">контроль через тиск дедлайну та різкі сигнали «стоп».</span></li>
-            <li><span class="label">Відчуття</span><span class="value">візуальний шум цифр, що “дивляться” на тебе і створюють фоновий стрес.</span></li>
-            <li><span class="label">Роль</span><span class="value">технічний гаджет: дістають лише для роботи й одразу прибирають.</span></li>
+            <li><span class="label">Tool</span><span class="value">a timer as a strict utility for counting minutes.</span></li>
+            <li><span class="label">Logic</span><span class="value">control through deadline pressure and sharp "stop" signals.</span></li>
+            <li><span class="label">Feeling</span><span class="value">visual noise of numbers "staring" at you and creating background stress.</span></li>
+            <li><span class="label">Role</span><span class="value">a technical gadget used only for work and then put away.</span></li>
           </ul>
         </div>
         <div class="card accent">
           <div class="kicker">WHAT I PROPOSE</div>
-          <div class="ctitle">Focus Object — Lo-fi Philosophy</div>
+          <div class="ctitle">Focus Object — Lo‑fi Philosophy</div>
           <ul class="clist">
-            <li><span class="label">Інструмент</span><span class="value">ритуальний обʼєкт, що допомагає плавно увійти в стан потоку.</span></li>
-            <li><span class="label">Логіка</span><span class="value">намір замість примусу; підтримує глибину фокусу, а не диктує його.</span></li>
-            <li><span class="label">Відчуття</span><span class="value">«тиха присутність»: мінімум інформації, без цокання, лише тактильність та естетика середовища.</span></li>
-            <li><span class="label">Роль</span><span class="value">частина щоденного ритуалу (як чашка кави) — мʼяко супроводжує вхід та вихід із роботи.</span></li>
+            <li><span class="label">Tool</span><span class="value">a ritual object that helps you smoothly enter flow.</span></li>
+            <li><span class="label">Logic</span><span class="value">intention instead of pressure; supports depth of focus rather than dictating it.</span></li>
+            <li><span class="label">Feeling</span><span class="value">"quiet presence": minimal information, no ticking — just tactility and environmental aesthetics.</span></li>
+            <li><span class="label">Role</span><span class="value">part of a daily ritual (like a cup of coffee) — gently guides entry and exit from work.</span></li>
           </ul>
         </div>
       </div>
       <div class="analogy"><div class="atag">WHY “LOFI”</div>
-        <p><strong>Якщо Pomodoro — це агресивний фітнес-тренер зі свистком,</strong> то Focus Object — це вінілова платівка: ти власноруч ставиш голку на диск (усвідомлений жест), занурюєшся і плавно повертаєшся, коли музика змовкає.</p>
+        <p><strong>If Pomodoro is an aggressive fitness coach with a whistle,</strong> Focus Object is a vinyl record: you place the needle yourself (a conscious gesture), dive in, and return smoothly when the music fades.</p>
       </div>
     </div>
 
@@ -1758,14 +1758,14 @@
       <div class="slide-number">04</div>
       <div>
         <h2>What’s next</h2>
-        <p class="sub">Перш ніж почнемо з прототипів, давай трохи контексту</p>
+        <p class="sub">Before we start with prototypes, here is a bit of context.</p>
       </div>
       <div class="flow-card">
         <div class="flow-grid">
           <div class="flow-left flow-left--center" style="grid-column:1;grid-row:1"><div class="flow-title flow-title--stacked"><span>Prototype</span><span>Review</span></div></div>
-          <div class="flow-right" style="grid-column:3;grid-row:1"><div class="flow-copy">Я вперше працюю з фізичним девайсом. Тут немає досліджень ринку, виробничих розрахунків чи гарантій попиту. Є дизайн, філософія і моя спроба знайти форму, яка має реальний сенс.<br><br>Я хочу пройти шлях підприємця — від ідеї до продажу. Тому для мене важлива твоя думка: що тут виглядає <strong>реальним</strong>, а що поки що <strong>фантазією</strong>?</div></div>
+          <div class="flow-right" style="grid-column:3;grid-row:1"><div class="flow-copy">I'm working with a physical device for the first time. There’s no market research, production estimates, or guaranteed demand. There is design, philosophy, and my attempt to find a form that actually makes sense.<br><br>I want to walk the entrepreneur's path — from idea to sale. That’s why your opinion matters: what looks <strong>real</strong> and what still feels like <strong>fantasy</strong>?</div></div>
           <div class="flow-left" style="grid-column:1;grid-row:2"><div class="flow-label">Pick 1</div></div>
-          <div class="flow-right" style="grid-column:3;grid-row:2"><div class="flow-copy muted">В кінці — обираєш фаворита. Я беру його в production (3D → сайт → реклама) і повертаюсь з апдейтом.</div></div>
+          <div class="flow-right" style="grid-column:3;grid-row:2"><div class="flow-copy muted">At the end, choose your favorite. I take it to production (3D → website → ads) and come back with an update.</div></div>
           <div class="flow-mid" aria-hidden="true">
             <div class="flow-line"></div>
             <div class="flow-dot active top"></div>
@@ -1782,7 +1782,7 @@
 
     <div class="slide content-slide" id="p01_info">
       <div class="slide-number">05</div>
-      <div><h2>Prototype 01</h2><p class="sub">Перший варіант для тесту. Далі ти зможеш обрати фаворита.</p></div>
+      <div><h2>Prototype 01</h2><p class="sub">First variant for testing. Later you'll choose a favorite.</p></div>
       <div class="proto-layout">
         <div class="panel accent">
           <div class="pk">VISUAL</div>
@@ -1795,18 +1795,18 @@
             <div class="carousel-count" aria-hidden="true"></div>
             <div class="carousel-fallback" aria-hidden="true">PLACEHOLDER IMAGES<br>image/slide-5/prototype1/Render01.png<br>Render02.png • Render03.png</div>
           </div>
-          <div class="caption">Фокус починається з жесту, а не з цифр</div>
+          <div class="caption">Focus starts with a gesture, not with numbers</div>
         </div>
         <div class="panel">
           <div class="pk">WHAT DEFINES THIS PROTOTYPE</div>
           <div class="pt">Prototype overview</div>
           <ul class="plist">
-            <li><strong>Positioning</strong> Обʼєкт для усвідомленого входу в робочу сесію. Використовується на робочому столі під час індивідуальної, зосередженої роботи.</li>
-            <li><strong>Design</strong> Нетипова форма для таймера - стримана і нейтральна. Головний акцент не на екрані, а на камері як центральному елементі обʼєкта.</li>
-            <li><strong>Control</strong> Запуск сесії відбувається через жест, який зчитує камера. Час налаштовується через центральний rotary control.</li>
-            <li><strong>Behavior</strong> Фокус починається з усвідомленого жесту. Камера створює відчуття присутності - не відволікає цифрами, але нагадує, що процес уже запущено.</li>
+            <li><strong>Positioning</strong> An object for a mindful entry into a work session. Used on the desk during individual, focused work.</li>
+            <li><strong>Design</strong> An atypical timer form — restrained and neutral. The main accent is not the screen, but the camera as the central element.</li>
+            <li><strong>Control</strong> Session start happens via a gesture read by the camera. Time is set with a central rotary control.</li>
+            <li><strong>Behavior</strong> Focus begins with a conscious gesture. The camera creates a sense of presence — no distracting numbers, but a reminder that the process has started.</li>
           </ul>
-          <div class="pchips"><div class="chip">Чи використовував б ти такий обʼєкт у щоденній роботі?</div></div>
+          <div class="pchips"><div class="chip">Would you use an object like this in daily work?</div></div>
         </div>
       </div>
     </div>
@@ -1817,7 +1817,7 @@
       <div class="slide-number">15</div>
       <div>
         <h2>Pick your favorite</h2>
-        <p class="sub">Обери один прототип і скажи, чому саме він. Уяви, що ти реально мав би купити один з них.</p>
+        <p class="sub">Choose one prototype and tell me why. Imagine you would actually buy one of them.</p>
       </div>
 
       <div class="pick-layout">
@@ -1839,7 +1839,7 @@
               <button class="pick-btn" id="sendPickBtn" type="button">Send</button>
               <button class="pick-btn ghost" id="clearPickBtn" type="button">Clear</button>
             </div>
-            <div class="pick-hint">Можеш змінювати вибір, поки не знайдеш свій варіант</div>
+            <div class="pick-hint">You can change your choice until you find your option.</div>
           </div>
         </div>
       </div>
@@ -1966,23 +1966,23 @@
     items: [
       {
         label: 'Positioning',
-        text: 'Обʼєкт для усвідомленого входу в робочу сесію. Використовується на робочому столі під час індивідуальної, зосередженої роботи.'
+        text: 'An object for a mindful entry into a work session. Used on the desk during individual, focused work.'
       },
       {
         label: 'Design',
-        text: 'Нетипова форма для таймера - стримана і нейтральна. Головний акцент не на екрані, а на камері як центральному елементі обʼєкта.'
+        text: 'An atypical timer form — restrained and neutral. The main accent is not the screen, but the camera as the central element.'
       },
       {
         label: 'Control',
-        text: 'Запуск сесії відбувається через жест, який зчитує камера. Час налаштовується через центральний rotary control.'
+        text: 'Session start happens via a gesture read by the camera. Time is set with a central rotary control.'
       },
       {
         label: 'Behavior',
-        text: 'Фокус починається з усвідомленого жесту. Камера створює відчуття присутності - не відволікає цифрами, але нагадує, що процес уже запущено.'
+        text: 'Focus begins with a conscious gesture. The camera creates a sense of presence — no distracting numbers, but a reminder that the process has started.'
       }
     ],
-    chip: 'Чи використовував б ти такий обʼєкт у щоденній роботі?',
-    caption: 'Фокус починається з жесту, а не з цифр'
+    chip: 'Would you use an object like this in daily work?',
+    caption: 'Focus starts with a gesture, not with numbers'
   };
 
   const protoOverviewByNumber = {
@@ -1990,199 +1990,199 @@
       items: [
         {
           label: 'Positioning',
-          text: 'Персональний асистент для щоденної роботи і рефлексії. Супроводжує протягом дня і допомагає підсумувати фокус, а не лише відміряти час.'
+          text: 'A personal assistant for daily work and reflection. Accompanies you throughout the day and helps summarize focus, not just count time.'
         },
         {
           label: 'Design',
-          text: 'Мʼяка, дружня форма з приємною тактильністю. Виглядає як персональний обʼєкт, який хочеться тримати поруч і брати із собою.'
+          text: 'A soft, friendly form with pleasant tactility. Looks like a personal object you want to keep close and take with you.'
         },
         {
           label: 'Control',
-          text: 'Камера зчитує щоденну рутину у фоні. Взаємодія відбувається через кнопки та голосовий запит до вбудованого асистента.'
+          text: 'A camera reads your daily routine in the background. Interaction happens through buttons and voice queries to a built-in assistant.'
         },
         {
           label: 'Behavior',
-          text: 'Фокус переходить від “старту сесії” до усвідомлення дня. Продукт не лише запускає роботу, а допомагає зрозуміти, як ти працюєш.'
+          text: 'Focus shifts from a “session start” to awareness of the day. The product not only starts work, but helps you understand how you work.'
         }
       ],
-      chip: 'Чи потрібен тобі такий асистент у щоденній роботі?',
-      caption: 'Персональний асистент для фокусу і аналізу'
+      chip: 'Would you need such an assistant in daily work?',
+      caption: 'A personal assistant for focus and analysis'
     },
     3: {
       items: [
         {
           label: 'Positioning',
-          text: 'Мінімалістичний обʼєкт для щоденного фокусу і роботи з рутиною. Використовується на робочому столі як спокійний, естетичний центр уваги під час індивідуальної роботи.'
+          text: 'A minimalist object for daily focus and working with routine. Used on the desk as a calm, aesthetic center of attention during individual work.'
         },
         {
           label: 'Design',
-          text: 'Чиста, стримана форма з двома ключовими елементами. Центральний rolling control є відсилкою до механічних таймерів і будильників. Дисплей працює як делікатне нагадування про сучасний технологічний контекст.'
+          text: 'A clean, restrained form with two key elements. The central rolling control references mechanical timers and alarm clocks. The display acts as a delicate reminder of the modern tech context.'
         },
         {
           label: 'Control',
-          text: 'Час виставляється через фізичний rolling control. Це повільна й усвідомлена дія. Після запуску таймера числа відходять на другий план і залишаються лише як фоновий орієнтир.'
+          text: 'Time is set via a physical rolling control. It’s a slow, mindful action. After the timer starts, numbers fade into the background and remain only as a subtle reference.'
         },
         {
           label: 'Behavior',
-          text: 'Фокус зміщується з відліку часу на процес роботи. Pixel art і lo-fi музика підтримують концентрацію. Наприкінці дня користувач бачить баланс між Work і Chill сесіями'
+          text: 'Focus shifts from counting time to the work process. Pixel art and lo‑fi music support concentration. At the end of the day, the user sees the balance between Work and Chill sessions.'
         }
       ],
-      chip: 'Чи хотів(ла) б ти мати такий обʼєкт на своєму робочому столі щодня?',
-      caption: 'Lofi обʼєкт, концентруйся на процесі'
+      chip: 'Would you want this object on your desk every day?',
+      caption: 'Lo‑fi object — focus on the process'
     },
     4: {
       items: [
         {
           label: 'Positioning',
-          text: 'Модульний таймер для публічних просторів. Призначений для ресторанів, студій і підприємницьких команд як інструмент очікування і спільного часу.'
+          text: 'A modular timer for public spaces. Designed for restaurants, studios, and entrepreneurial teams as a tool for waiting and shared time.'
         },
         {
           label: 'Design',
-          text: 'Габаритний обʼєкт з індустріальним характером. Форма нагадує зібраний механізм, а не готовий девайс. Візуально читається як частина простору, а не персональний гаджет.'
+          text: 'A large object with an industrial character. The form resembles an assembled mechanism rather than a finished device. Visually it reads as part of the space, not a personal gadget.'
         },
         {
           label: 'Control',
-          text: 'Час виставляється вручну за допомогою гайкового ключа. Користувач фізично провертає механізм, з якого починається відлік.'
+          text: 'Time is set manually using a wrench. The user physically turns the mechanism that starts the countdown.'
         },
         {
           label: 'Behavior',
-          text: 'Час стає відчутною дією, а не абстрактним числом. Процес запуску перетворюється на жест участі і очікування, особливо в публічному контексті.'
+          text: 'Time becomes a tangible action rather than an abstract number. The start process turns into a gesture of participation and waiting, especially in a public context.'
         }
       ],
-      chip: 'Чи бачиш ти такий обʼєкт у ресторані або робочому просторі?',
+      chip: 'Would you see this object in a restaurant or workspace?',
       caption: 'Build your time'
     },
     5: {
       items: [
         {
           label: 'Positioning',
-          text: 'Візуальний таймер для зосередженої роботи. Розміщується на робочому столі і дозволяє відчувати плин часу без постійної уваги до цифр.'
+          text: 'A visual timer for focused work. Placed on the desk and lets you sense the flow of time without constant attention to digits.'
         },
         {
           label: 'Design',
-          text: 'Технологічно чиста форма з акцентом на світлове кільце. Червона емісія працює як єдиний візуальний сигнал часу. Дизайн відходить від класичних таймерів і будильників.'
+          text: 'A technologically clean form with an emphasis on a light ring. The red emission acts as the only visual time signal. The design departs from classic timers and alarm clocks.'
         },
         {
           label: 'Control',
-          text: 'Час задається обертанням центрального елемента. Після запуску взаємодія не потрібна. Таймер працює як спокійний фоновий індикатор.'
+          text: 'Time is set by rotating the central element. After start, no interaction is needed. The timer works as a calm background indicator.'
         },
         {
           label: 'Behavior',
-          text: 'Час зчитується візуально, а не рахується свідомо. Відсутність цифр зменшує напругу і дозволяє залишатись у процесі, спостерігаючи за тим, як час поступово спливає.'
+          text: 'Time is read visually, not consciously counted. The absence of digits reduces pressure and lets you stay in the process while watching time gradually pass.'
         }
       ],
-      chip: 'Чи комфортно тобі працювати з таким візуальним таймером без цифр?',
+      chip: 'Would you be comfortable working with a visual timer without numbers?',
       caption: 'Tech style timer'
     },
     6: {
       items: [
         {
           label: 'Positioning',
-          text: 'Таймер-лампа для робочого і домашнього простору. Поєднує контроль часу з освітленням, яке доповнює інтерʼєр і не відволікає від роботи.'
+          text: 'A timer-lamp for work and home spaces. Combines time control with lighting that complements the interior and doesn’t distract from work.'
         },
         {
           label: 'Design',
-          text: 'Форма лампи з мʼяким світловим обʼємом. Обʼєкт виглядає як частина інтерʼєру, а не як технічний девайс. Світло є основним носієм інформації.'
+          text: 'A lamp form with a soft light volume. The object looks like part of the interior, not a technical device. Light is the primary information carrier.'
         },
         {
           label: 'Control',
-          text: 'Час і режим задаються фізичною взаємодією з обʼєктом. Світло змінюється відповідно до обраної сесії і поступово реагує на плин часу.'
+          text: 'Time and mode are set via physical interaction with the object. Light changes according to the chosen session and gradually responds to the passage of time.'
         },
         {
           label: 'Behavior',
-          text: 'Час зчитується через світло, а не через цифри. Work і Chill сесії мають різну світлову атмосферу, що допомагає перемикатись між станами без різких сигналів.'
+          text: 'Time is read through light, not digits. Work and Chill sessions have different light atmospheres, helping you switch states without sharp signals.'
         }
       ],
-      chip: 'Чи хотів(ла) б ти використовувати таймер у форматі лампи щодня?',
-      caption: 'Adjust your light - adjust your time'
+      chip: 'Would you use a timer in a lamp format every day?',
+      caption: 'Adjust your light — adjust your time'
     },
     7: {
       items: [
         {
           label: 'Positioning',
-          text: 'Фоновий таймер для фокусу і відпочинку. Працює як візуальний супровід робочого процесу і доповнює інтерʼєр, а не конкурує з ним.'
+          text: 'A background timer for focus and rest. Works as visual accompaniment to the work process and complements the interior rather than competing with it.'
         },
         {
           label: 'Design',
-          text: 'Форма з екраном у стилі pixel art. Візуальний образ натхненний фоновими відео з вогнищем і lo-fi атмосферою. Обʼєкт виглядає декоративно і спокійно навіть у стані очікування.'
+          text: 'A form with a pixel‑art screen. The visual is inspired by fireplace background videos and a lo‑fi atmosphere. The object looks decorative and calm even while idle.'
         },
         {
           label: 'Control',
-          text: 'Режими Work і Chill вмикаються через верхні кнопки. Час задається фізичним прокручуванням, без складних налаштувань.'
+          text: 'Work and Chill modes are enabled via top buttons. Time is set by physical scrolling, without complex settings.'
         },
         {
           label: 'Behavior',
-          text: 'Вогонь на екрані працює як фоновий сигнал часу. Він створює відчуття присутності і ритму, не відволікаючи увагу цифрами або різкими сповіщеннями.'
+          text: 'The fireplace on the screen works as a background time signal. It creates a sense of presence and rhythm without distracting numbers or sharp alerts.'
         }
       ],
-      chip: 'Чи хотів(ла) б ти мати такий фоновий таймер у своєму робочому просторі?',
+      chip: 'Would you want a background timer like this in your workspace?',
       caption: 'Digital fireplace'
     },
     8: {
       items: [
         {
           label: 'Positioning',
-          text: 'Обʼєкт-компаньйон для усвідомленої роботи. Використовується на робочому столі як візуальна присутність, що підтримує фокус і дисципліну.'
+          text: 'A companion object for mindful work. Used on the desk as a visual presence that supports focus and discipline.'
         },
         {
           label: 'Design',
-          text: 'Антропоморфна форма, натхненна rubber duck debugging. Обʼєкт виглядає дружньо і трохи наївно, але водночас створює відчуття, що за тобою спостерігають.'
+          text: 'An anthropomorphic form inspired by rubber duck debugging. The object looks friendly and a bit naive, yet creates a sense that you are being watched.'
         },
         {
           label: 'Control',
-          text: 'Таймер запускається через фізичну взаємодію з обʼєктом. Щоб почати сесію, його потрібно поставити вертикально. Коли час закінчується, обʼєкт опускається і втрачає форму.'
+          text: 'The timer starts through physical interaction with the object. To begin a session, you stand it upright. When time ends, the object drops and loses its shape.'
         },
         {
           label: 'Behavior',
-          text: 'Присутність обʼєкта підсилює відповідальність за фокус. Щоб продовжити роботу, користувач має свідомо випрямити його знову. Фокус підтримується не сигналами, а поведінковою дією.'
+          text: 'The object’s presence increases accountability for focus. To continue working, the user must consciously straighten it again. Focus is supported not by signals but by a behavioral action.'
         }
       ],
-      chip: 'Чи допоміг би тобі такий обʼєкт довше залишатись у фокусі?',
+      chip: 'Would an object like this help you stay focused longer?',
       caption: 'Friend Duck concept'
     },
     9: {
       items: [
         {
           label: 'Positioning',
-          text: 'Інтерактивний таймер для творчої і фокусованої роботи за компʼютером. Використовується на робочому столі як візуальний компаньйон під час активної роботи.'
+          text: 'An interactive timer for creative and focused computer work. Used on the desk as a visual companion during active work.'
         },
         {
           label: 'Design',
-          text: 'Компактний desk-обʼєкт з екраном для генеративних візуалів. Дизайн нейтральний, щоб не конкурувати з контентом. Основний акцент на тому, що відбувається на екрані в реальному часі.'
+          text: 'A compact desk object with a screen for generative visuals. The design is neutral so it doesn’t compete with content. The main focus is what happens on the screen in real time.'
         },
         {
           label: 'Control',
-          text: 'Таймер запускається разом з програмою на компʼютері. Під час сесії пристрій отримує дані з камери, екрана або активних застосунків і передає їх у TouchDesigner.'
+          text: 'The timer starts together with a program on the computer. During a session the device receives data from the camera, screen, or active apps and sends it to TouchDesigner.'
         },
         {
           label: 'Behavior',
-          text: 'Робочі дії перетворюються на живі генеративні візуали. Рух, активність і присутність користувача впливають на те, що відображається. Таймер стимулює діяти, а не чекати завершення відліку.'
+          text: 'Work actions turn into living generative visuals. Motion, activity, and user presence affect what is displayed. The timer encourages action rather than waiting for the countdown to end.'
         }
       ],
-      chip: 'Чи мотивувало б тебе працювати те, що твої дії перетворюються на живий візуальний процес?',
-      caption: 'tocuh designer concept'
+      chip: 'Would it motivate you to work if your actions became a live visual process?',
+      caption: 'TouchDesigner concept'
     },
     10: {
       items: [
         {
           label: 'Positioning',
-          text: 'Арт-обʼєкт для усвідомленого фокусу. Працює на робочому столі як тиха присутність, а не як інструмент контролю часу.'
+          text: 'An art object for mindful focus. Works on the desk as a quiet presence, not a time-control tool.'
         },
         {
           label: 'Design',
-          text: 'Монолітна, стримана форма без декоративних елементів. Обʼєкт виглядає як скульптура або елемент інтерʼєру. Дизайн навмисно не привʼязаний до образу таймера.'
+          text: 'A monolithic, restrained form without decorative elements. The object looks like a sculpture or interior element. The design is intentionally not tied to a timer image.'
         },
         {
           label: 'Control',
-          text: 'Час задається один раз на початку сесії. Користувач не взаємодіє з обʼєктом під час роботи і не отримує додаткових сигналів.'
+          text: 'Time is set once at the start of a session. The user does not interact with the object during work and receives no additional signals.'
         },
         {
           label: 'Behavior',
-          text: 'Час не показується цифрами. Плин сесії зчитується через рух чорного квадрата, який повільно опускається вниз. Робота відбувається без зворотного відліку і без напруги очікування.'
+          text: 'Time is not shown in digits. The session’s flow is read through the movement of a black square that slowly descends. Work happens without a countdown and without the tension of waiting.'
         }
       ],
-      chip: 'Чи комфортно тобі працювати з таймером, який не показує час напряму?',
-      caption: 'Фокус без цифр і сигналів'
+      chip: 'Would you be comfortable with a timer that doesn’t show time directly?',
+      caption: 'Focus without digits and signals'
     }
   };
 
@@ -2363,7 +2363,7 @@
     const firstGuess = `${folderCandidates(p)[0]}/Render${pad2(i)}.png`;
     ph.innerHTML =
       `<div class="tag">Missing image</div>` +
-      `<div class="hint">Не знайшов файл для <strong>Prototype ${pad2(p)}</strong>, кадр <strong>${i}</strong>.<br>Перевір шлях/назву (розширення теж).</div>` +
+      `<div class="hint">Couldn’t find the file for <strong>Prototype ${pad2(p)}</strong>, frame <strong>${i}</strong>.<br>Check the path/name (including extension).</div>` +
       `<code>${firstGuess}</code>`;
     slide.appendChild(ph);
 
@@ -2386,7 +2386,7 @@
 
     slide.innerHTML =
       `<div class="slide-number">${infoNum(p)}</div>` +
-      `<div><h2>Prototype ${label}</h2><p class="sub">Варіант для тесту. В кінці — обираєш фаворита.</p></div>` +
+      `<div><h2>Prototype ${label}</h2><p class="sub">Test variant. At the end, you choose a favorite.</p></div>` +
       `<div class="proto-layout">` +
         `<div class="panel accent">` +
           `<div class="pk">VISUAL</div><div class="pt">Render / Photo</div>` +
@@ -2565,7 +2565,7 @@
 
     ph.innerHTML =
       `<div class="tag">Missing image</div>` +
-      `<div class="hint">Не знайшов файл для <strong>Prototype ${protoLabel}</strong>, кадр <strong>${idx}</strong>.<br>Перевір шлях/назву (розширення теж).</div>` +
+      `<div class="hint">Couldn’t find the file for <strong>Prototype ${protoLabel}</strong>, frame <strong>${idx}</strong>.<br>Check the path/name (including extension).</div>` +
       `<code>${firstGuess}</code>`;
 
     slide.appendChild(ph);
@@ -2666,8 +2666,8 @@
     const makeFeedback = (p) => {
       const label = protoLabel(p);
       return [
-        `Чому саме цей прототип?`,
-        `Що в ньому працює для тебе, а що хотілося б змінити?`,
+        `Why this prototype?`,
+        `What works for you, and what would you change?`,
       ].join('\n');
     };
 
@@ -2787,23 +2787,23 @@
   // 1) Мапа слайд -> (пізніше сюди вставиш Vimeo embed url)
   const slideNarration = {
     // базові
-    slide1: 'https://player.vimeo.com/video/1161440024?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
-    slide2: 'https://player.vimeo.com/video/1161860774?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
-    slide3: 'https://player.vimeo.com/video/1161860936?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
-    slide4: 'https://player.vimeo.com/video/1161871286?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    slide1: 'https://player.vimeo.com/video/1163977015?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    slide2: 'https://player.vimeo.com/video/1163977221?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    slide3: 'https://player.vimeo.com/video/1163977451?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    slide4: 'https://player.vimeo.com/video/1163977689?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
 
     // прототипи (приклади)
-    p01_info: 'https://player.vimeo.com/video/1161872842?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
-    p02_info: 'https://player.vimeo.com/video/1161873360?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
-    p03_info: 'https://player.vimeo.com/video/1161873642?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
-    p04_info: 'https://player.vimeo.com/video/1161873933?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
-    p05_info: 'https://player.vimeo.com/video/1161874183?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
-    p06_info: 'https://player.vimeo.com/video/1161875302?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
-    p07_info: 'https://player.vimeo.com/video/1161875716?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
-    p08_info: 'https://player.vimeo.com/video/1161876268?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
-    p09_info: 'https://player.vimeo.com/video/1161876603?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
-    p10_info: 'https://player.vimeo.com/video/1161877156?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
-    final_pick: 'https://player.vimeo.com/video/1161877736?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p01_info: 'https://player.vimeo.com/video/1163977999?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p02_info: 'https://player.vimeo.com/video/1163978367?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p03_info: 'https://player.vimeo.com/video/1163978626?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p04_info: 'https://player.vimeo.com/video/1163978858?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p05_info: 'https://player.vimeo.com/video/1163979021?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p06_info: 'https://player.vimeo.com/video/1163979197?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p07_info: 'https://player.vimeo.com/video/1163979281?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p08_info: 'https://player.vimeo.com/video/1163979390?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p09_info: 'https://player.vimeo.com/video/1163979593?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    p10_info: 'https://player.vimeo.com/video/1163979965?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
+    final_pick: 'https://player.vimeo.com/video/1163980101?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
 
     // можеш додати що хочеш:
     // p02_info: null, p03_info: null ...
@@ -2924,6 +2924,14 @@
       pipPlay.textContent = isPaused ? 'Play' : 'Pause';
     };
 
+    const tryUnmute = async () => {
+      if (!vimeoPlayer) return;
+      try {
+        await vimeoPlayer.setMuted(false);
+        await vimeoPlayer.setVolume(1);
+      } catch(e) {}
+    };
+
     const recreatePipFrame = () => {
       // робимо новий iframe з тими ж атрибутами (важливо для Vimeo SDK)
       const fresh = document.createElement('iframe');
@@ -2992,6 +3000,7 @@
         try {
           // ✅ чекаємо, поки Vimeo реально підʼєднається до iframe
           await vimeoPlayer.ready();
+          await tryUnmute();
           await vimeoPlayer.play();
         } catch(e){
           // якщо play не вдався — повертаємо UI в "Play"
@@ -3017,6 +3026,7 @@
         await vimeoPlayer.ready();
 
         if (isPaused) {
+          await tryUnmute();
           await vimeoPlayer.play();
           if (mySeq !== actionSeq) return;
           isPaused = false;
