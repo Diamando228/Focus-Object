@@ -2744,14 +2744,35 @@
         const msg = String(text.value || '').trim();
         if (!msg) return;
 
-        const proto = String(title.textContent || 'Prototype вЂ”').trim();
-        const full = `${proto}\n\n${msg}`;
+        const proto = String(title.textContent || 'Prototype -').trim();
 
-        const tgApp = `tg://resolve?domain=dima_gavriliv&text=${encodeURIComponent(full)}`;
-        const tgWeb = `https://t.me/dima_gavriliv?text=${encodeURIComponent(full)}`;
+        const formData = new FormData();
+        formData.append('prototype', proto);
+        formData.append('feedback', msg);
+        formData.append('_subject', `New Feedback: ${proto}`);
 
-        window.location.href = tgApp;
-        setTimeout(() => window.open(tgWeb, '_blank'), 300);
+        const originalText = sendBtn.textContent;
+        sendBtn.textContent = 'Sending...';
+        sendBtn.disabled = true;
+
+        fetch('https://formsubmit.co/ajax/dmitrogavriliv355@gmail.com', {
+          method: 'POST',
+          body: formData
+        })
+          .then(response => response.json())
+          .then(() => {
+            sendBtn.textContent = 'Thank you!';
+            setTimeout(() => {
+              sendBtn.textContent = originalText;
+              sendBtn.disabled = false;
+              text.value = '';
+            }, 3000);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            sendBtn.textContent = 'Error. Try again.';
+            sendBtn.disabled = false;
+          });
       });
     }
 
