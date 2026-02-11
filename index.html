@@ -1861,19 +1861,19 @@
   <!-- =========================
        VIDEO ASSISTANT (PiP)
        ========================= -->
-  <div class="pip" id="pip" aria-label="Відео-помічник" data-state="idle">
-    <button class="pip-min" id="pipMin" type="button" aria-label="Згорнути помічник"></button>
+  <div class="pip" id="pip" aria-label="Video assistant" data-state="idle">
+    <button class="pip-min" id="pipMin" type="button" aria-label="Minimize assistant"></button>
 
     <div class="pip-drag-handle" id="pipDragHandle" aria-hidden="true"></div>
 
-    <div class="pip-hint" id="pipHint">Перетягни мене</div>
+    <div class="pip-hint" id="pipHint">Drag me</div>
 
     <div class="pip-inner" id="pipInner">
       <!-- iframe for Vimeo (loaded only after click Play) -->
       <iframe
         id="pipFrame"
         class="pip-frame"
-        title="Озвучення слайду"
+        title="Slide narration"
         loading="lazy"
         allow="autoplay; fullscreen; picture-in-picture"
         referrerpolicy="strict-origin-when-cross-origin"
@@ -1881,19 +1881,19 @@
 
       <!-- Placeholder overlay -->
       <div class="pip-overlay" id="pipOverlay">
-        <div class="pip-badge">ПОЯСНИТИ</div>
-        <div class="pip-title" id="pipTitle">Цей слайд</div>
-        <div class="pip-sub" id="pipSub">Натисни Відтворити, щоб почути нотатку Дмитра</div>
+        <div class="pip-badge">EXPLAIN</div>
+        <div class="pip-title" id="pipTitle">This slide</div>
+        <div class="pip-sub" id="pipSub">Click Play to hear Dmytro's note</div>
       </div>
 
       <div class="pip-controls floating" id="pipControls">
-        <button class="pip-btn" id="pipPlay" type="button">Відтворити</button>
-        <button class="pip-btn ghost" id="pipStop" type="button" disabled>Скинути</button>
+        <button class="pip-btn" id="pipPlay" type="button">Play</button>
+        <button class="pip-btn ghost" id="pipStop" type="button" disabled>Reset</button>
       </div>
     </div>
   </div>
 
-  <button class="pip-launch" id="pipLaunch" type="button" aria-label="Відкрити помічник">
+  <button class="pip-launch" id="pipLaunch" type="button" aria-label="Open assistant">
     !
   </button>
 
@@ -2333,7 +2333,8 @@
       }, { passive: false });
     }
 
-    document.addEventListener('wheel', (e) => {
+    const handleWheel = (e) => {
+      if (e.defaultPrevented) return;
       const target = e.target;
       const inInput = target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable);
       const inCarousel = target && target.closest && target.closest('.proto-carousel');
@@ -2341,7 +2342,10 @@
 
       e.preventDefault();
       applyWheelDelta(e.deltaY);
-    }, { passive: false });
+    };
+
+    document.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('wheel', handleWheel, { passive: false });
   }
 
   const makeId = (p, kind) => `p${pad2(p)}_${kind}`;
@@ -2811,21 +2815,21 @@
 
   // 2) Тексти для placeholder (щоб виглядало “живіше”)
   const slideTitles = {
-    slide1: 'Вступ / Що це?',
-    slide2: 'Візуальний контекст',
-    slide3: 'Концепція продукту',
-    slide4: 'Що далі',
-    p01_info: 'Прототип 01',
-    p02_info: 'Прототип 02',
-    p03_info: 'Прототип 03',
-    p04_info: 'Прототип 04',
-    p05_info: 'Прототип 05',
-    p06_info: 'Прототип 06',
-    p07_info: 'Прототип 07',
-    p08_info: 'Прототип 08',
-    p09_info: 'Прототип 09',
-    p10_info: 'Прототип 10',
-    final_pick: 'Обери улюблений',
+    slide1: 'Intro / What is this?',
+    slide2: 'Visual Context',
+    slide3: 'Product Concept',
+    slide4: "What's next",
+    p01_info: 'Prototype 01',
+    p02_info: 'Prototype 02',
+    p03_info: 'Prototype 03',
+    p04_info: 'Prototype 04',
+    p05_info: 'Prototype 05',
+    p06_info: 'Prototype 06',
+    p07_info: 'Prototype 07',
+    p08_info: 'Prototype 08',
+    p09_info: 'Prototype 09',
+    p10_info: 'Prototype 10',
+    final_pick: 'Pick your favorite',
   };
 
   function initPiPAssistant(){
@@ -2921,7 +2925,7 @@
     const nextAction = () => ++actionSeq;
 
     const setPlayLabel = () => {
-      pipPlay.textContent = isPaused ? 'Відтворити' : 'Пауза';
+      pipPlay.textContent = isPaused ? 'Play' : 'Pause';
     };
 
     const recreatePipFrame = () => {
@@ -3042,13 +3046,13 @@
       const shouldBrighten = /^p\d{2}_info$/.test(String(slideId || '')) || slideId === 'final_pick';
       pip.classList.toggle('is-brightened', shouldBrighten);
 
-      const nice = slideTitles[slideId] || slideId || 'Цей слайд';
+      const nice = slideTitles[slideId] || slideId || 'This slide';
       pipTitle.textContent = nice;
 
       const has = !!slideNarration[slideId];
       pipSub.textContent = has
-        ? 'Натисни Відтворити, щоб почути нотатку Дмитра'
-        : 'Поки без відео — можна додати пізніше (Vimeo)';
+        ? "Click Play to hear Dmytro's note"
+        : 'No video yet — you can add it later (Vimeo)';
 
       // при зміні слайду — стопаємо відео (щоб не говорило не в тему)
       (async () => {
