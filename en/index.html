@@ -24,6 +24,322 @@
       overflow:hidden;
     }
 
+    body.is-mobile{
+      overflow:auto;
+      align-items:center;
+      padding: var(--page-pad);
+      min-height: 100vh;
+      --window-radius: 18px;
+      --pip-size: 136px;
+      --pip-radius: 12px;
+      --preview-w: 1280px;
+      --preview-h: 720px;
+      --page-pad: 8px;
+      --ui-reserve: calc(var(--ui-gap) + 24px + 10px);
+    }
+
+    body.is-mobile .viewport{
+      width: min(var(--preview-w), calc(100vw - (2 * var(--page-pad))));
+      max-width: var(--preview-w);
+      aspect-ratio: 16 / 9;
+      height: auto;
+      max-height: min(var(--preview-h), calc(96vh - var(--ui-reserve)));
+      border-radius: var(--window-radius);
+      box-shadow: 0 30px 90px rgba(0,0,0,.55);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    body.is-mobile .presentation-stage{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(var(--scale));
+      transform-origin: 50% 50%;
+    }
+
+    body.is-mobile .slide{ padding: 28px 40px 32px 40px; }
+    body.is-mobile .content-slide{ padding: 24px 40px 32px 40px; }
+    body.is-mobile h2{ font-size: calc(52px * var(--textCompSmall)); }
+    body.is-mobile .pip{ right: 12px; top: 12px; }
+
+    :root{
+      --stage-w: 1920;
+      --stage-h: 1080;
+      --scale: 1;
+      --textCompSmall: 1;
+      --preview-w: 1100px;
+      --preview-h: 618px;
+      --page-pad: 24px;
+      --window-radius: 32px;
+      --ui-gap: clamp(10px, 2vh, 22px);
+      --scrub-pad-y: 6px;
+      --scrub-pad-x: 8px;
+      --scrub-w: clamp(220px, 34vw, 360px);
+      --ui-reserve: calc(var(--ui-gap) + 34px + 14px);
+      --timerScale: 1.55;
+    }
+
+    .viewport{
+      width: min(var(--preview-w), calc(100vw - (2 * var(--page-pad))));
+      max-width: var(--preview-w);
+      aspect-ratio: 16 / 9;
+      height: auto;
+      max-height: min(var(--preview-h), calc(92vh - var(--ui-reserve)));
+      position: relative;
+      background: #000;
+      border-radius: var(--window-radius);
+      overflow: hidden;
+      box-shadow: 0 30px 90px rgba(0,0,0,.55);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .presentation-stage{
+      width: calc(var(--stage-w) * 1px);
+      height: calc(var(--stage-h) * 1px);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(var(--scale));
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+
+    #deck{ border-radius: var(--window-radius); overflow: hidden; }
+    #prototypesMount{display:contents}
+
+    .slide{background:#f5f5f5;width:100%;height:100%;padding:56px 76px;position:relative;overflow:hidden;display:none;flex-direction:column;opacity:1;transition:opacity 240ms ease}
+    .slide.active{display:flex}
+
+    .content-slide{padding:42px 76px 54px}
+    .slide-number{font-size:18px;font-weight:700;color:#999;margin-bottom:16px;letter-spacing:2px}
+    h2{font-size: 52px;font-weight:800;color:#000;margin-bottom:8px;letter-spacing:-1.5px;line-height:1.03}
+    .sub{font-size:14px;line-height:1.55;color:#333;margin-top:6px}
+
+    .image-only-slide{padding:0;background:#0b0b0b}
+    .image-only-slide.active{display:block}
+    .full-bleed-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+
+    .img-missing{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:18px;background:#0b0b0b;color:#fff;text-align:center;z-index:2}
+    .img-missing .tag{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);font-size:11px;font-weight:800;text-transform:uppercase}
+
+    .header{display:flex;justify-content:space-between;align-items:flex-start}
+    .title-section h1{font-size: 120px;font-weight:700;letter-spacing:-3px;line-height:.95;color:#000}
+    .title-section .tm{font-size: 48px;vertical-align:super;font-weight:400}
+    .nav{display:flex;gap:30px;font-size:13px;font-weight:500;text-transform:uppercase}
+    .nav-item{color:#666;cursor:pointer}
+    .nav-item.active{background:#d4ff00;color:#000;padding:4px 12px;border-radius:4px}
+    .year-badge{background:#d4ff00;color:#000;font-size: 36px;font-weight:700;padding:8px 20px;border-radius:6px;margin-top:16px;display:inline-block}
+    .description{max-width: 580px;margin-top: 22px;padding-left: 14px;border-left: 3px solid rgba(0,0,0,.08)}
+    .description p{font-size: 13.5px;line-height: 1.75;color: #1a1a1a;margin-bottom: 14px}
+
+    .timer-icon{width:560px;height:560px;position:absolute;right:-120px;top:50%;transform:translateY(-50%) scale(var(--timerScale))}
+    .timer-circle{width:100%;height:100%;border:40px solid #e0e0e0;border-radius:50%;position:relative}
+    .timer-hand{position:absolute;width:8px;height:180px;background:#000;left:50%;top:50%;transform-origin:center top;border-radius:4px;animation:rotate 2s ease-in-out infinite}
+    .timer-center{position:absolute;width:60px;height:60px;background:#d4ff00;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}
+    @keyframes rotate{0%,100%{transform:translateX(-50%) rotate(0deg)}50%{transform:translateX(-50%) rotate(180deg)}}
+
+    .visual-grid{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1}
+    .visual-column{border-radius:18px;padding:11px;display:flex;flex-direction:column;gap:10px;background:#ededed}
+    .visual-label{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.55)}
+    .visual-collage{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .tile{aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:#ddd}
+    .thumb{width:100%;height:100%;object-fit:cover}
+
+    .concept-grid{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .card{background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:18px;padding:18px;display:flex;flex-direction:column}
+    .card.accent{background:linear-gradient(135deg,rgba(212,255,0,.1),#fff)}
+    .clist{list-style:none;margin-top:12px;display:flex;flex-direction:column;gap:10px}
+    .clist li{display:grid;grid-template-columns:100px 1fr;gap:10px;padding:10px;border-radius:12px;background:rgba(0,0,0,.03)}
+    
+    .analogy{margin-top:16px;padding:18px 22px;border-radius:18px;background:#f0f0f0;border:1px solid rgba(0,0,0,.08)}
+    .atag{display:inline-block;padding:4px 12px;background:#d4ff00;border-radius:999px;font-size:11px;font-weight:800;margin-bottom:8px}
+
+    .proto-layout{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px;flex:1}
+    .panel{background:#fff;border-radius:18px;padding:18px;display:flex;flex-direction:column;border:1px solid rgba(0,0,0,.1)}
+    .hero{margin-top:12px;border-radius:16px;background:rgba(0,0,0,.06);overflow:hidden;position:relative;flex:1;display:flex;align-items:center;justify-content:center}
+    .carousel-img{width:100%;height:100%;object-fit:cover}
+    .carousel-btn{position:absolute;top:50%;width:32px;height:32px;border-radius:50%;border:none;background:#fff;cursor:pointer;z-index:2}
+    .carousel-btn.prev{left:10px}.carousel-btn.next{right:10px}
+
+    .nav-buttons{position:fixed;right:28px;bottom:28px;display:flex;gap:8px;z-index:9999}
+    .nav-btn{width:40px;height:40px;background:#fff;border:2px solid #000;border-radius:50%;cursor:pointer;font-weight:800}
+    .slide-scrubber{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:9998;padding:10px 20px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border-radius:999px}
+    .mini-counter{position:fixed;left:28px;bottom:28px;z-index:9999;padding:8px 12px;background:rgba(0,0,0,.5);color:#fff;border-radius:999px;font-size:12px}
+
+    .pip{position:fixed;right:20px;top:20px;width:220px;aspect-ratio:1/1;background:rgba(0,0,0,.8);border-radius:18px;z-index:9997;overflow:hidden;border:1px solid rgba(255,255,255,0.2)}
+    .pip-frame{width:100%;height:100%;border:0;opacity:0}
+    .pip-overlay{position:absolute;inset:0;padding:15px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff}
+    .pip-btn{padding:10px;background:#d4ff00;border:none;border-radius:8px;font-weight:800;cursor:pointer;margin-top:10px}
+  </style>
+</head>
+<body>
+  <div class="viewport">
+    <div class="presentation-stage" id="deck">
+      <div class="slide active" id="slide1">
+        <div class="header">
+          <div class="title-section">
+            <h1>Focus<span class="tm">™</span></h1>
+            <div class="year-badge">2026</div>
+            <div class="description">
+              <p>This is not a product. It's an experiment.</p>
+              <p>Can one person complete the full product launch cycle — from idea and 3D to an e-commerce site and ads?</p>
+              <p><b>Your feedback will decide which prototype becomes real.</b></p>
+            </div>
+          </div>
+          <div class="nav">
+            <div class="nav-item active">PROJECT</div>
+            <div class="nav-item">DELIVERY</div>
+          </div>
+        </div>
+        <div class="timer-icon"><div class="timer-circle"><div class="timer-hand"></div><div class="timer-center"></div></div></div>
+      </div>
+
+      <div class="slide content-slide" id="slide2">
+        <div class="slide-number">02</div>
+        <h2>Visual Context</h2>
+        <div class="visual-grid">
+          <div class="visual-column">
+            <div class="visual-label">ALREADY EXISTS</div>
+            <div class="visual-collage">
+               <div class="tile"><img class="thumb" src="../image/slide-3/already-exists/ax_photo01.png"></div>
+               <div class="tile"><img class="thumb" src="../image/slide-3/already-exists/ax_photo02.png"></div>
+               <div class="tile"><img class="thumb" src="../image/slide-3/already-exists/ax_photo03.png"></div>
+               <div class="tile"><img class="thumb" src="../image/slide-3/already-exists/ax_photo04.png"></div>
+            </div>
+          </div>
+          <div class="visual-column" style="background:#f7f9e6">
+            <div class="visual-label">DIRECTION</div>
+            <div class="visual-collage">
+               <div class="tile"><img class="thumb" src="../image/slide-3/direction/dire_photo01.png"></div>
+               <div class="tile"><img class="thumb" src="../image/slide-3/direction/dire_photo02.png"></div>
+               <div class="tile"><img class="thumb" src="../image/slide-3/direction/dire_photo03.png"></div>
+               <div class="tile"><img class="thumb" src="../image/slide-3/direction/dire_photo04.png"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="prototypesMount"></div>
+
+      <div class="slide content-slide" id="final_pick">
+        <div class="slide-number">15</div>
+        <h2>Pick your favorite</h2>
+        <p class="sub">Choose one prototype and tell me why.</p>
+        <div id="pickGrid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:20px"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mini-counter"><span id="currentSlide">1</span> / <span id="totalSlides">15</span></div>
+  <div class="slide-scrubber"><input type="range" id="scrubberRange" min="1" max="15" value="1"></div>
+  <div class="nav-buttons">
+    <button class="nav-btn" id="prevBtn">←</button>
+    <button class="nav-btn" id="nextBtn">→</button>
+  </div>
+
+  <div class="pip" id="pip">
+    <div class="pip-overlay">
+      <div style="font-weight:800;font-size:12px">VIDEO NOTE</div>
+      <div id="pipSub" style="font-size:10px;opacity:0.8">Click play to hear from Dmytro</div>
+      <button class="pip-btn" id="pipPlay">Play</button>
+    </div>
+    <iframe id="pipFrame" class="pip-frame" allow="autoplay"></iframe>
+  </div>
+
+  <script src="https://player.vimeo.com/api/player.js"></script>
+  <script>
+    'use strict';
+    let currentSlide = 1;
+    const totalSlides = 15;
+
+    // Функція для генерації шляхів до фото (../image/ вихід на рівень вгору)
+    const renderCandidates = (p, i) => [
+      `../image/slide-5/prototype${p}/Render0${i}.png`,
+      `../image/slide-5/prototype${p}/Render0${i}.jpg`
+    ];
+
+    function injectPrototypes() {
+      const mount = document.getElementById('prototypesMount');
+      for (let p = 1; p <= 10; p++) {
+        const slide = document.createElement('div');
+        slide.className = 'slide content-slide';
+        slide.id = `proto${p}`;
+        slide.innerHTML = `
+          <div class="slide-number">${String(4+p).padStart(2,'0')}</div>
+          <h2>Prototype ${String(p).padStart(2,'0')}</h2>
+          <div class="proto-layout">
+            <div class="panel">
+              <div class="hero">
+                <img class="carousel-img" src="../image/slide-5/prototype${p}/Render01.png">
+              </div>
+            </div>
+            <div class="panel">
+              <div class="visual-label">OVERVIEW</div>
+              <p style="margin-top:10px">Mindful entry into work state through design.</p>
+            </div>
+          </div>
+        `;
+        mount.appendChild(slide);
+      }
+    }
+
+    function showSlide(n) {
+      const slides = document.querySelectorAll('.slide');
+      currentSlide = Math.max(1, Math.min(n, slides.length));
+      slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide - 1));
+      document.getElementById('currentSlide').textContent = currentSlide;
+      document.getElementById('scrubberRange').value = currentSlide;
+      updateScale();
+    }
+
+    function updateScale() {
+      const stage = document.getElementById('deck');
+      const winW = window.innerWidth;
+      const winH = window.innerHeight;
+      const scale = Math.min(winW / 1920, winH / 1080);
+      stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    }
+
+    // Навігація
+    document.getElementById('nextBtn').onclick = () => showSlide(currentSlide + 1);
+    document.getElementById('prevBtn').onclick = () => showSlide(currentSlide - 1);
+    document.getElementById('scrubberRange').oninput = (e) => showSlide(parseInt(e.target.value));
+
+    // Ініціалізація
+    window.onload = () => {
+      injectPrototypes();
+      updateScale();
+      window.onresize = updateScale;
+    };
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Focus Object Presentation (EN)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: geometricPrecision;
+      background:#000;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+      padding: var(--page-pad);
+      overflow:hidden;
+    }
+
     /* Mobile mode: keep 16:9 window centered, allow scroll */
     body.is-mobile{
       overflow:auto;
