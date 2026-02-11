@@ -239,7 +239,7 @@
       border: 1px solid rgba(255,255,255,.08);
     }
 
-    /* 1920Г—1080 stage scales via --scale */
+    /* 1920Р вЂњРІР‚вЂќ1080 stage scales via --scale */
     .presentation-stage{
       width: calc(var(--stage-w) * 1px);
       height: calc(var(--stage-h) * 1px);
@@ -249,7 +249,7 @@
       top: 50%;
 
       transform: translate(-50%, -50%) scale(var(--scale));
-      transform-origin: 50% 50%; /* вњ… РћР¦Р• Р’РђР–Р›РР’Рћ */
+      transform-origin: 50% 50%; /* Р Р†РЎС™РІР‚В¦ Р В РЎвЂєР В Р’В¦Р В РІР‚Сћ Р В РІР‚™Р В РЎвЂ™Р В РІР‚вЂњР В РІР‚С”Р В Р’ВР В РІР‚™Р В РЎвЂє */
 
       will-change: transform;
     }
@@ -305,7 +305,7 @@
       margin-top: 10px;
     }
 
-    /* if inline margin-top remains in HTML вЂ” normalize it */
+    /* if inline margin-top remains in HTML - normalize it */
     .description p[style*="margin-top"]{
       margin-top: 10px !important;
     }
@@ -383,16 +383,16 @@
     }
 
     #slide3 .atag{
-      display: inline-flex;      /* Р°Р±Рѕ inline-block */
+      display: inline-flex;      /* Р В Р’В°Р В Р’В±Р В РЎвЂў inline-block */
       width: fit-content;
-      align-self: flex-start;    /* С‰РѕР± Сѓ flex-РєРѕРЅС‚РµР№РЅРµСЂС– РЅРµ С‚СЏРіРЅСѓР»Рѕ */
-      font-size: calc(13px * var(--textCompSmall)); /* рџ‘€ РљР РЈРўР РўРЈРў */
+      align-self: flex-start;    /* Р РЋРІР‚В°Р В РЎвЂўР В Р’В± Р РЋРЎвЂњ flex-Р В РЎвЂќР В РЎвЂўР В Р вЂ¦Р РЋРІР‚С™Р В Р’ВµР В РІвЂћвЂ“Р В Р вЂ¦Р В Р’ВµР РЋР вЂљР РЋРІР‚вЂњ Р В Р вЂ¦Р В Р’Вµ Р РЋРІР‚С™Р РЋР РЏР В РЎвЂ“Р В Р вЂ¦Р РЋРЎвЂњР В Р’В»Р В РЎвЂў */
+      font-size: calc(13px * var(--textCompSmall)); /* РЎР‚РЎСџРІР‚ВРІвЂљВ¬ Р В РЎ™Р В Р’В Р В Р в‚¬Р В РЎС›Р В Р’В Р В РЎС›Р В Р в‚¬Р В РЎС› */
       font-weight:800;
       letter-spacing:.12em;
       text-transform:uppercase;
       background:#d4ff00;
       color:#000;
-      padding:8px 14px;       /* рџ‘€ РјРѕР¶РЅР° С‚РµР¶ С‚СЂРѕС…Рё РєСЂСѓС‚РёС‚Рё */
+      padding:8px 14px;       /* РЎР‚РЎСџРІР‚ВРІвЂљВ¬ Р В РЎВР В РЎвЂўР В Р’В¶Р В Р вЂ¦Р В Р’В° Р РЋРІР‚С™Р В Р’ВµР В Р’В¶ Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂўР РЋРІР‚В¦Р В РЎвЂ Р В РЎвЂќР РЋР вЂљР РЋРЎвЂњР РЋРІР‚С™Р В РЎвЂР РЋРІР‚С™Р В РЎвЂ */
       border-radius:999px;
     }
 
@@ -404,7 +404,7 @@
     }
 
     /* === Slide 03 (fill cards nicely) === */
-    /* Slide 03 вЂ” do not touch display, controlled by .slide/.active */
+    /* Slide 03 - do not touch display, controlled by .slide/.active */
     #slide3{
       flex-direction: column;
       min-height: 100%;
@@ -425,11 +425,11 @@
       min-height: 0;
     }
 
-    /* вњ… main: list takes all remaining space */
+    /* Р Р†РЎС™РІР‚В¦ main: list takes all remaining space */
     #slide3 .clist{
       flex: 1 1 auto;
       min-height: 0;
-      display: flex;          /* Р·Р°РјС–РЅСЏС”РјРѕ grid в†’ flex */
+      display: flex;          /* Р В Р’В·Р В Р’В°Р В РЎВР РЋРІР‚вЂњР В Р вЂ¦Р РЋР РЏР РЋРІР‚СњР В РЎВР В РЎвЂў grid Р Р†РІР‚В РІР‚™ flex */
       flex-direction: column;
       gap: 10px;
     }
@@ -438,7 +438,7 @@
     #slide3{
       /* controlled spacing between blocks inside slide */
       --s3-gap: 16px;
-      --s3-row-pad: 28px;     /* вЂњРјвЂ™СЏСЃРѕвЂќ СЂСЏРґРєР° */
+      --s3-row-pad: 28px;     /* -РЎС™Р В РЎВ'Р РЋР РЏР РЋР С“Р В РЎвЂў" Р РЋР вЂљР РЋР РЏР В РўвЂР В РЎвЂќР В Р’В° */
       --s3-label-fs: 14px;    /* label bigger */
       --s3-value-fs: 15.5px;  /* value bigger */
     }
@@ -454,13 +454,13 @@
 
     #slide3 .analogy{
       margin-top: 16px;
-      padding: 18px 22px 20px;   /* в¬…пёЏ РіРѕР»РѕРІРЅРµ */
+      padding: 18px 22px 20px;   /* Р Р†Р’В¬РІР‚В¦Р С—РЎвЂР РЏ Р В РЎвЂ“Р В РЎвЂўР В Р’В»Р В РЎвЂўР В Р вЂ Р В Р вЂ¦Р В Р’Вµ */
       border-radius: 18px;
       border:1px solid rgba(0,0,0,.08);
 
       display: flex;
       flex-direction: column;
-      gap: 10px;                /* в¬…пёЏ СЂРёС‚Рј РјС–Р¶ WHY С– С‚РµРєСЃС‚РѕРј */
+      gap: 10px;                /* Р Р†Р’В¬РІР‚В¦Р С—РЎвЂР РЏ Р РЋР вЂљР В РЎвЂР РЋРІР‚С™Р В РЎВ Р В РЎВР РЋРІР‚вЂњР В Р’В¶ WHY Р РЋРІР‚вЂњ Р РЋРІР‚С™Р В Р’ВµР В РЎвЂќР РЋР С“Р РЋРІР‚С™Р В РЎвЂўР В РЎВ */
     }
 
     /* richer rows with controlled padding */
@@ -489,8 +489,8 @@
       --s2-col-gap: 12px;
       --s2-grid-gap: 22px;
 
-      /* make rows more вЂњmeatyвЂќ */
-      --s2-row-pad-y: 14px;   /* Р±СѓР»Рѕ ~12 */
+      /* make rows more -РЎС™meaty" */
+      --s2-row-pad-y: 14px;   /* Р В Р’В±Р РЋРЎвЂњР В Р’В»Р В РЎвЂў ~12 */
       --s2-row-pad-x: 16px;
     }
 
@@ -506,7 +506,7 @@
       margin-top: 8px;
     }
 
-    /* columns вЂ” more padding and rhythm */
+    /* columns - more padding and rhythm */
     #slide2 .visual-grid{
       gap: var(--s2-grid-gap);
     }
@@ -522,7 +522,7 @@
       letter-spacing: .14em;
     }
 
-    /* notes вЂ” larger type + more padding */
+    /* notes - larger type + more padding */
     #slide2 .visual-notes{
       gap: 8px;
     }
@@ -543,7 +543,7 @@
 
     /* list takes more vertical space */
     #slide2 .visual-notes{
-      gap: 10px; /* Р±СѓР»Рѕ 8 */
+      gap: 10px; /* Р В Р’В±Р РЋРЎвЂњР В Р’В»Р В РЎвЂў 8 */
     }
 
     /* WHY LOFI down */
@@ -574,7 +574,7 @@
     .flow-foot{display:none}
 
      /* =========================
-       SLIDE 04 вЂ” FILL HEIGHT (fixed)
+       SLIDE 04 - FILL HEIGHT (fixed)
        ========================= */
 
     /* card should fill remaining slide height */
@@ -584,12 +584,12 @@
       justify-content: stretch;
     }
 
-    /* SLIDE 04 вЂ” spacing control (top + bottom) */
+    /* SLIDE 04 - spacing control (top + bottom) */
     #slide4{
-      --s4-row-gap: 14px;        /* РІС–РґСЃС‚Р°РЅСЊ РјС–Р¶ СЂСЏРґР°РјРё */
-      --s4-pad-top: 62px;        /* рџ‘€ РѕРїСѓСЃРєР°С” РІРµСЂС… */
-      --s4-pad-bottom: 38px;     /* рџ‘€ РѕРїСѓСЃРєР°С” РЅРёР· */
-      --s4-row2: 440px;          /* рџ‘€ СЂРѕР±РёС‚СЊ РЅРёР¶РЅС–Р№ С‚СЂРµРє вЂњРіР»РёР±С€РёРјвЂќ, С‰РѕР± Р±Р»РѕРє РјС–Рі СЃС–СЃС‚Рё РЅРёР¶С‡Рµ */
+      --s4-row-gap: 14px;        /* Р В Р вЂ Р РЋРІР‚вЂњР В РўвЂР РЋР С“Р РЋРІР‚С™Р В Р’В°Р В Р вЂ¦Р РЋР Р‰ Р В РЎВР РЋРІР‚вЂњР В Р’В¶ Р РЋР вЂљР РЋР РЏР В РўвЂР В Р’В°Р В РЎВР В РЎвЂ */
+      --s4-pad-top: 62px;        /* РЎР‚РЎСџРІР‚ВРІвЂљВ¬ Р В РЎвЂўР В РЎвЂ”Р РЋРЎвЂњР РЋР С“Р В РЎвЂќР В Р’В°Р РЋРІР‚Сњ Р В Р вЂ Р В Р’ВµР РЋР вЂљР РЋРІР‚В¦ */
+      --s4-pad-bottom: 38px;     /* РЎР‚РЎСџРІР‚ВРІвЂљВ¬ Р В РЎвЂўР В РЎвЂ”Р РЋРЎвЂњР РЋР С“Р В РЎвЂќР В Р’В°Р РЋРІР‚Сњ Р В Р вЂ¦Р В РЎвЂР В Р’В· */
+      --s4-row2: 440px;          /* РЎР‚РЎСџРІР‚ВРІвЂљВ¬ Р РЋР вЂљР В РЎвЂўР В Р’В±Р В РЎвЂР РЋРІР‚С™Р РЋР Р‰ Р В Р вЂ¦Р В РЎвЂР В Р’В¶Р В Р вЂ¦Р РЋРІР‚вЂњР В РІвЂћвЂ“ Р РЋРІР‚С™Р РЋР вЂљР В Р’ВµР В РЎвЂќ -РЎС™Р В РЎвЂ“Р В Р’В»Р В РЎвЂР В Р’В±Р РЋРІвЂљВ¬Р В РЎвЂР В РЎВ", Р РЋРІР‚В°Р В РЎвЂўР В Р’В± Р В Р’В±Р В Р’В»Р В РЎвЂўР В РЎвЂќ Р В РЎВР РЋРІР‚вЂњР В РЎвЂ“ Р РЋР С“Р РЋРІР‚вЂњР РЋР С“Р РЋРІР‚С™Р В РЎвЂ Р В Р вЂ¦Р В РЎвЂР В Р’В¶Р РЋРІР‚РЋР В Р’Вµ */
     }
 
     #slide4 .flow-grid{
@@ -609,7 +609,7 @@
       align-items: start;
     }
 
-    /* вњ… second row sticks to bottom of its track */
+    /* Р Р†РЎС™РІР‚В¦ second row sticks to bottom of its track */
     #slide4 .flow-left[style*="grid-row:2"],
     #slide4 .flow-right[style*="grid-row:2"]{
       align-self: end;
@@ -652,7 +652,7 @@
       font-size: calc(14px * var(--textCompSmall));
       line-height: 1.68;
       color: rgba(0,0,0,.38);
-      margin-top: 0; /* Р±СѓР»Рѕ 28px */
+      margin-top: 0; /* Р В Р’В±Р РЋРЎвЂњР В Р’В»Р В РЎвЂў 28px */
     }
 
     #slide4 .flow-copy strong{
@@ -721,7 +721,7 @@
 
       padding: var(--scrub-pad-y) var(--scrub-pad-x);
       border-radius: 999px;
-      background: rgba(255,255,255,.06);          /* Р±РµРєРіСЂР°СѓРЅРґ С‚РѕРЅС€РёР№ */
+      background: rgba(255,255,255,.06);          /* Р В Р’В±Р В Р’ВµР В РЎвЂќР В РЎвЂ“Р РЋР вЂљР В Р’В°Р РЋРЎвЂњР В Р вЂ¦Р В РўвЂ Р РЋРІР‚С™Р В РЎвЂўР В Р вЂ¦Р РЋРІвЂљВ¬Р В РЎвЂР В РІвЂћвЂ“ */
       box-shadow: 0 10px 28px rgba(0,0,0,.18);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
@@ -755,7 +755,7 @@
       width: 9px;
       height: 9px;
       border-radius: 999px;
-      margin-top: -3.5px;                          /* С†РµРЅС‚СЂСѓС” РЅР° С‚СЂРµРєСѓ 2px */
+      margin-top: -3.5px;                          /* Р РЋРІР‚В Р В Р’ВµР В Р вЂ¦Р РЋРІР‚С™Р РЋР вЂљР РЋРЎвЂњР РЋРІР‚Сњ Р В Р вЂ¦Р В Р’В° Р РЋРІР‚С™Р РЋР вЂљР В Р’ВµР В РЎвЂќР РЋРЎвЂњ 2px */
       background: rgba(255,255,255,.92);
       box-shadow: 0 6px 14px rgba(0,0,0,.28);
     }
@@ -814,7 +814,7 @@
       }
     }
 
-    /* РЅР° РЅРёР·СЊРєРёС… РµРєСЂР°РЅР°С… С‰Рµ РєРѕРјРїР°РєС‚РЅС–С€Рµ */
+    /* Р В Р вЂ¦Р В Р’В° Р В Р вЂ¦Р В РЎвЂР В Р’В·Р РЋР Р‰Р В РЎвЂќР В РЎвЂР РЋРІР‚В¦ Р В Р’ВµР В РЎвЂќР РЋР вЂљР В Р’В°Р В Р вЂ¦Р В Р’В°Р РЋРІР‚В¦ Р РЋРІР‚В°Р В Р’Вµ Р В РЎвЂќР В РЎвЂўР В РЎВР В РЎвЂ”Р В Р’В°Р В РЎвЂќР РЋРІР‚С™Р В Р вЂ¦Р РЋРІР‚вЂњР РЋРІвЂљВ¬Р В Р’Вµ */
     @media (max-height: 760px){
       :root{
         --ui-gap: 10px;
@@ -823,24 +823,24 @@
       }
     }
 
-    /* === Slide 01: layout + typography polish (more premium, less вЂњstuck to leftвЂќ) === */
+    /* === Slide 01: layout + typography polish (more premium, less -РЎС™stuck to left") === */
     #slide1{
-      /* С‚СЂС–С€РєРё Р±С–Р»СЊС€Рµ breathing room + РєСЂР°С‰Р° вЂњРєРѕРјРїРѕР·РёС†С–СЏвЂќ */
+      /* Р РЋРІР‚С™Р РЋР вЂљР РЋРІР‚вЂњР РЋРІвЂљВ¬Р В РЎвЂќР В РЎвЂ Р В Р’В±Р РЋРІР‚вЂњР В Р’В»Р РЋР Р‰Р РЋРІвЂљВ¬Р В Р’Вµ breathing room + Р В РЎвЂќР РЋР вЂљР В Р’В°Р РЋРІР‚В°Р В Р’В° -РЎС™Р В РЎвЂќР В РЎвЂўР В РЎВР В РЎвЂ”Р В РЎвЂўР В Р’В·Р В РЎвЂР РЋРІР‚В Р РЋРІР‚вЂњР РЋР РЏ" */
       padding: 60px 86px 62px 92px;
 
-      /* Р»РµРіРєРёР№ Р¶РёРІРёР№ С„РѕРЅ, С‰РѕР± Р±СѓР»Рѕ РІС–РґС‡СѓС‚С‚СЏ РґРёР·Р°Р№РЅСѓ */
+      /* Р В Р’В»Р В Р’ВµР В РЎвЂ“Р В РЎвЂќР В РЎвЂР В РІвЂћвЂ“ Р В Р’В¶Р В РЎвЂР В Р вЂ Р В РЎвЂР В РІвЂћвЂ“ Р РЋРІР‚С›Р В РЎвЂўР В Р вЂ¦, Р РЋРІР‚В°Р В РЎвЂўР В Р’В± Р В Р’В±Р РЋРЎвЂњР В Р’В»Р В РЎвЂў Р В Р вЂ Р РЋРІР‚вЂњР В РўвЂР РЋРІР‚РЋР РЋРЎвЂњР РЋРІР‚С™Р РЋРІР‚С™Р РЋР РЏ Р В РўвЂР В РЎвЂР В Р’В·Р В Р’В°Р В РІвЂћвЂ“Р В Р вЂ¦Р РЋРЎвЂњ */
       background:
         radial-gradient(900px 520px at 18% 20%, rgba(212,255,0,.10), rgba(0,0,0,0) 55%),
         radial-gradient(900px 520px at 90% 70%, rgba(0,0,0,.06), rgba(0,0,0,0) 60%),
         #f5f5f5;
 
       --hero-comp: clamp(1, calc(1 / var(--scale)), 1.45);
-      --s1-body-fs: 15.5px; /* в¬…пёЏ РіРѕР»РѕРІРЅРµ: С‚РµРєСЃС‚ СЃС‚Р°РІ Р±С–Р»СЊС€РёР№ */
+      --s1-body-fs: 15.5px; /* Р Р†Р’В¬РІР‚В¦Р С—РЎвЂР РЏ Р В РЎвЂ“Р В РЎвЂўР В Р’В»Р В РЎвЂўР В Р вЂ Р В Р вЂ¦Р В Р’Вµ: Р РЋРІР‚С™Р В Р’ВµР В РЎвЂќР РЋР С“Р РЋРІР‚С™ Р РЋР С“Р РЋРІР‚С™Р В Р’В°Р В Р вЂ  Р В Р’В±Р РЋРІР‚вЂњР В Р’В»Р РЋР Р‰Р РЋРІвЂљВ¬Р В РЎвЂР В РІвЂћвЂ“ */
       --s1-body-lh: 1.78;
-      --s1-max: 620px;      /* в¬…пёЏ РѕР±РјРµР¶СѓС” С€РёСЂРёРЅСѓ вЂ” РІРёРіР»СЏРґР°С” РґРѕСЂРѕР¶С‡Рµ */
+      --s1-max: 620px;      /* Р Р†Р’В¬РІР‚В¦Р С—РЎвЂР РЏ Р В РЎвЂўР В Р’В±Р В РЎВР В Р’ВµР В Р’В¶Р РЋРЎвЂњР РЋРІР‚Сњ Р РЋРІвЂљВ¬Р В РЎвЂР РЋР вЂљР В РЎвЂР В Р вЂ¦Р РЋРЎвЂњ - Р В Р вЂ Р В РЎвЂР В РЎвЂ“Р В Р’В»Р РЋР РЏР В РўвЂР В Р’В°Р РЋРІР‚Сњ Р В РўвЂР В РЎвЂўР РЋР вЂљР В РЎвЂўР В Р’В¶Р РЋРІР‚РЋР В Р’Вµ */
     }
 
-    /* СЂРѕР±РёРјРѕ С…РµРґРµСЂ вЂњРґРёР·Р°Р№РЅРµСЂСЃСЊРєРёРјвЂќ: 2 РєРѕР»РѕРЅРєРё, РЅРѕСЂРјР°Р»СЊРЅРёР№ Р±Р°Р»Р°РЅСЃ */
+    /* Р РЋР вЂљР В РЎвЂўР В Р’В±Р В РЎвЂР В РЎВР В РЎвЂў Р РЋРІР‚В¦Р В Р’ВµР В РўвЂР В Р’ВµР РЋР вЂљ -РЎС™Р В РўвЂР В РЎвЂР В Р’В·Р В Р’В°Р В РІвЂћвЂ“Р В Р вЂ¦Р В Р’ВµР РЋР вЂљР РЋР С“Р РЋР Р‰Р В РЎвЂќР В РЎвЂР В РЎВ": 2 Р В РЎвЂќР В РЎвЂўР В Р’В»Р В РЎвЂўР В Р вЂ¦Р В РЎвЂќР В РЎвЂ, Р В Р вЂ¦Р В РЎвЂўР РЋР вЂљР В РЎВР В Р’В°Р В Р’В»Р РЋР Р‰Р В Р вЂ¦Р В РЎвЂР В РІвЂћвЂ“ Р В Р’В±Р В Р’В°Р В Р’В»Р В Р’В°Р В Р вЂ¦Р РЋР С“ */
     #slide1 .header{
       display: grid;
       grid-template-columns: minmax(520px, 1fr) auto;
@@ -848,7 +848,7 @@
       column-gap: 54px;
     }
 
-    /* Р·Р°РіРѕР»РѕРІРѕРє вЂ” С‚СЂРѕС…Рё РјР°СЃРёРІРЅС–С€РёР№ С– С‡РёСЃС‚С–С€РёР№ */
+    /* Р В Р’В·Р В Р’В°Р В РЎвЂ“Р В РЎвЂўР В Р’В»Р В РЎвЂўР В Р вЂ Р В РЎвЂўР В РЎвЂќ - Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂўР РЋРІР‚В¦Р В РЎвЂ Р В РЎВР В Р’В°Р РЋР С“Р В РЎвЂР В Р вЂ Р В Р вЂ¦Р РЋРІР‚вЂњР РЋРІвЂљВ¬Р В РЎвЂР В РІвЂћвЂ“ Р РЋРІР‚вЂњ Р РЋРІР‚РЋР В РЎвЂР РЋР С“Р РЋРІР‚С™Р РЋРІР‚вЂњР РЋРІвЂљВ¬Р В РЎвЂР В РІвЂћвЂ“ */
     #slide1 .title-section h1{
       font-size: calc(132px * var(--hero-comp));
       letter-spacing: -3.2px;
@@ -856,7 +856,7 @@
       font-weight: 800;
     }
 
-    /* Р±РµР№РґР¶ СЂРѕРєСѓ вЂ” С‚СЂРѕС…Рё Р±С–Р»СЊС€Рµ вЂњРІР°РіРёвЂќ С– РїРѕРІС–С‚СЂСЏ */
+    /* Р В Р’В±Р В Р’ВµР В РІвЂћвЂ“Р В РўвЂР В Р’В¶ Р РЋР вЂљР В РЎвЂўР В РЎвЂќР РЋРЎвЂњ - Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂўР РЋРІР‚В¦Р В РЎвЂ Р В Р’В±Р РЋРІР‚вЂњР В Р’В»Р РЋР Р‰Р РЋРІвЂљВ¬Р В Р’Вµ -РЎС™Р В Р вЂ Р В Р’В°Р В РЎвЂ“Р В РЎвЂ" Р РЋРІР‚вЂњ Р В РЎвЂ”Р В РЎвЂўР В Р вЂ Р РЋРІР‚вЂњР РЋРІР‚С™Р РЋР вЂљР РЋР РЏ */
     #slide1 .year-badge{
       font-size: calc(40px * var(--hero-comp));
       padding: calc(10px * var(--hero-comp)) calc(22px * var(--hero-comp));
@@ -874,13 +874,13 @@
       letter-spacing: .01em;
     }
 
-    /* РѕСЃС‚Р°РЅРЅС–Р№ Р°Р±Р·Р°С† (bold) вЂ” Р±С–Р»СЊС€ вЂњpremiumвЂќ */
+    /* Р В РЎвЂўР РЋР С“Р РЋРІР‚С™Р В Р’В°Р В Р вЂ¦Р В Р вЂ¦Р РЋРІР‚вЂњР В РІвЂћвЂ“ Р В Р’В°Р В Р’В±Р В Р’В·Р В Р’В°Р РЋРІР‚В  (bold) - Р В Р’В±Р РЋРІР‚вЂњР В Р’В»Р РЋР Р‰Р РЋРІвЂљВ¬ -РЎС™premium" */
     #slide1 .description p:last-child{
       font-weight: 650 !important;
       color: rgba(0,0,0,.88);
     }
 
-    /* РЅР°РІС–РіР°С†С–СЏ вЂ” С‚СЂРѕС€РєРё Р»РµРіС€Р° С– СЂС–РІРЅС–С€Р° */
+    /* Р В Р вЂ¦Р В Р’В°Р В Р вЂ Р РЋРІР‚вЂњР В РЎвЂ“Р В Р’В°Р РЋРІР‚В Р РЋРІР‚вЂњР РЋР РЏ - Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂўР РЋРІвЂљВ¬Р В РЎвЂќР В РЎвЂ Р В Р’В»Р В Р’ВµР В РЎвЂ“Р РЋРІвЂљВ¬Р В Р’В° Р РЋРІР‚вЂњ Р РЋР вЂљР РЋРІР‚вЂњР В Р вЂ Р В Р вЂ¦Р РЋРІР‚вЂњР РЋРІвЂљВ¬Р В Р’В° */
     #slide1 .nav{
       gap: 26px;
       align-items: center;
@@ -900,7 +900,7 @@
       box-shadow: 0 10px 26px rgba(212,255,0,.16);
     }
 
-    /* С‚Р°Р№РјРµСЂ: С‚СЂРѕС…Рё РјРµРЅС€Рµ вЂњС‚РёСЃРЅРµвЂќ, РєСЂР°С‰Рµ СЃС–РґР°С” РІ РєРѕРјРїРѕР·РёС†С–СЋ */
+    /* Р РЋРІР‚С™Р В Р’В°Р В РІвЂћвЂ“Р В РЎВР В Р’ВµР РЋР вЂљ: Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂўР РЋРІР‚В¦Р В РЎвЂ Р В РЎВР В Р’ВµР В Р вЂ¦Р РЋРІвЂљВ¬Р В Р’Вµ -РЎС™Р РЋРІР‚С™Р В РЎвЂР РЋР С“Р В Р вЂ¦Р В Р’Вµ", Р В РЎвЂќР РЋР вЂљР В Р’В°Р РЋРІР‚В°Р В Р’Вµ Р РЋР С“Р РЋРІР‚вЂњР В РўвЂР В Р’В°Р РЋРІР‚Сњ Р В Р вЂ  Р В РЎвЂќР В РЎвЂўР В РЎВР В РЎвЂ”Р В РЎвЂўР В Р’В·Р В РЎвЂР РЋРІР‚В Р РЋРІР‚вЂњР РЋР вЂ№ */
     #slide1 .timer-icon{
       right: -140px;
       top: 52%;
@@ -908,21 +908,21 @@
       opacity: .95;
     }
 
-    /* С‰РѕР± РЅР° РјР°Р»РёС… СЃРєРµР№Р»Р°С… С‚РµР¶ С‡РёС‚Р°Р»РѕСЃСЊ */
+    /* Р РЋРІР‚В°Р В РЎвЂўР В Р’В± Р В Р вЂ¦Р В Р’В° Р В РЎВР В Р’В°Р В Р’В»Р В РЎвЂР РЋРІР‚В¦ Р РЋР С“Р В РЎвЂќР В Р’ВµР В РІвЂћвЂ“Р В Р’В»Р В Р’В°Р РЋРІР‚В¦ Р РЋРІР‚С™Р В Р’ВµР В Р’В¶ Р РЋРІР‚РЋР В РЎвЂР РЋРІР‚С™Р В Р’В°Р В Р’В»Р В РЎвЂўР РЋР С“Р РЋР Р‰ */
     @media (max-width: 900px){
       #slide1 .header{ grid-template-columns: 1fr; row-gap: 18px; }
       #slide1 .timer-icon{ opacity: .35; right: -220px; top: 58%; }
     }
 
-    /* === Slide 01: make description lighter (less вЂњcompressed columnвЂќ) === */
+    /* === Slide 01: make description lighter (less -РЎС™compressed column") === */
     #slide1{
-      --s1-max: 720px;        /* Р±СѓР»Рѕ 620 вЂ” С€РёСЂС€Рµ = Р»РµРіС€Рµ */
-      --s1-body-fs: 15px;   /* С‚СЂРѕС…Рё Р±С–Р»СЊС€РёР№ С‚РµРєСЃС‚ */
-      --s1-body-lh: 1.84;     /* Р±С–Р»СЊС€Рµ РїРѕРІС–С‚СЂСЏ РјС–Р¶ СЂСЏРґРєР°РјРё */
+      --s1-max: 720px;        /* Р В Р’В±Р РЋРЎвЂњР В Р’В»Р В РЎвЂў 620 - Р РЋРІвЂљВ¬Р В РЎвЂР РЋР вЂљР РЋРІвЂљВ¬Р В Р’Вµ = Р В Р’В»Р В Р’ВµР В РЎвЂ“Р РЋРІвЂљВ¬Р В Р’Вµ */
+      --s1-body-fs: 15px;   /* Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂўР РЋРІР‚В¦Р В РЎвЂ Р В Р’В±Р РЋРІР‚вЂњР В Р’В»Р РЋР Р‰Р РЋРІвЂљВ¬Р В РЎвЂР В РІвЂћвЂ“ Р РЋРІР‚С™Р В Р’ВµР В РЎвЂќР РЋР С“Р РЋРІР‚С™ */
+      --s1-body-lh: 1.84;     /* Р В Р’В±Р РЋРІР‚вЂњР В Р’В»Р РЋР Р‰Р РЋРІвЂљВ¬Р В Р’Вµ Р В РЎвЂ”Р В РЎвЂўР В Р вЂ Р РЋРІР‚вЂњР РЋРІР‚С™Р РЋР вЂљР РЋР РЏ Р В РЎВР РЋРІР‚вЂњР В Р’В¶ Р РЋР вЂљР РЋР РЏР В РўвЂР В РЎвЂќР В Р’В°Р В РЎВР В РЎвЂ */
     }
 
     #slide1 .description{
-      margin-top: 26px;       /* С‚СЂРѕС…Рё РЅРёР¶С‡Рµ РІС–Рґ Р±РµР№РґР¶Р° */
+      margin-top: 26px;       /* Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂўР РЋРІР‚В¦Р В РЎвЂ Р В Р вЂ¦Р В РЎвЂР В Р’В¶Р РЋРІР‚РЋР В Р’Вµ Р В Р вЂ Р РЋРІР‚вЂњР В РўвЂ Р В Р’В±Р В Р’ВµР В РІвЂћвЂ“Р В РўвЂР В Р’В¶Р В Р’В° */
     }
 
     #slide1 .description p{
@@ -930,39 +930,39 @@
       line-height: var(--s1-body-lh);
       color: rgba(0,0,0,.78);
       letter-spacing: .012em;
-      margin-bottom: 0;       /* РєРѕРЅС‚СЂРѕР»СЊ СЂРёС‚РјСѓ РЅРёР¶С‡Рµ */
+      margin-bottom: 0;       /* Р В РЎвЂќР В РЎвЂўР В Р вЂ¦Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂўР В Р’В»Р РЋР Р‰ Р РЋР вЂљР В РЎвЂР РЋРІР‚С™Р В РЎВР РЋРЎвЂњ Р В Р вЂ¦Р В РЎвЂР В Р’В¶Р РЋРІР‚РЋР В Р’Вµ */
       font-weight: 420;
     }
 
-    /* СЂРёС‚Рј РјС–Р¶ Р°Р±Р·Р°С†Р°РјРё */
+    /* Р РЋР вЂљР В РЎвЂР РЋРІР‚С™Р В РЎВ Р В РЎВР РЋРІР‚вЂњР В Р’В¶ Р В Р’В°Р В Р’В±Р В Р’В·Р В Р’В°Р РЋРІР‚В Р В Р’В°Р В РЎВР В РЎвЂ */
     #slide1 .description p + p{
       margin-top: 16px !important;
     }
 
-    /* РїСЂРёР±РёРІР°С”РјРѕ inline margin-top, С‰РѕР± РЅРµ Р»Р°РјР°РІ СЂРёС‚Рј */
+    /* Р В РЎвЂ”Р РЋР вЂљР В РЎвЂР В Р’В±Р В РЎвЂР В Р вЂ Р В Р’В°Р РЋРІР‚СњР В РЎВР В РЎвЂў inline margin-top, Р РЋРІР‚В°Р В РЎвЂўР В Р’В± Р В Р вЂ¦Р В Р’Вµ Р В Р’В»Р В Р’В°Р В РЎВР В Р’В°Р В Р вЂ  Р РЋР вЂљР В РЎвЂР РЋРІР‚С™Р В РЎВ */
     #slide1 .description p[style*="margin-top"]{
       margin-top: 16px !important;
     }
 
-    /* РѕСЃС‚Р°РЅРЅС–Р№ вЂ” С‚СЂРѕС…Рё СЃРёР»СЊРЅС–С€Рµ, Р°Р»Рµ РЅРµ вЂњР¶РёСЂРЅСЋС‡РёР№вЂќ */
+    /* Р В РЎвЂўР РЋР С“Р РЋРІР‚С™Р В Р’В°Р В Р вЂ¦Р В Р вЂ¦Р РЋРІР‚вЂњР В РІвЂћвЂ“ - Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂўР РЋРІР‚В¦Р В РЎвЂ Р РЋР С“Р В РЎвЂР В Р’В»Р РЋР Р‰Р В Р вЂ¦Р РЋРІР‚вЂњР РЋРІвЂљВ¬Р В Р’Вµ, Р В Р’В°Р В Р’В»Р В Р’Вµ Р В Р вЂ¦Р В Р’Вµ -РЎС™Р В Р’В¶Р В РЎвЂР РЋР вЂљР В Р вЂ¦Р РЋР вЂ№Р РЋРІР‚РЋР В РЎвЂР В РІвЂћвЂ“" */
     #slide1 .description p:last-child{
       font-weight: 650 !important;
       color: rgba(0,0,0,.86);
     }
 
-    /* make description feel less вЂњblockyвЂќ */
+    /* make description feel less -РЎС™blocky" */
     #slide1 .description{
-      padding-right: 38px;      /* Р»РµРіРєРёР№ РїСЂРѕСЃС‚С–СЂ СЃРїСЂР°РІР° */
+      padding-right: 38px;      /* Р В Р’В»Р В Р’ВµР В РЎвЂ“Р В РЎвЂќР В РЎвЂР В РІвЂћвЂ“ Р В РЎвЂ”Р РЋР вЂљР В РЎвЂўР РЋР С“Р РЋРІР‚С™Р РЋРІР‚вЂњР РЋР вЂљ Р РЋР С“Р В РЎвЂ”Р РЋР вЂљР В Р’В°Р В Р вЂ Р В Р’В° */
     }
 
     #slide1 .description p{
-      max-width: none;      /* вќ— Р·РЅС–РјР°С”РјРѕ РѕР±РјРµР¶РµРЅРЅСЏ */
+      max-width: none;      /* Р Р†РЎСљРІР‚вЂќ Р В Р’В·Р В Р вЂ¦Р РЋРІР‚вЂњР В РЎВР В Р’В°Р РЋРІР‚СњР В РЎВР В РЎвЂў Р В РЎвЂўР В Р’В±Р В РЎВР В Р’ВµР В Р’В¶Р В Р’ВµР В Р вЂ¦Р В Р вЂ¦Р РЋР РЏ */
     }
 
     /* === Slide 01 width controller (clean) === */
     #slide1{
-      --s1-title-max: 980px; /* С€РёСЂРёРЅР° РІСЃС–С”С— Р»С–РІРѕС— РєРѕР»РѕРЅРєРё */
-      --s1-desc-max: 980px;  /* С€РёСЂРёРЅР° РѕРїРёСЃСѓ (РјРѕР¶Рµ Р±СѓС‚Рё РјРµРЅС€Рµ/Р±С–Р»СЊС€Рµ) */
+      --s1-title-max: 980px; /* Р РЋРІвЂљВ¬Р В РЎвЂР РЋР вЂљР В РЎвЂР В Р вЂ¦Р В Р’В° Р В Р вЂ Р РЋР С“Р РЋРІР‚вЂњР РЋРІР‚СњР РЋРІР‚вЂќ Р В Р’В»Р РЋРІР‚вЂњР В Р вЂ Р В РЎвЂўР РЋРІР‚вЂќ Р В РЎвЂќР В РЎвЂўР В Р’В»Р В РЎвЂўР В Р вЂ¦Р В РЎвЂќР В РЎвЂ */
+      --s1-desc-max: 980px;  /* Р РЋРІвЂљВ¬Р В РЎвЂР РЋР вЂљР В РЎвЂР В Р вЂ¦Р В Р’В° Р В РЎвЂўР В РЎвЂ”Р В РЎвЂР РЋР С“Р РЋРЎвЂњ (Р В РЎВР В РЎвЂўР В Р’В¶Р В Р’Вµ Р В Р’В±Р РЋРЎвЂњР РЋРІР‚С™Р В РЎвЂ Р В РЎВР В Р’ВµР В Р вЂ¦Р РЋРІвЂљВ¬Р В Р’Вµ/Р В Р’В±Р РЋРІР‚вЂњР В Р’В»Р РЋР Р‰Р РЋРІвЂљВ¬Р В Р’Вµ) */
     }
 
     #slide1 .title-section{
@@ -1013,7 +1013,7 @@
        ========================= */
 
     :root{
-      --pip-size: 220px;          /* Р±Р°Р·РѕРІРёР№ СЂРѕР·РјС–СЂ */
+      --pip-size: 220px;          /* Р В Р’В±Р В Р’В°Р В Р’В·Р В РЎвЂўР В Р вЂ Р В РЎвЂР В РІвЂћвЂ“ Р РЋР вЂљР В РЎвЂўР В Р’В·Р В РЎВР РЋРІР‚вЂњР РЋР вЂљ */
       --pip-radius: 18px;
       --pip-pad: 10px;
       --pip-z: 9997;
@@ -1025,7 +1025,7 @@
       right: 22px;
       top: 22px;
       width: var(--pip-size);
-      aspect-ratio: 1 / 1;        /* РєРІР°РґСЂР°С‚ */
+      aspect-ratio: 1 / 1;        /* Р В РЎвЂќР В Р вЂ Р В Р’В°Р В РўвЂР РЋР вЂљР В Р’В°Р РЋРІР‚С™ */
       z-index: var(--pip-z);
 
       border-radius: var(--pip-radius);
@@ -1059,7 +1059,7 @@
       height:100%;
       border:0;
       display:block;
-      opacity: 0;                 /* РїРѕРєР°Р·СѓС”РјРѕ С‚С–Р»СЊРєРё РєРѕР»Рё СЂРµР°Р»СЊРЅРѕ РіСЂР°С” */
+      opacity: 0;                 /* Р В РЎвЂ”Р В РЎвЂўР В РЎвЂќР В Р’В°Р В Р’В·Р РЋРЎвЂњР РЋРІР‚СњР В РЎВР В РЎвЂў Р РЋРІР‚С™Р РЋРІР‚вЂњР В Р’В»Р РЋР Р‰Р В РЎвЂќР В РЎвЂ Р В РЎвЂќР В РЎвЂўР В Р’В»Р В РЎвЂ Р РЋР вЂљР В Р’ВµР В Р’В°Р В Р’В»Р РЋР Р‰Р В Р вЂ¦Р В РЎвЂў Р В РЎвЂ“Р РЋР вЂљР В Р’В°Р РЋРІР‚Сњ */
     }
 
     /* optional brightness boost for darker slides */
@@ -1182,7 +1182,7 @@
       display: grid;
       place-items: center;
 
-      /* РїСЂРёР±РёСЂР°С”РјРѕ вЂњС‚РµРєСЃС‚РѕРІРёР№ РјС–РЅСѓСЃвЂќ РІРїР»РёРІ */
+      /* Р В РЎвЂ”Р РЋР вЂљР В РЎвЂР В Р’В±Р В РЎвЂР РЋР вЂљР В Р’В°Р РЋРІР‚СњР В РЎВР В РЎвЂў -РЎС™Р РЋРІР‚С™Р В Р’ВµР В РЎвЂќР РЋР С“Р РЋРІР‚С™Р В РЎвЂўР В Р вЂ Р В РЎвЂР В РІвЂћвЂ“ Р В РЎВР РЋРІР‚вЂњР В Р вЂ¦Р РЋРЎвЂњР РЋР С“" Р В Р вЂ Р В РЎвЂ”Р В Р’В»Р В РЎвЂР В Р вЂ  */
       font-size: 0;
       line-height: 0;
       padding: 0;
@@ -1190,11 +1190,11 @@
 
     .pip-min::before{
       content:"";
-      width: 12px;          /* РґРѕРІР¶РёРЅР° СЂРёСЃРєРё */
-      height: 2px;          /* С‚РѕРІС‰РёРЅР° */
+      width: 12px;          /* Р В РўвЂР В РЎвЂўР В Р вЂ Р В Р’В¶Р В РЎвЂР В Р вЂ¦Р В Р’В° Р РЋР вЂљР В РЎвЂР РЋР С“Р В РЎвЂќР В РЎвЂ */
+      height: 2px;          /* Р РЋРІР‚С™Р В РЎвЂўР В Р вЂ Р РЋРІР‚В°Р В РЎвЂР В Р вЂ¦Р В Р’В° */
       border-radius: 999px;
       background: rgba(255,255,255,.85);
-      transform: translateY(0.5px); /* Р»РµРіРєРµ РѕРїС‚РёС‡РЅРµ С†РµРЅС‚СЂСѓРІР°РЅРЅСЏ */
+      transform: translateY(0.5px); /* Р В Р’В»Р В Р’ВµР В РЎвЂ“Р В РЎвЂќР В Р’Вµ Р В РЎвЂўР В РЎвЂ”Р РЋРІР‚С™Р В РЎвЂР РЋРІР‚РЋР В Р вЂ¦Р В Р’Вµ Р РЋРІР‚В Р В Р’ВµР В Р вЂ¦Р РЋРІР‚С™Р РЋР вЂљР РЋРЎвЂњР В Р вЂ Р В Р’В°Р В Р вЂ¦Р В Р вЂ¦Р РЋР РЏ */
     }
 
     .pip-min:hover{
@@ -1229,7 +1229,7 @@
     .pip-launch{
       position: fixed;
       right: 28px;
-      bottom: 76px;           /* рџ‘€ С‰РѕР± Р±СѓР»Рѕ Р±С–Р»СЏ СЃС‚СЂС–Р»РѕРє, Р°Р»Рµ РЅРµ РїРµСЂРµРєСЂРёРІР°Р»Рѕ */
+      bottom: 76px;           /* РЎР‚РЎСџРІР‚ВРІвЂљВ¬ Р РЋРІР‚В°Р В РЎвЂўР В Р’В± Р В Р’В±Р РЋРЎвЂњР В Р’В»Р В РЎвЂў Р В Р’В±Р РЋРІР‚вЂњР В Р’В»Р РЋР РЏ Р РЋР С“Р РЋРІР‚С™Р РЋР вЂљР РЋРІР‚вЂњР В Р’В»Р В РЎвЂўР В РЎвЂќ, Р В Р’В°Р В Р’В»Р В Р’Вµ Р В Р вЂ¦Р В Р’Вµ Р В РЎвЂ”Р В Р’ВµР РЋР вЂљР В Р’ВµР В РЎвЂќР РЋР вЂљР В РЎвЂР В Р вЂ Р В Р’В°Р В Р’В»Р В РЎвЂў */
       width: 36px;
       height: 36px;
       border-radius: 999px;
@@ -1242,7 +1242,7 @@
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       box-shadow: 0 14px 40px rgba(0,0,0,.35);
-      display: none;          /* РїРѕРєР°Р·СѓС”РјРѕ С‚С–Р»СЊРєРё РєРѕР»Рё minimized */
+      display: none;          /* Р В РЎвЂ”Р В РЎвЂўР В РЎвЂќР В Р’В°Р В Р’В·Р РЋРЎвЂњР РЋРІР‚СњР В РЎВР В РЎвЂў Р РЋРІР‚С™Р РЋРІР‚вЂњР В Р’В»Р РЋР Р‰Р В РЎвЂќР В РЎвЂ Р В РЎвЂќР В РЎвЂўР В Р’В»Р В РЎвЂ minimized */
     }
 
     .pip-launch:hover{
@@ -1259,7 +1259,7 @@
     .pip-hint{
       position:absolute;
       left: 50%;
-      top: -36px;                 /* рџ‘€ РїС–РґРЅС–РјР°С” РЅР°Рґ PiP */
+      top: -36px;                 /* РЎР‚РЎСџРІР‚ВРІвЂљВ¬ Р В РЎвЂ”Р РЋРІР‚вЂњР В РўвЂР В Р вЂ¦Р РЋРІР‚вЂњР В РЎВР В Р’В°Р РЋРІР‚Сњ Р В Р вЂ¦Р В Р’В°Р В РўвЂ PiP */
       transform: translateX(-50%);
       padding: 7px 12px;
       border-radius: 999px;
@@ -1272,7 +1272,7 @@
       text-transform: uppercase;
       display:none;
       pointer-events:none;
-      z-index: 9999;              /* вњ… РїРѕРІРµСЂС… PiP */
+      z-index: 9999;              /* Р Р†РЎС™РІР‚В¦ Р В РЎвЂ”Р В РЎвЂўР В Р вЂ Р В Р’ВµР РЋР вЂљР РЋРІР‚В¦ PiP */
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
@@ -1302,7 +1302,7 @@
       animation: pipNudge 520ms ease-out 1, pipGlow 900ms ease-out 1;
     }
     .pip.is-hinting .pip-hint{ display:block; }
-    .pip.is-touched .pip-hint{ display:none !important; } /* вњ… РїС–СЃР»СЏ РІР·Р°С”РјРѕРґС–С— С…РѕРІР°С”РјРѕ РЅР°Р·Р°РІР¶РґРё */
+    .pip.is-touched .pip-hint{ display:none !important; } /* Р Р†РЎС™РІР‚В¦ Р В РЎвЂ”Р РЋРІР‚вЂњР РЋР С“Р В Р’В»Р РЋР РЏ Р В Р вЂ Р В Р’В·Р В Р’В°Р РЋРІР‚СњР В РЎВР В РЎвЂўР В РўвЂР РЋРІР‚вЂњР РЋРІР‚вЂќ Р РЋРІР‚В¦Р В РЎвЂўР В Р вЂ Р В Р’В°Р РЋРІР‚СњР В РЎВР В РЎвЂў Р В Р вЂ¦Р В Р’В°Р В Р’В·Р В Р’В°Р В Р вЂ Р В Р’В¶Р В РўвЂР В РЎвЂ */
 
     /* mobile: slightly smaller */
     @media (max-width: 768px){
@@ -1405,7 +1405,7 @@
     #final_pick #pickPreviewImg{
       width:100%;
       height:100%;
-      object-fit: cover; /* Р±РµР· СЃС–СЂРёС… Р±Р°СЂС–РІ */
+      object-fit: cover; /* Р В Р’В±Р В Р’ВµР В Р’В· Р РЋР С“Р РЋРІР‚вЂњР РЋР вЂљР В РЎвЂР РЋРІР‚В¦ Р В Р’В±Р В Р’В°Р РЋР вЂљР РЋРІР‚вЂњР В Р вЂ  */
       object-position: var(--crop-x, 50%) var(--crop-y, 50%);
       display:block;
       opacity: 0;
@@ -1432,7 +1432,7 @@
       flex-direction:column;
       gap: 10px;
       min-height: 0;
-      overflow: auto; /* СЏРєС‰Рѕ РјР°Р»Рѕ РјС–СЃС†СЏ вЂ” СЃРєСЂРѕР» С‚СѓС‚, Р° РЅРµ РїСЂРµРІКјСЋ */
+      overflow: auto; /* Р РЋР РЏР В РЎвЂќР РЋРІР‚В°Р В РЎвЂў Р В РЎВР В Р’В°Р В Р’В»Р В РЎвЂў Р В РЎВР РЋРІР‚вЂњР РЋР С“Р РЋРІР‚В Р РЋР РЏ - Р РЋР С“Р В РЎвЂќР РЋР вЂљР В РЎвЂўР В Р’В» Р РЋРІР‚С™Р РЋРЎвЂњР РЋРІР‚С™, Р В Р’В° Р В Р вЂ¦Р В Р’Вµ Р В РЎвЂ”Р РЋР вЂљР В Р’ВµР В Р вЂ Р С™РЎВР РЋР вЂ№ */
     }
 
     #final_pick .pick-text{
@@ -1472,25 +1472,25 @@
       #final_pick .pick-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
     }
 
-    /* FINAL PICK вЂ” no scrollbars, everything fits */
+    /* FINAL PICK - no scrollbars, everything fits */
 
     #final_pick .pick-panel{
-      grid-template-rows: auto auto auto auto; /* Р±РµР· 1fr */
+      grid-template-rows: auto auto auto auto; /* Р В Р’В±Р В Р’ВµР В Р’В· 1fr */
       gap: 10px;
     }
 
     /* remove any scroll in feedback block */
     #final_pick .pick-actions{
-      overflow: hidden;      /* Р±СѓР»Рѕ auto */
+      overflow: hidden;      /* Р В Р’В±Р РЋРЎвЂњР В Р’В»Р В РЎвЂў auto */
       min-height: unset;
       gap: 8px;
     }
 
     /* smaller textarea + no resize */
     #final_pick .pick-text{
-      min-height: 92px;      /* Р±СѓР»Рѕ 150 */
-      height: 92px;          /* С„С–РєСЃСѓС”РјРѕ, С‰РѕР± РЅРµ СЂРѕР·РґСѓРІР°Р»Рѕ */
-      resize: none;          /* РїСЂРёР±СЂР°С‚Рё СЂСѓС‡РєСѓ resize */
+      min-height: 92px;      /* Р В Р’В±Р РЋРЎвЂњР В Р’В»Р В РЎвЂў 150 */
+      height: 92px;          /* Р РЋРІР‚С›Р РЋРІР‚вЂњР В РЎвЂќР РЋР С“Р РЋРЎвЂњР РЋРІР‚СњР В РЎВР В РЎвЂў, Р РЋРІР‚В°Р В РЎвЂўР В Р’В± Р В Р вЂ¦Р В Р’Вµ Р РЋР вЂљР В РЎвЂўР В Р’В·Р В РўвЂР РЋРЎвЂњР В Р вЂ Р В Р’В°Р В Р’В»Р В РЎвЂў */
+      resize: none;          /* Р В РЎвЂ”Р РЋР вЂљР В РЎвЂР В Р’В±Р РЋР вЂљР В Р’В°Р РЋРІР‚С™Р В РЎвЂ Р РЋР вЂљР РЋРЎвЂњР РЋРІР‚РЋР В РЎвЂќР РЋРЎвЂњ resize */
       padding: 12px;
     }
 
@@ -1508,9 +1508,9 @@
     #final_pick .pick-preview{ position: relative; }
     #final_pick .pick-preview-fallback{ pointer-events: none; }
 
-    /* FINAL PICK вЂ” clean feedback area */
+    /* FINAL PICK - clean feedback area */
     #final_pick .pick-panel{
-      /* Р±СѓР»Рѕ: auto auto auto auto */
+      /* Р В Р’В±Р РЋРЎвЂњР В Р’В»Р В РЎвЂў: auto auto auto auto */
       grid-template-rows: auto auto 1fr auto; /* header, title, preview, feedback */
       gap: 12px;
     }
@@ -1542,7 +1542,7 @@
       margin: 0;
     }
 
-    /* textarea вЂ” comfortable height, avoid scroll if possible */
+    /* textarea - comfortable height, avoid scroll if possible */
     #final_pick .pick-text{
       grid-column: 1 / 2;
       height: 76px;
@@ -1552,7 +1552,7 @@
       line-height: 1.45;
     }
 
-    /* buttons вЂ” vertical on the right */
+    /* buttons - vertical on the right */
     #final_pick .pick-btns{
       grid-column: 2 / 3;
       display: flex;
@@ -1587,7 +1587,7 @@
       bottom: calc(var(--ui-gap) + 96px + env(safe-area-inset-bottom, 0px));
     }
 
-    /* FINAL PICK вЂ” smaller buttons + thinner scrollbar + feedback lower */
+    /* FINAL PICK - smaller buttons + thinner scrollbar + feedback lower */
 
     #final_pick .pick-actions{
       /* move block down, closer to Tip */
@@ -1599,7 +1599,7 @@
       gap: 10px 10px;
     }
 
-    /* textarea вЂ” slightly bigger for readability */
+    /* textarea - slightly bigger for readability */
     #final_pick .pick-text{
       height: 92px;
       min-height: 92px;
@@ -1655,11 +1655,11 @@
     <div class="slide active" id="slide1">
       <div class="header">
         <div class="title-section">
-          <h1>Focus<span class="tm">в„ў</span></h1>
+          <h1>Focus<span class="tm">РІвЂћСћ</span></h1>
           <div class="year-badge">2026</div>
           <div class="description">
             <p>This is not a product. It's an experiment.</p>
-            <p style="margin-top:18px;">Can one person complete the full product launch cycle вЂ” from idea and 3D to<br>an eвЂ‘commerce site and ads?</p>
+            <p style="margin-top:18px;">Can one person complete the full product launch cycle - from idea and 3D to<br>an e-РІР‚Вcommerce site and ads?</p>
             <p>Focus Object doesn't physically exist. I'm creating its visual language, packaging, and presence to test how design affects the desire to buy.</p>
             <p style="font-weight:600;margin-top:18px;">Your feedback will decide which prototype becomes the real embodiment of the idea.</p>
           </div>
@@ -1693,10 +1693,10 @@
             <div class="tile"><img class="thumb" src="../image/slide-3/already-exists/ax_photo08.png" alt="Already exists 08"></div>
           </div>
           <ul class="visual-notes">
-            <li>Visual noise вЂ” looks like a gadget or a toy</li>
-            <li>Digits dominate вЂ” focus is on the screen, not the process</li>
-            <li>"Just another device" вЂ” function without character</li>
-            <li>Always active вЂ” pulls attention even without interaction</li>
+            <li>Visual noise - looks like a gadget or a toy</li>
+            <li>Digits dominate - focus is on the screen, not the process</li>
+            <li>"Just another device" - function without character</li>
+            <li>Always active - pulls attention even without interaction</li>
           </ul>
         </div>
         <div class="visual-column calm">
@@ -1712,10 +1712,10 @@
             <div class="tile"><img class="thumb" src="../image/slide-3/direction/dire_photo08.png" alt="Direction 08"></div>
           </div>
           <ul class="visual-notes">
-            <li>Designer object вЂ” clean form, you want to keep it on the desk</li>
-            <li>Silence as a feature вЂ” minimal signals, maximum concentration</li>
-            <li>Part of a work ritual вЂ” starts as an action or intent, not as a "timer"</li>
-            <li>Does nothing until you do вЂ” responds only to your start, never lives in the background</li>
+            <li>Designer object - clean form, you want to keep it on the desk</li>
+            <li>Silence as a feature - minimal signals, maximum concentration</li>
+            <li>Part of a work ritual - starts as an action or intent, not as a "timer"</li>
+            <li>Does nothing until you do - responds only to your start, never lives in the background</li>
           </ul>
         </div>
       </div>
@@ -1740,16 +1740,16 @@
         </div>
         <div class="card accent">
           <div class="kicker">WHAT I PROPOSE</div>
-          <div class="ctitle">Focus Object вЂ” LoвЂ‘fi Philosophy</div>
+          <div class="ctitle">Focus Object - Lo-РІР‚Вfi Philosophy</div>
           <ul class="clist">
             <li><span class="label">Tool</span><span class="value">a ritual object that helps you smoothly enter flow.</span></li>
             <li><span class="label">Logic</span><span class="value">intention instead of pressure; supports depth of focus rather than dictating it.</span></li>
-            <li><span class="label">Feeling</span><span class="value">"quiet presence": minimal information, no ticking вЂ” just tactility and environmental aesthetics.</span></li>
-            <li><span class="label">Role</span><span class="value">part of a daily ritual (like a cup of coffee) вЂ” gently guides entry and exit from work.</span></li>
+            <li><span class="label">Feeling</span><span class="value">"quiet presence": minimal information, no ticking - just tactility and environmental aesthetics.</span></li>
+            <li><span class="label">Role</span><span class="value">part of a daily ritual (like a cup of coffee) - gently guides entry and exit from work.</span></li>
           </ul>
         </div>
       </div>
-      <div class="analogy"><div class="atag">WHY вЂњLOFIвЂќ</div>
+      <div class="analogy"><div class="atag">WHY -РЎС™LOFI"</div>
         <p><strong>If Pomodoro is an aggressive fitness coach with a whistle,</strong> Focus Object is a vinyl record: you place the needle yourself (a conscious gesture), dive in, and return smoothly when the music fades.</p>
       </div>
     </div>
@@ -1757,15 +1757,15 @@
     <div class="slide content-slide" id="slide4">
       <div class="slide-number">04</div>
       <div>
-        <h2>WhatвЂ™s next</h2>
+        <h2>What's next</h2>
         <p class="sub">Before we start with prototypes, here is a bit of context.</p>
       </div>
       <div class="flow-card">
         <div class="flow-grid">
           <div class="flow-left flow-left--center" style="grid-column:1;grid-row:1"><div class="flow-title flow-title--stacked"><span>Prototype</span><span>Review</span></div></div>
-          <div class="flow-right" style="grid-column:3;grid-row:1"><div class="flow-copy">I'm working with a physical device for the first time. ThereвЂ™s no market research, production estimates, or guaranteed demand. There is design, philosophy, and my attempt to find a form that actually makes sense.<br><br>I want to walk the entrepreneur's path вЂ” from idea to sale. ThatвЂ™s why your opinion matters: what looks <strong>real</strong> and what still feels like <strong>fantasy</strong>?</div></div>
+          <div class="flow-right" style="grid-column:3;grid-row:1"><div class="flow-copy">I'm working with a physical device for the first time. There's no market research, production estimates, or guaranteed demand. There is design, philosophy, and my attempt to find a form that actually makes sense.<br><br>I want to walk the entrepreneur's path - from idea to sale. That's why your opinion matters: what looks <strong>real</strong> and what still feels like <strong>fantasy</strong>?</div></div>
           <div class="flow-left" style="grid-column:1;grid-row:2"><div class="flow-label">Pick 1</div></div>
-          <div class="flow-right" style="grid-column:3;grid-row:2"><div class="flow-copy muted">At the end, choose your favorite. I take it to production (3D в†’ website в†’ ads) and come back with an update.</div></div>
+          <div class="flow-right" style="grid-column:3;grid-row:2"><div class="flow-copy muted">At the end, choose your favorite. I take it to production (3D Р Р†РІР‚В РІР‚™ website Р Р†РІР‚В РІР‚™ ads) and come back with an update.</div></div>
           <div class="flow-mid" aria-hidden="true">
             <div class="flow-line"></div>
             <div class="flow-dot active top"></div>
@@ -1776,9 +1776,9 @@
       </div>
     </div>
 
-    <div class="slide image-only-slide" id="p01_photo1"><img class="full-bleed-img" src="" alt="Prototype 01 вЂ” Render01" /></div>
-    <div class="slide image-only-slide" id="p01_photo2"><img class="full-bleed-img" src="" alt="Prototype 01 вЂ” Render02" /></div>
-    <div class="slide image-only-slide" id="p01_photo3"><img class="full-bleed-img" src="" alt="Prototype 01 вЂ” Render03" /></div>
+    <div class="slide image-only-slide" id="p01_photo1"><img class="full-bleed-img" src="" alt="Prototype 01 - Render01" /></div>
+    <div class="slide image-only-slide" id="p01_photo2"><img class="full-bleed-img" src="" alt="Prototype 01 - Render02" /></div>
+    <div class="slide image-only-slide" id="p01_photo3"><img class="full-bleed-img" src="" alt="Prototype 01 - Render03" /></div>
 
     <div class="slide content-slide" id="p01_info">
       <div class="slide-number">05</div>
@@ -1788,12 +1788,12 @@
           <div class="pk">VISUAL</div>
           <div class="pt">Render / Photo</div>
           <div class="hero proto-carousel" data-carousel="prototype01" aria-label="Prototype 01 images carousel">
-            <button class="carousel-btn prev" type="button" aria-label="Previous image">в†ђ</button>
+            <button class="carousel-btn prev" type="button" aria-label="Previous image">Р Р†РІР‚В РЎвЂ™</button>
             <img class="carousel-img" src="" alt="Prototype 01 image" />
-            <button class="carousel-btn next" type="button" aria-label="Next image">в†’</button>
+            <button class="carousel-btn next" type="button" aria-label="Next image">Р Р†РІР‚В РІР‚™</button>
             <div class="carousel-dots" aria-label="Select image"></div>
             <div class="carousel-count" aria-hidden="true"></div>
-            <div class="carousel-fallback" aria-hidden="true">PLACEHOLDER IMAGES<br>../image/slide-5/prototype1/Render01.png<br>Render02.png вЂў Render03.png</div>
+            <div class="carousel-fallback" aria-hidden="true">PLACEHOLDER IMAGES<br>../image/slide-5/prototype1/Render01.png<br>Render02.png -РЎС› Render03.png</div>
           </div>
           <div class="caption">Focus starts with a gesture, not with numbers</div>
         </div>
@@ -1802,9 +1802,9 @@
           <div class="pt">Prototype overview</div>
           <ul class="plist">
             <li><strong>Positioning</strong> An object for a mindful entry into a work session. Used on the desk during individual, focused work.</li>
-            <li><strong>Design</strong> An atypical timer form вЂ” restrained and neutral. The main accent is not the screen, but the camera as the central element.</li>
+            <li><strong>Design</strong> An atypical timer form - restrained and neutral. The main accent is not the screen, but the camera as the central element.</li>
             <li><strong>Control</strong> Session start happens via a gesture read by the camera. Time is set with a central rotary control.</li>
-            <li><strong>Behavior</strong> Focus begins with a conscious gesture. The camera creates a sense of presence вЂ” no distracting numbers, but a reminder that the process has started.</li>
+            <li><strong>Behavior</strong> Focus begins with a conscious gesture. The camera creates a sense of presence - no distracting numbers, but a reminder that the process has started.</li>
           </ul>
           <div class="pchips"><div class="chip">Would you use an object like this in daily work?</div></div>
         </div>
@@ -1825,7 +1825,7 @@
 
         <div class="pick-panel">
           <div class="pk">SELECTED</div>
-          <div class="pt" id="pickTitle">Prototype вЂ”</div>
+          <div class="pt" id="pickTitle">Prototype -</div>
 
           <div class="pick-preview">
             <img id="pickPreviewImg" alt="Selected prototype preview" />
@@ -1854,8 +1854,8 @@
   </div>
 
   <div class="nav-buttons">
-    <button class="nav-btn" id="prevBtn" type="button" aria-label="Previous slide">в†ђ</button>
-    <button class="nav-btn" id="nextBtn" type="button" aria-label="Next slide">в†’</button>
+    <button class="nav-btn" id="prevBtn" type="button" aria-label="Previous slide">Р Р†РІР‚В РЎвЂ™</button>
+    <button class="nav-btn" id="nextBtn" type="button" aria-label="Next slide">Р Р†РІР‚В РІР‚™</button>
   </div>
 
   <!-- =========================
@@ -1883,7 +1883,7 @@
       <div class="pip-overlay" id="pipOverlay">
         <div class="pip-badge">EXPLAIN</div>
         <div class="pip-title" id="pipTitle">This slide</div>
-        <div class="pip-sub" id="pipSub">Click Play to hear DmytroвЂ™s note</div>
+        <div class="pip-sub" id="pipSub">Click Play to hear Dmytro's note</div>
       </div>
 
       <div class="pip-controls floating" id="pipControls">
@@ -1922,7 +1922,7 @@
 
     const isMobile = document.body && document.body.classList.contains('is-mobile');
 
-    // Р±Р°Р·РѕРІРёР№ fit
+    // Р В Р’В±Р В Р’В°Р В Р’В·Р В РЎвЂўР В Р вЂ Р В РЎвЂР В РІвЂћвЂ“ fit
     let scale = Math.min(vw / stageW, vh / stageH);
 
     // desktop: no upscaling, mobile: allow fill by width
@@ -1933,7 +1933,7 @@
     }
 
     document.documentElement.style.setProperty('--scale', String(scale));
-  const base = isMobile ? 1.05 : 1.0; // РјРѕР±С–Р»СЊРЅР° РєРѕРјРїРµРЅСЃР°С†С–СЏ С‡РёС‚Р°Р±РµР»СЊРЅРѕСЃС‚С– (РјРµРЅС€Р°, С‰РѕР± РІСЃРµ РІР»С–Р·Р°Р»Рѕ)
+  const base = isMobile ? 1.05 : 1.0; // Р В РЎВР В РЎвЂўР В Р’В±Р РЋРІР‚вЂњР В Р’В»Р РЋР Р‰Р В Р вЂ¦Р В Р’В° Р В РЎвЂќР В РЎвЂўР В РЎВР В РЎвЂ”Р В Р’ВµР В Р вЂ¦Р РЋР С“Р В Р’В°Р РЋРІР‚В Р РЋРІР‚вЂњР РЋР РЏ Р РЋРІР‚РЋР В РЎвЂР РЋРІР‚С™Р В Р’В°Р В Р’В±Р В Р’ВµР В Р’В»Р РЋР Р‰Р В Р вЂ¦Р В РЎвЂўР РЋР С“Р РЋРІР‚С™Р РЋРІР‚вЂњ (Р В РЎВР В Р’ВµР В Р вЂ¦Р РЋРІвЂљВ¬Р В Р’В°, Р РЋРІР‚В°Р В РЎвЂўР В Р’В± Р В Р вЂ Р РЋР С“Р В Р’Вµ Р В Р вЂ Р В Р’В»Р РЋРІР‚вЂњР В Р’В·Р В Р’В°Р В Р’В»Р В РЎвЂў)
   const textComp = Math.min(isMobile ? 1.75 : 1.45, Math.max(isMobile ? 1.05 : 1, base / scale));
     document.documentElement.style.setProperty('--textCompSmall', String(textComp));
   }
@@ -1970,7 +1970,7 @@
       },
       {
         label: 'Design',
-        text: 'An atypical timer form вЂ” restrained and neutral. The main accent is not the screen, but the camera as the central element.'
+        text: 'An atypical timer form - restrained and neutral. The main accent is not the screen, but the camera as the central element.'
       },
       {
         label: 'Control',
@@ -1978,7 +1978,7 @@
       },
       {
         label: 'Behavior',
-        text: 'Focus begins with a conscious gesture. The camera creates a sense of presence вЂ” no distracting numbers, but a reminder that the process has started.'
+        text: 'Focus begins with a conscious gesture. The camera creates a sense of presence - no distracting numbers, but a reminder that the process has started.'
       }
     ],
     chip: 'Would you use an object like this in daily work?',
@@ -2002,7 +2002,7 @@
         },
         {
           label: 'Behavior',
-          text: 'Focus shifts from a вЂњsession startвЂќ to awareness of the day. The product not only starts work, but helps you understand how you work.'
+          text: 'Focus shifts from a -РЎС™session start" to awareness of the day. The product not only starts work, but helps you understand how you work.'
         }
       ],
       chip: 'Would you need such an assistant in daily work?',
@@ -2020,15 +2020,15 @@
         },
         {
           label: 'Control',
-          text: 'Time is set via a physical rolling control. ItвЂ™s a slow, mindful action. After the timer starts, numbers fade into the background and remain only as a subtle reference.'
+          text: 'Time is set via a physical rolling control. It's a slow, mindful action. After the timer starts, numbers fade into the background and remain only as a subtle reference.'
         },
         {
           label: 'Behavior',
-          text: 'Focus shifts from counting time to the work process. Pixel art and loвЂ‘fi music support concentration. At the end of the day, the user sees the balance between Work and Chill sessions.'
+          text: 'Focus shifts from counting time to the work process. Pixel art and lo-РІР‚Вfi music support concentration. At the end of the day, the user sees the balance between Work and Chill sessions.'
         }
       ],
       chip: 'Would you want this object on your desk every day?',
-      caption: 'LoвЂ‘fi object вЂ” focus on the process'
+      caption: 'Lo-РІР‚Вfi object - focus on the process'
     },
     4: {
       items: [
@@ -2078,7 +2078,7 @@
       items: [
         {
           label: 'Positioning',
-          text: 'A timer-lamp for work and home spaces. Combines time control with lighting that complements the interior and doesnвЂ™t distract from work.'
+          text: 'A timer-lamp for work and home spaces. Combines time control with lighting that complements the interior and doesn't distract from work.'
         },
         {
           label: 'Design',
@@ -2094,7 +2094,7 @@
         }
       ],
       chip: 'Would you use a timer in a lamp format every day?',
-      caption: 'Adjust your light вЂ” adjust your time'
+      caption: 'Adjust your light - adjust your time'
     },
     7: {
       items: [
@@ -2104,7 +2104,7 @@
         },
         {
           label: 'Design',
-          text: 'A form with a pixelвЂ‘art screen. The visual is inspired by fireplace background videos and a loвЂ‘fi atmosphere. The object looks decorative and calm even while idle.'
+          text: 'A form with a pixel-РІР‚Вart screen. The visual is inspired by fireplace background videos and a lo-РІР‚Вfi atmosphere. The object looks decorative and calm even while idle.'
         },
         {
           label: 'Control',
@@ -2134,7 +2134,7 @@
         },
         {
           label: 'Behavior',
-          text: 'The objectвЂ™s presence increases accountability for focus. To continue working, the user must consciously straighten it again. Focus is supported not by signals but by a behavioral action.'
+          text: 'The object's presence increases accountability for focus. To continue working, the user must consciously straighten it again. Focus is supported not by signals but by a behavioral action.'
         }
       ],
       chip: 'Would an object like this help you stay focused longer?',
@@ -2148,7 +2148,7 @@
         },
         {
           label: 'Design',
-          text: 'A compact desk object with a screen for generative visuals. The design is neutral so it doesnвЂ™t compete with content. The main focus is what happens on the screen in real time.'
+          text: 'A compact desk object with a screen for generative visuals. The design is neutral so it doesn't compete with content. The main focus is what happens on the screen in real time.'
         },
         {
           label: 'Control',
@@ -2178,10 +2178,10 @@
         },
         {
           label: 'Behavior',
-          text: 'Time is not shown in digits. The sessionвЂ™s flow is read through the movement of a black square that slowly descends. Work happens without a countdown and without the tension of waiting.'
+          text: 'Time is not shown in digits. The session's flow is read through the movement of a black square that slowly descends. Work happens without a countdown and without the tension of waiting.'
         }
       ],
-      chip: 'Would you be comfortable with a timer that doesnвЂ™t show time directly?',
+      chip: 'Would you be comfortable with a timer that doesn't show time directly?',
       caption: 'Focus without digits and signals'
     }
   };
@@ -2208,9 +2208,9 @@
     if (!imgEl || !imgEl.naturalWidth || !imgEl.naturalHeight) return;
     const r = imgEl.naturalWidth / imgEl.naturalHeight;
 
-    // СЏРєС‰Рѕ Р±Р»РёР·СЊРєРѕ РґРѕ 16:10 (2400x1500)
+    // Р РЋР РЏР В РЎвЂќР РЋРІР‚В°Р В РЎвЂў Р В Р’В±Р В Р’В»Р В РЎвЂР В Р’В·Р РЋР Р‰Р В РЎвЂќР В РЎвЂў Р В РўвЂР В РЎвЂў 16:10 (2400x1500)
     if (Math.abs(r - (16/10)) < 0.03){
-      imgEl.style.setProperty('--crop-y', '42%'); // С‚СЂРѕС…Рё РІРёС‰Рµ С†РµРЅС‚СЂСѓ
+      imgEl.style.setProperty('--crop-y', '42%'); // Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂўР РЋРІР‚В¦Р В РЎвЂ Р В Р вЂ Р В РЎвЂР РЋРІР‚В°Р В Р’Вµ Р РЋРІР‚В Р В Р’ВµР В Р вЂ¦Р РЋРІР‚С™Р РЋР вЂљР РЋРЎвЂњ
       imgEl.style.setProperty('--crop-x', '50%');
     }
   }
@@ -2354,7 +2354,7 @@
 
     const img = document.createElement('img');
     img.className = 'full-bleed-img';
-    img.alt = `Prototype ${pad2(p)} вЂ” Render${pad2(i)}`;
+    img.alt = `Prototype ${pad2(p)} - Render${pad2(i)}`;
     slide.appendChild(img);
 
     const ph = document.createElement('div');
@@ -2363,7 +2363,7 @@
     const firstGuess = `${folderCandidates(p)[0]}/Render${pad2(i)}.png`;
     ph.innerHTML =
       `<div class="tag">Missing image</div>` +
-      `<div class="hint">CouldnвЂ™t find the file for <strong>Prototype ${pad2(p)}</strong>, frame <strong>${i}</strong>.<br>Check the path/name (including extension).</div>` +
+      `<div class="hint">Couldn't find the file for <strong>Prototype ${pad2(p)}</strong>, frame <strong>${i}</strong>.<br>Check the path/name (including extension).</div>` +
       `<code>${firstGuess}</code>`;
     slide.appendChild(ph);
 
@@ -2391,12 +2391,12 @@
         `<div class="panel accent">` +
           `<div class="pk">VISUAL</div><div class="pt">Render / Photo</div>` +
           `<div class="hero proto-carousel" data-carousel="prototype${label}" aria-label="Prototype ${label} images carousel">` +
-            `<button class="carousel-btn prev" type="button" aria-label="Previous image">в†ђ</button>` +
+            `<button class="carousel-btn prev" type="button" aria-label="Previous image">Р Р†РІР‚В РЎвЂ™</button>` +
             `<img class="carousel-img" src="" alt="Prototype ${label} image" />` +
-            `<button class="carousel-btn next" type="button" aria-label="Next image">в†’</button>` +
+            `<button class="carousel-btn next" type="button" aria-label="Next image">Р Р†РІР‚В РІР‚™</button>` +
             `<div class="carousel-dots" aria-label="Select image"></div>` +
             `<div class="carousel-count" aria-hidden="true"></div>` +
-            `<div class="carousel-fallback" aria-hidden="true">PLACEHOLDER IMAGES<br>${folderHint}/Render01.png<br>Render02.png вЂў Render03.png</div>` +
+            `<div class="carousel-fallback" aria-hidden="true">PLACEHOLDER IMAGES<br>${folderHint}/Render01.png<br>Render02.png -РЎС› Render03.png</div>` +
           `</div>` +
           `<div class="caption">${overviewCaption}</div>` +
         `</div>` +
@@ -2565,7 +2565,7 @@
 
     ph.innerHTML =
       `<div class="tag">Missing image</div>` +
-      `<div class="hint">CouldnвЂ™t find the file for <strong>Prototype ${protoLabel}</strong>, frame <strong>${idx}</strong>.<br>Check the path/name (including extension).</div>` +
+      `<div class="hint">Couldn't find the file for <strong>Prototype ${protoLabel}</strong>, frame <strong>${idx}</strong>.<br>Check the path/name (including extension).</div>` +
       `<code>${firstGuess}</code>`;
 
     slide.appendChild(ph);
@@ -2721,7 +2721,7 @@
 
       // thumb image (Render01)
       setImgWithFallback(img, renderCandidates(p, 1), {
-        onFail: () => { /* Р·Р°Р»РёС€РёС‚СЊСЃСЏ РїСѓСЃС‚РёР№ thumb */ }
+        onFail: () => { /* Р В Р’В·Р В Р’В°Р В Р’В»Р В РЎвЂР РЋРІвЂљВ¬Р В РЎвЂР РЋРІР‚С™Р РЋР Р‰Р РЋР С“Р РЋР РЏ Р В РЎвЂ”Р РЋРЎвЂњР РЋР С“Р РЋРІР‚С™Р В РЎвЂР В РІвЂћвЂ“ thumb */ }
       });
 
       const meta = document.createElement('div');
@@ -2744,7 +2744,7 @@
         const msg = String(text.value || '').trim();
         if (!msg) return;
 
-        const proto = String(title.textContent || 'Prototype вЂ”').trim();
+        const proto = String(title.textContent || 'Prototype -').trim();
         const full = `${proto}\n\n${msg}`;
 
         const tgApp = `tg://resolve?domain=dima_gavriliv&text=${encodeURIComponent(full)}`;
@@ -2761,7 +2761,7 @@
         try { localStorage.removeItem(keyLS); } catch(e){}
         const cards = Array.from(grid.querySelectorAll('.pick-card'));
         cards.forEach(c => c.classList.remove('selected'));
-        title.textContent = 'Prototype вЂ”';
+        title.textContent = 'Prototype -';
         text.value = '';
         previewFallback.textContent = 'Select a prototype to preview';
         previewFallback.style.display = 'flex';
@@ -2775,7 +2775,7 @@
       setSelectedUI(selected);
     } else {
       // default: none selected
-      title.textContent = 'Prototype вЂ”';
+      title.textContent = 'Prototype -';
       text.value = '';
     }
   }
@@ -2784,15 +2784,15 @@
      VIDEO ASSISTANT (PiP) JS
      ========================= */
 
-  // 1) РњР°РїР° СЃР»Р°Р№Рґ -> (РїС–Р·РЅС–С€Рµ СЃСЋРґРё РІСЃС‚Р°РІРёС€ Vimeo embed url)
+  // 1) Р В РЎС™Р В Р’В°Р В РЎвЂ”Р В Р’В° Р РЋР С“Р В Р’В»Р В Р’В°Р В РІвЂћвЂ“Р В РўвЂ -> (Р В РЎвЂ”Р РЋРІР‚вЂњР В Р’В·Р В Р вЂ¦Р РЋРІР‚вЂњР РЋРІвЂљВ¬Р В Р’Вµ Р РЋР С“Р РЋР вЂ№Р В РўвЂР В РЎвЂ Р В Р вЂ Р РЋР С“Р РЋРІР‚С™Р В Р’В°Р В Р вЂ Р В РЎвЂР РЋРІвЂљВ¬ Vimeo embed url)
   const slideNarration = {
-    // Р±Р°Р·РѕРІС–
+    // Р В Р’В±Р В Р’В°Р В Р’В·Р В РЎвЂўР В Р вЂ Р РЋРІР‚вЂњ
     slide1: 'https://player.vimeo.com/video/1163977015?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
     slide2: 'https://player.vimeo.com/video/1163977221?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
     slide3: 'https://player.vimeo.com/video/1163977451?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
     slide4: 'https://player.vimeo.com/video/1163977689?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
 
-    // РїСЂРѕС‚РѕС‚РёРїРё (РїСЂРёРєР»Р°РґРё)
+    // Р В РЎвЂ”Р РЋР вЂљР В РЎвЂўР РЋРІР‚С™Р В РЎвЂўР РЋРІР‚С™Р В РЎвЂР В РЎвЂ”Р В РЎвЂ (Р В РЎвЂ”Р РЋР вЂљР В РЎвЂР В РЎвЂќР В Р’В»Р В Р’В°Р В РўвЂР В РЎвЂ)
     p01_info: 'https://player.vimeo.com/video/1163977999?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
     p02_info: 'https://player.vimeo.com/video/1163978367?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
     p03_info: 'https://player.vimeo.com/video/1163978626?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
@@ -2805,16 +2805,16 @@
     p10_info: 'https://player.vimeo.com/video/1163979965?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
     final_pick: 'https://player.vimeo.com/video/1163980101?autoplay=1&autopause=0&controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1',
 
-    // РјРѕР¶РµС€ РґРѕРґР°С‚Рё С‰Рѕ С…РѕС‡РµС€:
+    // Р В РЎВР В РЎвЂўР В Р’В¶Р В Р’ВµР РЋРІвЂљВ¬ Р В РўвЂР В РЎвЂўР В РўвЂР В Р’В°Р РЋРІР‚С™Р В РЎвЂ Р РЋРІР‚В°Р В РЎвЂў Р РЋРІР‚В¦Р В РЎвЂўР РЋРІР‚РЋР В Р’ВµР РЋРІвЂљВ¬:
     // p02_info: null, p03_info: null ...
   };
 
-  // 2) РўРµРєСЃС‚Рё РґР»СЏ placeholder (С‰РѕР± РІРёРіР»СЏРґР°Р»Рѕ вЂњР¶РёРІС–С€РµвЂќ)
+  // 2) Р В РЎС›Р В Р’ВµР В РЎвЂќР РЋР С“Р РЋРІР‚С™Р В РЎвЂ Р В РўвЂР В Р’В»Р РЋР РЏ placeholder (Р РЋРІР‚В°Р В РЎвЂўР В Р’В± Р В Р вЂ Р В РЎвЂР В РЎвЂ“Р В Р’В»Р РЋР РЏР В РўвЂР В Р’В°Р В Р’В»Р В РЎвЂў -РЎС™Р В Р’В¶Р В РЎвЂР В Р вЂ Р РЋРІР‚вЂњР РЋРІвЂљВ¬Р В Р’Вµ")
   const slideTitles = {
     slide1: 'Intro / What is this?',
     slide2: 'Visual Context',
     slide3: 'Product Concept',
-    slide4: "WhatвЂ™s next",
+    slide4: "What's next",
     p01_info: 'Prototype 01',
     p02_info: 'Prototype 02',
     p03_info: 'Prototype 03',
@@ -2916,7 +2916,7 @@
       });
     };
 
-    // вњ… token to prevent async race (Reset -> Play)
+    // Р Р†РЎС™РІР‚В¦ token to prevent async race (Reset -> Play)
     let actionSeq = 0;
     const nextAction = () => ++actionSeq;
 
@@ -2933,7 +2933,7 @@
     };
 
     const recreatePipFrame = () => {
-      // СЂРѕР±РёРјРѕ РЅРѕРІРёР№ iframe Р· С‚РёРјРё Р¶ Р°С‚СЂРёР±СѓС‚Р°РјРё (РІР°Р¶Р»РёРІРѕ РґР»СЏ Vimeo SDK)
+      // Р РЋР вЂљР В РЎвЂўР В Р’В±Р В РЎвЂР В РЎВР В РЎвЂў Р В Р вЂ¦Р В РЎвЂўР В Р вЂ Р В РЎвЂР В РІвЂћвЂ“ iframe Р В Р’В· Р РЋРІР‚С™Р В РЎвЂР В РЎВР В РЎвЂ Р В Р’В¶ Р В Р’В°Р РЋРІР‚С™Р РЋР вЂљР В РЎвЂР В Р’В±Р РЋРЎвЂњР РЋРІР‚С™Р В Р’В°Р В РЎВР В РЎвЂ (Р В Р вЂ Р В Р’В°Р В Р’В¶Р В Р’В»Р В РЎвЂР В Р вЂ Р В РЎвЂў Р В РўвЂР В Р’В»Р РЋР РЏ Vimeo SDK)
       const fresh = document.createElement('iframe');
       fresh.id = 'pipFrame';
       fresh.className = 'pip-frame';
@@ -2943,13 +2943,13 @@
       fresh.setAttribute('allowfullscreen', '');
       fresh.referrerPolicy = 'strict-origin-when-cross-origin';
 
-      // Р·Р°РјС–РЅСЏС”РјРѕ РІ DOM
+      // Р В Р’В·Р В Р’В°Р В РЎВР РЋРІР‚вЂњР В Р вЂ¦Р РЋР РЏР РЋРІР‚СњР В РЎВР В РЎвЂў Р В Р вЂ  DOM
       if (pipFrame && pipFrame.parentNode) {
         pipFrame.replaceWith(fresh);
       } else {
         pipInner.prepend(fresh);
       }
-      pipFrame = fresh; // вњ… РѕРЅРѕРІРёР»Рё ref
+      pipFrame = fresh; // Р Р†РЎС™РІР‚В¦ Р В РЎвЂўР В Р вЂ¦Р В РЎвЂўР В Р вЂ Р В РЎвЂР В Р’В»Р В РЎвЂ ref
     };
 
     // video state helpers
@@ -2961,10 +2961,10 @@
       const playerToStop = vimeoPlayer;
       vimeoPlayer = null;
 
-      // вњ… РІР°Р¶Р»РёРІРѕ: РїСЂРёР±РёСЂР°С”РјРѕ СЃС‚Р°СЂРёР№ player РїСЂР°РІРёР»СЊРЅРѕ
+      // Р Р†РЎС™РІР‚В¦ Р В Р вЂ Р В Р’В°Р В Р’В¶Р В Р’В»Р В РЎвЂР В Р вЂ Р В РЎвЂў: Р В РЎвЂ”Р РЋР вЂљР В РЎвЂР В Р’В±Р В РЎвЂР РЋР вЂљР В Р’В°Р РЋРІР‚СњР В РЎВР В РЎвЂў Р РЋР С“Р РЋРІР‚С™Р В Р’В°Р РЋР вЂљР В РЎвЂР В РІвЂћвЂ“ player Р В РЎвЂ”Р РЋР вЂљР В Р’В°Р В Р вЂ Р В РЎвЂР В Р’В»Р РЋР Р‰Р В Р вЂ¦Р В РЎвЂў
       try { if (playerToStop) await playerToStop.destroy(); } catch(e){}
 
-      // вњ… РІР°Р¶Р»РёРІРѕ: СЂРѕР±РёРјРѕ С‡РёСЃС‚РёР№ iframe (С–РЅР°РєС€Рµ Vimeo РјРѕР¶Рµ вЂњР·Р°Р»РёРїР°С‚РёвЂќ)
+      // Р Р†РЎС™РІР‚В¦ Р В Р вЂ Р В Р’В°Р В Р’В¶Р В Р’В»Р В РЎвЂР В Р вЂ Р В РЎвЂў: Р РЋР вЂљР В РЎвЂўР В Р’В±Р В РЎвЂР В РЎВР В РЎвЂў Р РЋРІР‚РЋР В РЎвЂР РЋР С“Р РЋРІР‚С™Р В РЎвЂР В РІвЂћвЂ“ iframe (Р РЋРІР‚вЂњР В Р вЂ¦Р В Р’В°Р В РЎвЂќР РЋРІвЂљВ¬Р В Р’Вµ Vimeo Р В РЎВР В РЎвЂўР В Р’В¶Р В Р’Вµ -РЎС™Р В Р’В·Р В Р’В°Р В Р’В»Р В РЎвЂР В РЎвЂ”Р В Р’В°Р РЋРІР‚С™Р В РЎвЂ")
       recreatePipFrame();
 
       isPaused = true;
@@ -2983,7 +2983,7 @@
       const url = slideNarration[activeSlideId] || null;
 
       if (!url){
-        pipSub.textContent = 'Coming soon вЂ” add Vimeo link for this slide';
+        pipSub.textContent = 'Coming soon - add Vimeo link for this slide';
         pip.animate([{ transform:'scale(1)' }, { transform:'scale(1.02)' }, { transform:'scale(1)' }], { duration: 280 });
         return;
       }
@@ -2998,12 +2998,12 @@
         bindVimeoEvents(vimeoPlayer);
 
         try {
-          // вњ… С‡РµРєР°С”РјРѕ, РїРѕРєРё Vimeo СЂРµР°Р»СЊРЅРѕ РїС–РґКјС”РґРЅР°С”С‚СЊСЃСЏ РґРѕ iframe
+          // Р Р†РЎС™РІР‚В¦ Р РЋРІР‚РЋР В Р’ВµР В РЎвЂќР В Р’В°Р РЋРІР‚СњР В РЎВР В РЎвЂў, Р В РЎвЂ”Р В РЎвЂўР В РЎвЂќР В РЎвЂ Vimeo Р РЋР вЂљР В Р’ВµР В Р’В°Р В Р’В»Р РЋР Р‰Р В Р вЂ¦Р В РЎвЂў Р В РЎвЂ”Р РЋРІР‚вЂњР В РўвЂР С™РЎВР РЋРІР‚СњР В РўвЂР В Р вЂ¦Р В Р’В°Р РЋРІР‚СњР РЋРІР‚С™Р РЋР Р‰Р РЋР С“Р РЋР РЏ Р В РўвЂР В РЎвЂў iframe
           await vimeoPlayer.ready();
           await tryUnmute();
           await vimeoPlayer.play();
         } catch(e){
-          // СЏРєС‰Рѕ play РЅРµ РІРґР°РІСЃСЏ вЂ” РїРѕРІРµСЂС‚Р°С”РјРѕ UI РІ "Play"
+          // Р РЋР РЏР В РЎвЂќР РЋРІР‚В°Р В РЎвЂў play Р В Р вЂ¦Р В Р’Вµ Р В Р вЂ Р В РўвЂР В Р’В°Р В Р вЂ Р РЋР С“Р РЋР РЏ - Р В РЎвЂ”Р В РЎвЂўР В Р вЂ Р В Р’ВµР РЋР вЂљР РЋРІР‚С™Р В Р’В°Р РЋРІР‚СњР В РЎВР В РЎвЂў UI Р В Р вЂ  "Play"
           if (mySeq !== actionSeq) return;
           isPaused = true;
           setPlayLabel();
@@ -3036,7 +3036,7 @@
           isPaused = true;
         }
       } catch(e){
-        // СЏРєС‰Рѕ С‰РѕСЃСЊ Р·Р»Р°РјР°Р»РѕСЃСЊ вЂ” РїРµСЂРµСЃС‚СЂР°С…СѓС”РјРѕСЃСЊ
+        // Р РЋР РЏР В РЎвЂќР РЋРІР‚В°Р В РЎвЂў Р РЋРІР‚В°Р В РЎвЂўР РЋР С“Р РЋР Р‰ Р В Р’В·Р В Р’В»Р В Р’В°Р В РЎВР В Р’В°Р В Р’В»Р В РЎвЂўР РЋР С“Р РЋР Р‰ - Р В РЎвЂ”Р В Р’ВµР РЋР вЂљР В Р’ВµР РЋР С“Р РЋРІР‚С™Р РЋР вЂљР В Р’В°Р РЋРІР‚В¦Р РЋРЎвЂњР РЋРІР‚СњР В РЎВР В РЎвЂўР РЋР С“Р РЋР Р‰
         if (mySeq !== actionSeq) return;
         isPaused = true;
       }
@@ -3057,17 +3057,17 @@
 
       const has = !!slideNarration[slideId];
       pipSub.textContent = has
-        ? 'Click Play to hear DmytroвЂ™s note'
-        : 'No video yet вЂ” you can add it later (Vimeo)';
+        ? 'Click Play to hear Dmytro's note'
+        : 'No video yet - you can add it later (Vimeo)';
 
-      // РїСЂРё Р·РјС–РЅС– СЃР»Р°Р№РґСѓ вЂ” СЃС‚РѕРїР°С”РјРѕ РІС–РґРµРѕ (С‰РѕР± РЅРµ РіРѕРІРѕСЂРёР»Рѕ РЅРµ РІ С‚РµРјСѓ)
+      // Р В РЎвЂ”Р РЋР вЂљР В РЎвЂ Р В Р’В·Р В РЎВР РЋРІР‚вЂњР В Р вЂ¦Р РЋРІР‚вЂњ Р РЋР С“Р В Р’В»Р В Р’В°Р В РІвЂћвЂ“Р В РўвЂР РЋРЎвЂњ - Р РЋР С“Р РЋРІР‚С™Р В РЎвЂўР В РЎвЂ”Р В Р’В°Р РЋРІР‚СњР В РЎВР В РЎвЂў Р В Р вЂ Р РЋРІР‚вЂњР В РўвЂР В Р’ВµР В РЎвЂў (Р РЋРІР‚В°Р В РЎвЂўР В Р’В± Р В Р вЂ¦Р В Р’Вµ Р В РЎвЂ“Р В РЎвЂўР В Р вЂ Р В РЎвЂўР РЋР вЂљР В РЎвЂР В Р’В»Р В РЎвЂў Р В Р вЂ¦Р В Р’Вµ Р В Р вЂ  Р РЋРІР‚С™Р В Р’ВµР В РЎВР РЋРЎвЂњ)
       (async () => {
         await stopVideo();
         isPaused = true;
         setPlayLabel();
       })();
 
-      // вњ… Hide PiP on image-only slides (full-screen photos)
+      // Р Р†РЎС™РІР‚В¦ Hide PiP on image-only slides (full-screen photos)
       const slideEl = document.getElementById(slideId);
       const isPhotoSlide = !!(slideEl && slideEl.classList && slideEl.classList.contains('image-only-slide'));
 
@@ -3128,7 +3128,7 @@
     const onPointerUp = () => {
       if (!isDragging) return;
       isDragging = false;
-      savePos(); // вњ… РїСЂРѕСЃС‚Рѕ Р·Р±РµСЂС–РіР°С”РјРѕ РїРѕР·РёС†С–СЋ, Р±РµР· snap
+      savePos(); // Р Р†РЎС™РІР‚В¦ Р В РЎвЂ”Р РЋР вЂљР В РЎвЂўР РЋР С“Р РЋРІР‚С™Р В РЎвЂў Р В Р’В·Р В Р’В±Р В Р’ВµР РЋР вЂљР РЋРІР‚вЂњР В РЎвЂ“Р В Р’В°Р РЋРІР‚СњР В РЎВР В РЎвЂў Р В РЎвЂ”Р В РЎвЂўР В Р’В·Р В РЎвЂР РЋРІР‚В Р РЋРІР‚вЂњР РЋР вЂ№, Р В Р’В±Р В Р’ВµР В Р’В· snap
     };
 
     pip.addEventListener('pointerdown', onPointerDown);
@@ -3151,7 +3151,7 @@
       e.stopPropagation();
       setMinimized(false);
 
-      // РЅРµРІРµР»РёРєРёР№ вЂњРїС–РЅРівЂќ, С‰РѕР± Р±СѓР»Рѕ РІРёРґРЅРѕ С‰Рѕ РІРѕРЅРѕ РїРѕРІРµСЂРЅСѓР»РѕСЃСЊ
+      // Р В Р вЂ¦Р В Р’ВµР В Р вЂ Р В Р’ВµР В Р’В»Р В РЎвЂР В РЎвЂќР В РЎвЂР В РІвЂћвЂ“ -РЎС™Р В РЎвЂ”Р РЋРІР‚вЂњР В Р вЂ¦Р В РЎвЂ“", Р РЋРІР‚В°Р В РЎвЂўР В Р’В± Р В Р’В±Р РЋРЎвЂњР В Р’В»Р В РЎвЂў Р В Р вЂ Р В РЎвЂР В РўвЂР В Р вЂ¦Р В РЎвЂў Р РЋРІР‚В°Р В РЎвЂў Р В Р вЂ Р В РЎвЂўР В Р вЂ¦Р В РЎвЂў Р В РЎвЂ”Р В РЎвЂўР В Р вЂ Р В Р’ВµР РЋР вЂљР В Р вЂ¦Р РЋРЎвЂњР В Р’В»Р В РЎвЂўР РЋР С“Р РЋР Р‰
       pip.animate([{ transform:'scale(1)' }, { transform:'scale(1.02)' }, { transform:'scale(1)' }], { duration: 220 });
     });
 
@@ -3160,7 +3160,7 @@
     setPos(r.left, r.top);
 
     const placeDefault = () => {
-      // СЏРєС‰Рѕ РїРѕР·РёС†С–СЏ РЅРµ Р·Р±РµСЂРµР¶РµРЅР° вЂ” СЃС‚Р°РІРёРјРѕ вЂњРІРёРґРёРјРѕвЂќ (РїСЂР°РІС–С€Рµ РІС–Рґ С†РµРЅС‚СЂСѓ)
+      // Р РЋР РЏР В РЎвЂќР РЋРІР‚В°Р В РЎвЂў Р В РЎвЂ”Р В РЎвЂўР В Р’В·Р В РЎвЂР РЋРІР‚В Р РЋРІР‚вЂњР РЋР РЏ Р В Р вЂ¦Р В Р’Вµ Р В Р’В·Р В Р’В±Р В Р’ВµР РЋР вЂљР В Р’ВµР В Р’В¶Р В Р’ВµР В Р вЂ¦Р В Р’В° - Р РЋР С“Р РЋРІР‚С™Р В Р’В°Р В Р вЂ Р В РЎвЂР В РЎВР В РЎвЂў -РЎС™Р В Р вЂ Р В РЎвЂР В РўвЂР В РЎвЂР В РЎВР В РЎвЂў" (Р В РЎвЂ”Р РЋР вЂљР В Р’В°Р В Р вЂ Р РЋРІР‚вЂњР РЋРІвЂљВ¬Р В Р’Вµ Р В Р вЂ Р РЋРІР‚вЂњР В РўвЂ Р РЋРІР‚В Р В Р’ВµР В Р вЂ¦Р РЋРІР‚С™Р РЋР вЂљР РЋРЎвЂњ)
       let hasSaved = false;
       try{ hasSaved = !!localStorage.getItem(LS_KEY); }catch(e){}
       if (hasSaved) return;
@@ -3198,7 +3198,7 @@
       const reduceMotion = window.matchMedia &&
         window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // РїРµСЂС€РёР№ вЂњРїС–РЅРівЂќ С‡РµСЂРµР· 1.5СЃ
+      // Р В РЎвЂ”Р В Р’ВµР РЋР вЂљР РЋРІвЂљВ¬Р В РЎвЂР В РІвЂћвЂ“ -РЎС™Р В РЎвЂ”Р РЋРІР‚вЂњР В Р вЂ¦Р В РЎвЂ“" Р РЋРІР‚РЋР В Р’ВµР РЋР вЂљР В Р’ВµР В Р’В· 1.5Р РЋР С“
       const ping = () => {
         if (hasTouched()) return;
 
@@ -3212,7 +3212,7 @@
       };
 
       setTimeout(ping, 1500);
-      hintTimer = window.setInterval(ping, 4500); // РїРѕРІС‚РѕСЂ РєРѕР¶РЅС– 4.5СЃ, РїРѕРєРё РЅРµ С‚РѕСЂРєРЅСѓР»РёСЃСЊ
+      hintTimer = window.setInterval(ping, 4500); // Р В РЎвЂ”Р В РЎвЂўР В Р вЂ Р РЋРІР‚С™Р В РЎвЂўР РЋР вЂљ Р В РЎвЂќР В РЎвЂўР В Р’В¶Р В Р вЂ¦Р РЋРІР‚вЂњ 4.5Р РЋР С“, Р В РЎвЂ”Р В РЎвЂўР В РЎвЂќР В РЎвЂ Р В Р вЂ¦Р В Р’Вµ Р РЋРІР‚С™Р В РЎвЂўР РЋР вЂљР В РЎвЂќР В Р вЂ¦Р РЋРЎвЂњР В Р’В»Р В РЎвЂР РЋР С“Р РЋР Р‰
     };
 
     const stopHintLoop = () => {
@@ -3220,8 +3220,8 @@
       pip.classList.remove('is-hinting');
     };
 
-    // Р»РѕРІРёРјРѕ РџР•Р РЁРЈ Р±СѓРґСЊ-СЏРєСѓ РІР·Р°С”РјРѕРґС–СЋ Р· PiP (РєР»С–Рє, С‚Р°С‡, РїРѕС‡Р°С‚РѕРє drag)
-    // capture:true С‰РѕР± СЃРїС–Р№РјР°С‚Рё РЅР°РІС–С‚СЊ РЅР°С‚РёСЃРє РЅР° РєРЅРѕРїРєСѓ РІСЃРµСЂРµРґРёРЅС–
+    // Р В Р’В»Р В РЎвЂўР В Р вЂ Р В РЎвЂР В РЎВР В РЎвЂў Р В РЎСџР В РІР‚СћР В Р’В Р В Р РѓР В Р в‚¬ Р В Р’В±Р РЋРЎвЂњР В РўвЂР РЋР Р‰-Р РЋР РЏР В РЎвЂќР РЋРЎвЂњ Р В Р вЂ Р В Р’В·Р В Р’В°Р РЋРІР‚СњР В РЎВР В РЎвЂўР В РўвЂР РЋРІР‚вЂњР РЋР вЂ№ Р В Р’В· PiP (Р В РЎвЂќР В Р’В»Р РЋРІР‚вЂњР В РЎвЂќ, Р РЋРІР‚С™Р В Р’В°Р РЋРІР‚РЋ, Р В РЎвЂ”Р В РЎвЂўР РЋРІР‚РЋР В Р’В°Р РЋРІР‚С™Р В РЎвЂўР В РЎвЂќ drag)
+    // capture:true Р РЋРІР‚В°Р В РЎвЂўР В Р’В± Р РЋР С“Р В РЎвЂ”Р РЋРІР‚вЂњР В РІвЂћвЂ“Р В РЎВР В Р’В°Р РЋРІР‚С™Р В РЎвЂ Р В Р вЂ¦Р В Р’В°Р В Р вЂ Р РЋРІР‚вЂњР РЋРІР‚С™Р РЋР Р‰ Р В Р вЂ¦Р В Р’В°Р РЋРІР‚С™Р В РЎвЂР РЋР С“Р В РЎвЂќ Р В Р вЂ¦Р В Р’В° Р В РЎвЂќР В Р вЂ¦Р В РЎвЂўР В РЎвЂ”Р В РЎвЂќР РЋРЎвЂњ Р В Р вЂ Р РЋР С“Р В Р’ВµР РЋР вЂљР В Р’ВµР В РўвЂР В РЎвЂР В Р вЂ¦Р РЋРІР‚вЂњ
     pip.addEventListener('pointerdown', markTouched, { capture: true, once: true });
     pip.addEventListener('touchstart', markTouched, { capture: true, once: true });
     pip.addEventListener('mousedown', markTouched, { capture: true, once: true });
@@ -3263,7 +3263,7 @@
       showSlide(1);
     });
 
-    // С‰Рµ СЂР°Р· РїС–СЃР»СЏ РїРѕРІРЅРѕРіРѕ Р·Р°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ СЂРµСЃСѓСЂСЃС–РІ (С€СЂРёС„С‚Рё/РєР°СЂС‚РёРЅРєРё)
+    // Р РЋРІР‚В°Р В Р’Вµ Р РЋР вЂљР В Р’В°Р В Р’В· Р В РЎвЂ”Р РЋРІР‚вЂњР РЋР С“Р В Р’В»Р РЋР РЏ Р В РЎвЂ”Р В РЎвЂўР В Р вЂ Р В Р вЂ¦Р В РЎвЂўР В РЎвЂ“Р В РЎвЂў Р В Р’В·Р В Р’В°Р В Р вЂ Р В Р’В°Р В Р вЂ¦Р РЋРІР‚С™Р В Р’В°Р В Р’В¶Р В Р’ВµР В Р вЂ¦Р В Р вЂ¦Р РЋР РЏ Р РЋР вЂљР В Р’ВµР РЋР С“Р РЋРЎвЂњР РЋР вЂљР РЋР С“Р РЋРІР‚вЂњР В Р вЂ  (Р РЋРІвЂљВ¬Р РЋР вЂљР В РЎвЂР РЋРІР‚С›Р РЋРІР‚С™Р В РЎвЂ/Р В РЎвЂќР В Р’В°Р РЋР вЂљР РЋРІР‚С™Р В РЎвЂР В Р вЂ¦Р В РЎвЂќР В РЎвЂ)
     window.addEventListener('load', () => {
       updateScale();
     });
