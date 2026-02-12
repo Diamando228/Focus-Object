@@ -1529,7 +1529,7 @@
       border-top: 1px solid rgba(0,0,0,.10);
 
       display: grid;
-      grid-template-columns: 1fr auto;   /* textarea + buttons */
+      grid-template-columns: minmax(0,1fr) minmax(96px, 120px); /* textarea + buttons */
       grid-template-rows: auto auto;     /* label row + content row */
       gap: 10px 12px;
 
@@ -1608,7 +1608,8 @@
 
     /* кнопки менші */
     #final_pick .pick-btn{
-      width: 70px;
+      width: 100%;
+      min-width: 96px;
       padding: 7px 9px;
       border-radius: 11px;
       font-size: calc(12px * var(--textCompSmall));
@@ -1617,6 +1618,8 @@
     /* між кнопками менший gap */
     #final_pick .pick-btns{
       gap: 6px;
+      width: 100%;
+      align-self: stretch;
     }
 
     /* тонший скролбар в textarea (Chrome/Edge/Safari) */
@@ -1816,28 +1819,28 @@
     <div class="slide content-slide" id="final_pick">
       <div class="slide-number">15</div>
       <div>
-        <h2>Обери улюблений</h2>
+        <h2>Pick your favorite</h2>
         <p class="sub">Обери один прототип і скажи, чому саме він. Уяви, що ти реально мав би купити один з них.</p>
       </div>
 
       <div class="pick-layout">
-        <div class="pick-grid" id="pickGrid" aria-label="Обери прототип"></div>
+        <div class="pick-grid" id="pickGrid" aria-label="Pick prototype"></div>
 
         <div class="pick-panel">
-          <div class="pk">ОБРАНО</div>
+          <div class="pk">SELECTED</div>
           <div class="pt" id="pickTitle">Prototype -</div>
 
           <div class="pick-preview">
-            <img id="pickPreviewImg" alt="Перегляд обраного прототипу" />
-            <div class="pick-preview-fallback" id="pickPreviewFallback">Обери прототип для перегляду</div>
+            <img id="pickPreviewImg" alt="Selected prototype preview" />
+            <div class="pick-preview-fallback" id="pickPreviewFallback">Select a prototype to preview</div>
           </div>
 
           <div class="pick-actions">
-            <div class="pk">ВІДГУК</div>
+            <div class="pk">FEEDBACK</div>
             <textarea id="pickText" class="pick-text" rows="5" spellcheck="false"></textarea>
             <div class="pick-btns">
-              <button class="pick-btn" id="sendPickBtn" type="button">Надіслати</button>
-              <button class="pick-btn ghost" id="clearPickBtn" type="button">Очистити</button>
+              <button class="pick-btn" id="sendPickBtn" type="button">Send</button>
+              <button class="pick-btn ghost" id="clearPickBtn" type="button">Clear</button>
             </div>
             <div class="pick-hint">Можеш змінювати вибір, поки не знайдеш свій варіант</div>
           </div>
@@ -2665,7 +2668,7 @@
     const keyLS = 'focus_pick_proto';
     let selected = Number(localStorage.getItem(keyLS) || 0);
 
-    const protoLabel = (p) => `Прототип ${String(p).padStart(2,'0')}`;
+    const protoLabel = (p) => `Prototype ${String(p).padStart(2,'0')}`;
 
     const makeFeedback = (p) => {
       const label = protoLabel(p);
@@ -2693,7 +2696,7 @@
       const candidates = renderCandidates(p, 1);
       setImgWithFallback(previewImg, candidates, {
         onFail: () => {
-          previewFallback.textContent = 'Зображення для превʼю не знайдено';
+          previewFallback.textContent = 'Preview image not found';
           previewFallback.style.display = 'flex';
           previewImg.style.opacity = '0';
         }
@@ -2732,7 +2735,7 @@
       meta.className = 'pick-meta';
       meta.innerHTML = `
         <div class="name">${protoLabel(p)}</div>
-        <div class="desc">Натисни, щоб обрати</div>
+        <div class="desc">Click to select</div>
       `;
 
       card.appendChild(thumb);
@@ -2767,7 +2770,7 @@
         cards.forEach(c => c.classList.remove('selected'));
         title.textContent = 'Prototype -';
         text.value = '';
-        previewFallback.textContent = 'Обери прототип для перегляду';
+        previewFallback.textContent = 'Select a prototype to preview';
         previewFallback.style.display = 'flex';
         previewImg.style.opacity = '0';
         previewImg.removeAttribute('src');
