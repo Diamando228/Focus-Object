@@ -1762,7 +1762,7 @@
       </div>
       <div class="flow-card">
         <div class="flow-grid">
-          <div class="flow-left flow-left--center" style="grid-column:1;grid-row:1"><div class="flow-title flow-title--stacked"><span>Огляд</span><span>прототипів</span></div></div>
+          <div class="flow-left flow-left--center" style="grid-column:1;grid-row:1"><div class="flow-title flow-title--stacked"><span>Prototype</span><span>Review</span></div></div>
           <div class="flow-right" style="grid-column:3;grid-row:1"><div class="flow-copy">Я вперше працюю з фізичним девайсом. Тут немає досліджень ринку, виробничих розрахунків чи гарантій попиту. Є дизайн, філософія і моя спроба знайти форму, яка має реальний сенс.<br><br>Я хочу пройти шлях підприємця — від ідеї до продажу. Тому для мене важлива твоя думка: що тут виглядає <strong>реальним</strong>, а що поки що <strong>фантазією</strong>?</div></div>
           <div class="flow-left" style="grid-column:1;grid-row:2"><div class="flow-label">Обери 1</div></div>
           <div class="flow-right" style="grid-column:3;grid-row:2"><div class="flow-copy muted">В кінці — обираєш фаворита. Я беру його в production (3D → сайт → реклама) і повертаюсь з апдейтом.</div></div>
@@ -1782,7 +1782,7 @@
 
     <div class="slide content-slide" id="p01_info">
       <div class="slide-number">05</div>
-      <div><h2>Прототип 01</h2><p class="sub">Перший варіант для тесту. Далі ти зможеш обрати фаворита.</p></div>
+      <div><h2>Prototype 01</h2><p class="sub">Перший варіант для тесту. Далі ти зможеш обрати фаворита.</p></div>
       <div class="proto-layout">
         <div class="panel accent">
           <div class="pk">VISUAL</div>
@@ -1798,8 +1798,8 @@
           <div class="caption">Фокус починається з жесту, а не з цифр</div>
         </div>
         <div class="panel">
-          <div class="pk">ЩО ВИЗНАЧАЄ ЦЕЙ ПРОТОТИП</div>
-          <div class="pt">Огляд прототипу</div>
+          <div class="pk">WHAT DEFINES THIS PROTOTYPE</div>
+          <div class="pt">Prototype overview</div>
           <ul class="plist">
             <li><strong>Позиціонування</strong> Обʼєкт для усвідомленого входу в робочу сесію. Використовується на робочому столі під час індивідуальної, зосередженої роботи.</li>
             <li><strong>Дизайн</strong> Нетипова форма для таймера - стримана і нейтральна. Головний акцент не на екрані, а на камері як центральному елементі обʼєкта.</li>
@@ -1825,7 +1825,7 @@
 
         <div class="pick-panel">
           <div class="pk">ОБРАНО</div>
-          <div class="pt" id="pickTitle">Прототип —</div>
+          <div class="pt" id="pickTitle">Prototype -</div>
 
           <div class="pick-preview">
             <img id="pickPreviewImg" alt="Перегляд обраного прототипу" />
@@ -2390,7 +2390,7 @@
 
     slide.innerHTML =
       `<div class="slide-number">${infoNum(p)}</div>` +
-      `<div><h2>Прототип ${label}</h2><p class="sub">Варіант для тесту. В кінці — обираєш фаворита.</p></div>` +
+      `<div><h2>Prototype ${label}</h2><p class="sub">Варіант для тесту. В кінці — обираєш фаворита.</p></div>` +
       `<div class="proto-layout">` +
         `<div class="panel accent">` +
           `<div class="pk">ВІЗУАЛ</div><div class="pt">Рендер / Фото</div>` +
@@ -2405,7 +2405,7 @@
           `<div class="caption">${overviewCaption}</div>` +
         `</div>` +
         `<div class="panel">` +
-          `<div class="pk">ЩО ВИЗНАЧАЄ ЦЕЙ ПРОТОТИП</div><div class="pt">Огляд прототипу</div>` +
+          `<div class="pk">WHAT DEFINES THIS PROTOTYPE</div><div class="pt">Prototype overview</div>` +
           `<ul class="plist">` +
             `${overviewList}` +
           `</ul>` +
@@ -2748,7 +2748,7 @@
         const msg = String(text.value || '').trim();
         if (!msg) return;
 
-        const proto = String(title.textContent || 'Прототип —').trim();
+        const proto = String(title.textContent || 'Prototype -').trim();
         const full = `${proto}\n\n${msg}`;
 
         const tgApp = `tg://resolve?domain=dima_gavriliv&text=${encodeURIComponent(full)}`;
@@ -2765,7 +2765,7 @@
         try { localStorage.removeItem(keyLS); } catch(e){}
         const cards = Array.from(grid.querySelectorAll('.pick-card'));
         cards.forEach(c => c.classList.remove('selected'));
-        title.textContent = 'Прототип —';
+        title.textContent = 'Prototype -';
         text.value = '';
         previewFallback.textContent = 'Обери прототип для перегляду';
         previewFallback.style.display = 'flex';
@@ -2779,7 +2779,7 @@
       setSelectedUI(selected);
     } else {
       // default: none selected
-      title.textContent = 'Прототип —';
+      title.textContent = 'Prototype -';
       text.value = '';
     }
   }
